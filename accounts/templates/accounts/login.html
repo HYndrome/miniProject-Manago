@@ -26,7 +26,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Login" class="btn btn-outline-secondary d-block w-100 mb-3">
-    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'posts:index' %}" role="button">HOME</a>
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'restaurants:index' %}" role="button">HOME</a>
   </form>
 </div>
 {% endblock content %}
