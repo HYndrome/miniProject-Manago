@@ -18,7 +18,7 @@ class ReviewPhoto(models.Model):
     image_review = models.ImageField(upload_to='')
 
 
-class comment(models.Model):
+class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
