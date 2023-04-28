@@ -29,7 +29,7 @@ def create(request):
         'restaurant_form': restaurant_form,
         'menu_form': menu_form,
     }
-    return render('restaurants/index.html', context)
+    return render('restaurants/create.html', context)
 
 def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
@@ -42,17 +42,37 @@ def detail(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-# @login_required
-# def wish(request, restaurant_id):
-#     restaurant = Restaurant.objects.get(pk=restaurant_id)
-#     if request.user in restaurant.wish_users
-#     return
+@login_required
+def wish(request, restaurant_id):
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    if request.user in restaurant.wish_users.all():
+        restaurant.wish_users.remove(request.user)
+        is_wished = False
+    else:
+        restaurant.wish_users.add(request.user)
+        is_wished = True
+    context = {
+        'is_wished': is_wished
+    }
+    return redirect('restaurants:detail', restaurant.pk)
 
 def category(request, restaurant_category):
-    return
+    restaurants = Restaurant.objects.filter(category=restaurant_category)
+    context = {
+        'restaurants': restaurants
+    }
+    return render(request, 'restaurants/category.html', context)
 
-def eatdeatl(request):
-    return
+def eatdeal(request):
+    restaurants = Restaurant.objects.filter(eatdeal=True)
+    context = {
+        'restaurants': restaurants
+    }
+    return render(request, 'restaurants/eatdeal.html', context)
 
 def region(request, restaurant_address):
-    return
+    restaurants = Restaurant.objects.filter(address=restaurant_address)
+    context = {
+        'restaurants': restaurants
+    }
+    return render(request, 'restaurants/region.html', context)

@@ -16,7 +16,7 @@ class Restaurant(models.Model):
     time_break_start = models.TimeField(null=True, blank=True)
     time_break_end = models.TimeField(null=True, blank=True)
     time_lastorder = models.TimeField(null=True, blank=True)
-    eatdeal = models.CharField(max_length=50, null=True, blank=True)
+    eatdeal = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

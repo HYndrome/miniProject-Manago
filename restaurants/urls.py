@@ -7,7 +7,7 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('<int:restaurant_id>/', views.detail, name='deatil'),
     path('<int:restaurant_id>/wish/', views.wish, name='wish'),
-    path('category/<char:restaurant_category>/', views.category, name='category'),
+    path('category/<str:restaurant_category>/', views.category, name='category'),
     path('eatdeal/', views.eatdeal, name='eatdeal'),
-    path('region/<char:restaurant_address>/', views.region, name='region')
+    path('region/<str:restaurant_address>/', views.region, name='region')
 ]
