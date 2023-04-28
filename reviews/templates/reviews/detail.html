@@ -2,5 +2,31 @@
 
 {% block content %}
 <h1>review detail</h1>
-<p>{{ review.content }}</p>
+<p>리뷰 번호 - {{ review.pk }}</p>
+<p>평가 - {{ review.rate }}</p>
+<p>리뷰 내용 - {{ review.content }}</p>
+<a href="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}">[수정]</a>
+<a href="{% url 'reviews:delete' restaurant_id=restaurant_id review_id=review_id %}">[삭제]</a>
+<form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
+  {% csrf_token %}
+  {% if request.user in review.like_users.all %}
+    <input type="submit" value="좋아요 취소">
+  {% else %}
+    <input type="submit" value="좋아요">
+  {% endif %}
+</form>
+<hr>
+<p>댓글 목록</p>
+<form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
+  {% csrf_token %}
+  {{ comment_form.as_p }}
+  <input type="submit">
+</form>
+{% for comment in comments %}
+<p>댓글 내용 - {{ comment.content }}</p>
+<form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+</form>
+{% endfor %}
 {% endblock content %}
