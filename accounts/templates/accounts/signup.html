@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block style %}
+  <style>
+    .wid {
+      width: 500px;
+    }
+    p {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+
+    p label {
+      white-space: nowrap;
+    }
+
+    p span {
+      grid-column: 1 / -1;
+    }
+
+  </style>
+{% endblock style %}
+
+{% block content %}
+<div class="wid mt-3">
+  <form action="{% url 'accounts:signup' %}" method="POST" style="width: 500px" class="mx-auto">
+    <div class='mt-5 mb-4'>
+      <h3>회원가입</h3>
+    </div>
+    {% csrf_token %}
+    {% for field in form %}
+    <div class='d-flex align-items-center'>
+      <div class='col-3'>{{ field.label }}</div>
+      <div class='col-9'>{{ field }}</div>
+    </div>
+    <hr>
+    {% endfor %}
+    <input type="submit" value="회원가입" class="btn btn-outline-secondary d-block w-100 mb-3">
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'restaurants:index' %}" role="button">HOME</a>
+  </form>
+</div>
+{% endblock content %}
