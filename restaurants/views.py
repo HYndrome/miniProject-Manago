@@ -8,41 +8,59 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     return render(request, 'restaurants/index.html')
 
-@login_required
+# @login_required
 def create(request):
     if request.method == 'POST':
         restaurant_form = RestaurantForm(request.POST)
-        menu_form = MenuForm(request.POST)
         if restaurant_form.is_valid():
-            if menu_form.is_valid():
-                restaurant = restaurant_form.save(commit=False)
-                restaurant.user = request.user
-                restaurant.save()
-                menu = menu_form.save(commit=False)
-                menu.restaurant = restaurant
-                menu.save()
-                return redirect('restaurants:detail', restaurant.pk)
+            restaurant = restaurant_form.save(commit=False)
+            restaurant.user = request.user
+            restaurant.save()
+            return redirect('restaurants:detail', restaurant.pk)
     else:
         restaurant_form = RestaurantForm()
-        menu_form = MenuForm()
     context = {
         'restaurant_form': restaurant_form,
-        'menu_form': menu_form,
     }
-    return render('restaurants/create.html', context)
+    return render(request, 'restaurants/create.html', context)
 
 def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
-    menu = Menu.objects.get(restaurant=restaurant)
+    menu = restaurant.menu_set.all()
+    menu_form = MenuForm()
     # review_form = ReviewForm()
     context = {
         'restaurant': restaurant,
         'menu': menu,
+        'menu_form': menu_form,
         # 'review_form': review_form
     }
     return render(request, 'restaurants/detail.html', context)
 
-@login_required
+# @login_required
+def delete(request, restaurant_id):
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    if request.user == restaurant.user:
+        restaurant.delete()
+    return redirect('restaurants:index')
+
+# @login_required
+def menu(request, restaurant_id):
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    menu_form = MenuForm(request.POST)
+    if menu_form.is_valid():
+        menu = menu_form.save(commit=False)
+        menu.restaurant = restaurant
+        menu.user = request.user
+        menu.save()
+        return redirect('restaurants:detail', restaurant.pk)
+    context = {
+        'restaurant': restaurant,
+        'menu_form': menu_form,
+    }
+    return render(request, 'restaurants/detail.html', context)
+
+# @login_required
 def wish(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.user in restaurant.wish_users.all():
