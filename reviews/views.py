@@ -3,6 +3,7 @@ from restaurants.models import Restaurant
 from .models import Review, Comment
 from .forms import ReviewForm, CommentForm
 
+
 def create(request, restaurant_id):
     if request.method == 'POST':
         restaurant = Restaurant.objects.get(pk=restaurant_id)
@@ -26,7 +27,6 @@ def detail(request, restaurant_id, review_id):
     review = Review.objects.get(pk=review_id)
     comment_form = CommentForm()
     comments = Comment.objects.filter(review_id=review_id)
-    print(comments)
     context = {
         'review': review,
         'comment_form': comment_form,
@@ -88,6 +88,7 @@ def comment_create(request, restaurant_id, review_id):
     return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id, context=context)
 
 
-def comment_delete(request, restaurant_id, review_id, comment_id):
-    # POST
-    return render(request, 'reviews/comment_delete.html')
+def comment_delete(request, restaurant_id, review_id, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    comment.delete()
+    return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
