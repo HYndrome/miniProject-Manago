@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from ..restaurants.models import Restaurant
+from restaurants.models import Restaurant
 
 
 class Review(models.Model):
