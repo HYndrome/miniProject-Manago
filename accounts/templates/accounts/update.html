@@ -37,7 +37,7 @@
   <form action="{% url 'accounts:delete' %}" method="POST" style="width: 500px" class="mx-auto m-5 mt-0">
     {% csrf_token %}
     <input class="btn btn-outline-secondary d-block w-100 mb-3" type="submit" value="회원탈퇴" onclick="return confirm('탈퇴 하시겠습니까?')">
-    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'posts:index' %}" role="button">HOME</a>
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'restaurants:index' %}" role="button">HOME</a>
   </form>
 
 </div>
