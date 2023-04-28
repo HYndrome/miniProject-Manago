@@ -42,8 +42,17 @@ def detail(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-def likes(request, restaurant_id):
-    return redirect('restaurants:detail', restaurant.pk)
+# @login_required
+# def wish(request, restaurant_id):
+#     restaurant = Restaurant.objects.get(pk=restaurant_id)
+#     if request.user in restaurant.wish_users
+#     return
 
 def category(request, restaurant_category):
-    
+    return
+
+def eatdeatl(request):
+    return
+
+def region(request, restaurant_address):
+    return
