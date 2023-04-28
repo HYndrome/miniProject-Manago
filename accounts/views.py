@@ -1,116 +1,108 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
-
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from django.contrib.auth import get_user_model
 
 # Create your views here.
-def index(request):
-    posts = Post.objects.all()
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('restaurants:index')
+
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+            return redirect('restaurants:index')
+    else:
+        form = AuthenticationForm()
     context = {
-        'posts': posts,
+        'form': form,
     }
-    return render(request, 'restaurants/index.html', context)
+    return render(request, 'accounts/login.html', context)
 
 
 @login_required
-def detail(request, post_pk):
-    post = get_object_or_404(Post, pk=post_pk)
-    comment_form = CommentForm()
-    comments = post.comment_set.all()
+def logout(request):
+    auth_logout(request)
+    return redirect('restaurants:index')
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('restaurants:index')
+
     if request.method == 'POST':
-        answer = request.POST['answer']
-        if answer == post.option1 and request.user not in post.select1_contents.all():
-            post.option1_count += 1
-            post.selected_option = post.option1
-            post.select1_contents.add(request.user)
-            post.select2_contents.remove(request.user)
-        elif answer == post.option2 and request.user not in post.select2_contents.all():
-            post.option2_count += 1
-            post.selected_option = post.option2
-            post.select2_contents.add(request.user)
-            post.select1_contents.remove(request.user)
-        post.save()
-
-    context = {'post': post,
-               'comment_form':comment_form,
-               'comments': comments,
-               }
-    return render(request, 'restaurants/detail.html', context)
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurants:index')
+    else:
+        form = CustomUserCreationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/signup.html', context)
 
 
 @login_required
-def create(request):
-    if request.method == 'POST':
-        title = request.POST['title']
-        option1 = request.POST['option1']
-        option2 = request.POST['option2']
-        user = request.user
-        post = Post.objects.create(title=title, option1=option1, option2=option2, user=user)
-        return redirect('posts:detail', post_pk=post.pk)
-    return render(request, 'restaurants/create.html')
-
-
-@login_required
-def delete(request, post_pk):
-    post = Post.objects.get(pk=post_pk)
-    if request.user == post.user:
-        post.delete()
+def delete(request):
+    request.user.delete()
     return redirect('restaurants:index')
 
 
 @login_required
-def update(request, post_pk):
-    post = Post.objects.get(pk=post_pk)
-    if request.user == post.user:
-        if request.method == 'POST':
-            form = PostForm(request.POST, instance=post)
-            if form.is_valid():
-                form.save()
-                return redirect('restaurants:detail', post.pk)
-        else:
-            form = PostForm(instance=post)
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurants:index')
     else:
-        return redirect('restaurants:index')
+        form = CustomUserChangeForm(instance=request.user)
     context = {
-        'post': post,
         'form': form,
     }
-    return render(request, 'restaurants/update.html', context)
+    return render(request, 'accounts/update.html', context)
 
 
 @login_required
-def comment_create(request, post_pk):
-    post = Post.objects.get(pk=post_pk)
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.post = post
-        comment.user = request.user
-        comment.save()
-        return redirect('restaurants:detail', post.pk)
-    context = {
-        'post': post,
-        'comment_form': comment_form,
-    }
-    return render(request, 'restaurants/detail.html', context)
-
-
-@login_required
-def comment_delete(request, post_pk, comment_pk):
-    comment = Comment.objects.get(pk=comment_pk)
-
-    if request.user == comment.user:
-        comment.delete()
-    return redirect('restaurants:detail', post_pk)
-
-
-def answer(request, post_pk, answer):
-    post = get_object_or_404(Post, pk=post_pk)
-    if answer == '1':
-        post.select1_contents.add(request.user)
-    elif answer == '2':
-        post.select2_contents.add(request.user)
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('restaurants:index')
     else:
-        pass
-    return redirect('restaurants:detail', pk=post_pk)
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/change_password.html', context)
+
+
+
+def profile(request, username):
+    User = get_user_model()
+    person = User.objects.get(username=username)
+    context = {
+        'person': person,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def follow(request, user_pk):
+    User = get_user_model()
+    you = User.objects.get(pk=user_pk)
+    me = request.user
+    if you != me:
+        if me in you.followers.all():
+            you.followers.remove(me)
+        else:
+            you.followers.add(me)
+    return redirect('accounts:profile', you.username)
