@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Restaurant, Menu
+from reviews.forms import Review
 from .forms import RestaurantForm, MenuForm
+from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -26,14 +28,14 @@ def create(request):
 
 def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
-    menu = restaurant.menu_set.all()
+    menus = restaurant.menu_set.all()
     menu_form = MenuForm()
-    # review_form = ReviewForm()
+    review_form = ReviewForm()
     context = {
         'restaurant': restaurant,
-        'menu': menu,
+        'menus': menus,
         'menu_form': menu_form,
-        # 'review_form': review_form
+        'review_form': review_form
     }
     return render(request, 'restaurants/detail.html', context)
 
@@ -59,6 +61,13 @@ def menu(request, restaurant_id):
         'menu_form': menu_form,
     }
     return render(request, 'restaurants/detail.html', context)
+
+# @login_required
+def menu_delete(request, restaurant_id, menu_id):
+    menu = Menu.objects.get(pk=menu_id)
+    if request.user == menu.user:
+        menu.delete()
+    return redirect('restaurants:detail', restaurant_id)
 
 # @login_required
 def wish(request, restaurant_id):

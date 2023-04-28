@@ -74,7 +74,7 @@ class RestaurantForm(forms.ModelForm):
     )
     time_lastorder = forms.TimeField(
         label = '마지막 주문',
-        widget = forms.TextInput(
+        widget = forms.TimeInput(
             attrs = {
                 'class': 'form-control',
                 'placeholder': '마지막 주문 시간을 입력하세요',
@@ -99,6 +99,26 @@ class RestaurantForm(forms.ModelForm):
         fields = ('name', 'address', 'phone', 'category', 'pricerange', 'parking', 'business_hours', 'time_lastorder', 'eatdeal')
 
 class MenuForm(forms.ModelForm):
+    name = forms.CharField(
+        label = '메뉴 이름',
+        widget = forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'placeholder': '메뉴 이름을 입력하세요',
+                'maxlength': 50,
+            }
+        ),
+    )
+    price = forms.CharField(
+        label = '가격',
+        widget = forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'placeholder': '가격을 입력하세요',
+                'maxLength': 50,
+            }
+        ),
+    )
     class Meta:
         model = Menu
         fields = ('name', 'price')

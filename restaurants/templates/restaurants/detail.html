@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'restaurants/detail_style.css' %}">
+{% endblock style %}
+
+{% block content %}
+<main class="main">
+  <h1>
+    restaurants DETAIL
+  </h1>
+  <hr>
+  <h2>{{ restaurant.name }}</h2>
+  <hr>
+  <ul>
+    <li>주소 : {{ restaurant.address }}</li>
+    <li>전화번호 : {{ restaurant.phone }}</li>
+    <li>음식 종류 : {{ restaurant.category }}</li>
+    <li>가격대 : {{ restaurant.pricerange }}</li>
+    <li>주차 : {{ restaurant.parking }}</li>
+    <li>영업시간 : {{ restaurant.business_hours }}</li>
+    {% if restaurant.eatdeal == True %}
+    <li>잇딜 : 진행 중인 잇딜이 있습니다</li>
+    {% else %}
+    <li>잇딜 : 진행 중인 잇딜이 없습니다</li>
+    {% endif %}
+  </ul>
+  <ul>
+    {% for menu in menus %}
+    <li>{{ menu.name }} : {{ menu.price }}
+      <span>
+        <form action="{% url 'restaurants:menu_delete' restaurant.pk menu.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="MENU_DELETE">
+        </form>
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% if request.user == restaurant.user %}
+  <form action="{% url 'restaurants:menu' restaurant.pk %}" method="POST">
+    {% csrf_token %}
+    {% for field in menu_form %}
+    <div class="input-group mb-3">
+      <span class="input-group-text" style = "width: 13rem;" id="{{ field.auto_id }}">{{ field.label }}</span>
+      {{ field }}
+    </div> 
+    {% endfor %}
+    <div class="d-grid gap-2 mb-2">
+      <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="MENU">
+    </div>
+  </form>
+  <form action="{% url 'restaurants:delete' restaurant.pk %}" method="POST">
+    {% csrf_token %}
+    <div class="d-grid gap-2 mb-2">
+      <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="DELETE">
+    </div>
+  </form>
+  {% endif %}
+  <div class="d-grid gap-2 mb-2">
+    <a href="{% url 'reviews:create' restaurant.id %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">REVIEW</a>
+  </div>
+
+</main>
+
+{% endblock content %}
+
+{% block script %}{% endblock script %}
