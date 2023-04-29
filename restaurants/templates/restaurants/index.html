@@ -7,9 +7,34 @@
 
 
 {% block content %}
-  <header class="header--main">
-
+  <header class="header__main d-flex justify-content-center align-items-center">
+    <div>
+      <p class="header__title">솔직한 리뷰, 믿을 수 있는 평점!</p>
+      <h1 class="header__title">망고플레이트</h1>
+    </div>
+    <a class="header__tag--l" href="#">
+      <img class="header__tag--l__img" src="{% static 'restaurants/eatdealpromo.png' %}" alt="eatdeal이동">
+    </a>
   </header>
+  <a class="header__tag--s" href="#">
+    <img class="header__tag__img--s" src="{% static 'restaurants/eatdealpromo_s.png' %}" alt="eatdeal이동">
+  </a>
+
+  <main>
+    <section class="main__section__container">
+      <h2 class="main__section__title">카테고리별 맛집 리스트</h2>
+    </section>
+
+    <section class="main__section__container">
+      <h2 class="main__section__title">EAT딜을 판매중인 식당</h2>
+    </section>
+
+    <section class="main__section__container">
+      <h2 class="main__section__title">평점이 높은 인기 식당</h2>
+    </section>
+
+    <section class="main__section__container">
+      <h2 class="main__section__title">지역별 인기맛집</h2>
+    </section>
+  </main>
 {% endblock content %}
-
-

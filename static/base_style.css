@@ -22,3 +22,28 @@
   border-radius: 50%;
   border:3px solid #FF7D17; padding: 0px;
 }
+
+
+.footer__container {
+  background-color: #3E3E3E;
+  color: #9b9b9b;
+  padding: 3rem 1rem 2rem 1rem;
+}
+
+.footer__creators {
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0;
+}
+
+.footer__copyrights {
+  border-top: 1px solid #dbdbdb;
+}
+
+
+
+@media (max-width: 720px ) {
+  .footer__container {
+    text-align: center;
+  }
+}

@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="sticky-top d-flex justify-content-between align-items-center bg-secondary-subtle p-3 navbar--main">
+    <nav class="sticky-top d-flex justify-content-between align-items-center bg-body p-3 navbar--main">
       <a href="#">
         <img src="{% static 'mangoplate-logo-horizontal_1.png' %}" alt="홈이동">
       </a>
@@ -37,7 +37,33 @@
         </div>
       </div>
     </nav>
+
     {% block content %}{% endblock content %}
+
+    <footer class="footer__container">
+      <div class="row">
+        <div class="col-12 col-md-3">
+          <img src="{% static 'mangoplate-gray-logo_1.png' %}" alt="">
+          <p>Eat, Share, Be Happy.</p>
+        </div>
+        <div class="col-12 col-md-9">
+          <ul class="footer__creators">
+            <li>진홍엽</li>
+            <li>김소은</li>
+            <li>장재용</li>
+            <li>정광배</li>
+          </ul>
+        </div>
+        <div class="footer__copyrights">
+          <span>© 2023 MangoPlate Co., Ltd. All rights reserved.</span>
+        </div>
+        <div>
+
+        </div>
+      </div>
+      <img src="" alt="">
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {% block script %}{% endblock script %}
