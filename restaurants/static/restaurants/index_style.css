@@ -1,14 +1,73 @@
-@media ( max-width: 768px ) {
-  .header--main {
-    width: 100%;
-    height: 500px;
-    background-color: gray;
+.header__main {
+  width: 100%;
+  height: 500px;
+  background-image: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3) ), url("backgroundimage.jpg");
+  background-position: center;
+  background-size: cover;
+  position:relative;
+}
+
+.header__title {
+  font-size: 2.2rem;
+  color:azure;
+  text-align: center;
+}
+
+.header__tag--l {
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+  height: 60px
+}
+
+.header__tag--l__img {
+  height: 100%;
+}
+
+.header__tag--s {
+  display: none;
+}
+
+.header__tag__img--s {
+  width: 100%;
+}
+
+
+.main__section__container {
+  padding: 3em 5em 3em 5em;
+  border-top: 1px solid #dbdbdb;
+  height: 300px;
+}
+
+.main__section__title {
+  font-size: 1.5rem;
+  color: #ff792a;
+  line-height: 1.2em;
+  text-align: left;
+}
+
+
+
+@media (max-width: 720px ) {
+  .header__main {
+    height: 336px;
+  }
+
+  .header__title {
+    font-size: 1.5rem;
+  }
+
+  .header__tag--l {
+    display: none;
+  }
+
+  .header__tag--s {
+    display: block;
+  }
+
+
+  .main__section__title {
+    font-size: 1.125rem;
   }
 }
 
-.header--main {
-  width: 100%;
-  height: 336px;
-  background-color: gray;
-
-}
