@@ -12,5 +12,5 @@ urlpatterns = [
     path('<int:restaurant_id>/wish/', views.wish, name='wish'),
     path('category/<str:restaurant_category>/', views.category, name='category'),
     path('eatdeal/', views.eatdeal, name='eatdeal'),
-    path('region/<str:restaurant_address>/', views.region, name='region')
+    path('region/<str:restaurant_region>/', views.region, name='region')
 ]

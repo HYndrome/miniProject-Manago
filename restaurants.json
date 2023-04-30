@@ -1,0 +1,163 @@
+[
+{
+    "model": "restaurants.restaurant",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "name": "모즈타파스라운지",
+        "views": 0,
+        "region": "서울",
+        "address": "서울특별시 관악구 남부순환로226길 36 B1",
+        "phone": "02-885-8910",
+        "category": "세계음식기타",
+        "pricerange": "만원-2만원",
+        "parking": "무료주차 가능",
+        "business_hours": "12:00 - 22:00",
+        "time_lastorder": "21:00:00",
+        "eatdeal": true,
+        "created_at": "2023-04-30T20:08:29.246Z",
+        "updated_at": "2023-04-30T20:08:55.650Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "name": "하루노유키",
+        "views": 0,
+        "region": "서울",
+        "address": "서울특별시 성동구 서울숲2길 17 1F",
+        "phone": "02-548-8662",
+        "category": "카페디저트",
+        "pricerange": "만원 미만",
+        "parking": "주차공간없음",
+        "business_hours": "10:00-19:00 (주말에는 21:00까지 영업합니다)",
+        "time_lastorder": "18:00:00",
+        "eatdeal": true,
+        "created_at": "2023-04-30T20:09:57.595Z",
+        "updated_at": "2023-04-30T20:09:57.595Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "name": "치즈플로",
+        "views": 0,
+        "region": "서울",
+        "address": "서울특별시 용산구 이태원로49길 19",
+        "phone": "02-794-7010",
+        "category": "퓨전양식",
+        "pricerange": "3만원-4만원",
+        "parking": "발렛",
+        "business_hours": "11:30 - 23:00 (주말에는 22:00까지 영업합니다)",
+        "time_lastorder": "22:00:00",
+        "eatdeal": false,
+        "created_at": "2023-04-30T20:11:51.197Z",
+        "updated_at": "2023-04-30T20:11:51.197Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 4,
+    "fields": {
+        "user": 1,
+        "name": "BAR CHAM",
+        "views": 0,
+        "region": "서울",
+        "address": "서울특별시 종로구 자하문로7길 34",
+        "phone": "02-6402-4750",
+        "category": "칵테일와인",
+        "pricerange": "2만원 - 3만원",
+        "parking": "주차공간없음",
+        "business_hours": "16:00 - 22:00",
+        "time_lastorder": "21:00:00",
+        "eatdeal": false,
+        "created_at": "2023-04-30T20:12:46.721Z",
+        "updated_at": "2023-04-30T20:12:46.721Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 5,
+    "fields": {
+        "user": 1,
+        "name": "용산소세지전문점",
+        "views": 0,
+        "region": "경기도",
+        "address": "경기도 고양시 덕양구 삼송로185번길 5 1F",
+        "phone": "0507-1335-9502",
+        "category": "치킨호프펍",
+        "pricerange": "2만원 - 3만원",
+        "parking": "주차공간없음",
+        "business_hours": "16:00 - 02:00",
+        "time_lastorder": "01:00:00",
+        "eatdeal": false,
+        "created_at": "2023-04-30T20:13:53.519Z",
+        "updated_at": "2023-04-30T20:13:53.519Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 6,
+    "fields": {
+        "user": 1,
+        "name": "장어잡는 날",
+        "views": 0,
+        "region": "경상남도",
+        "address": "경상남도 통영시 도천상가안길 50 영생상가 2F",
+        "phone": "055-643-2758",
+        "category": "해산물요리",
+        "pricerange": "2만원 - 3만원",
+        "parking": "주차공간없음",
+        "business_hours": "11:00 - 22:00",
+        "time_lastorder": "21:00:00",
+        "eatdeal": false,
+        "created_at": "2023-04-30T20:17:05.488Z",
+        "updated_at": "2023-04-30T20:17:05.488Z",
+        "wish_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 7,
+    "fields": {
+        "user": 1,
+        "name": "심가네해물짬뽕",
+        "views": 0,
+        "region": "경상남도",
+        "address": "경상남도 통영시 새터길 74-4",
+        "phone": "055-649-8215",
+        "category": "정통중식일반중식",
+        "pricerange": "만원-2만원",
+        "parking": "주차공간없음",
+        "business_hours": "10:00 - 20:30",
+        "time_lastorder": "19:20:00",
+        "eatdeal": false,
+        "created_at": "2023-04-30T20:18:00.045Z",
+        "updated_at": "2023-04-30T20:18:00.045Z",
+        "wish_users": [
+            1
+        ]
+    }
+}
+]

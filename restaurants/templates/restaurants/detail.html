@@ -12,6 +12,16 @@
   </h1>
   <hr>
   <h2>{{ restaurant.name }}</h2>
+  <div>
+    <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+      {% csrf_token %}
+      {% if request.user in restaurant.wish_users.all %}
+        <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+      {% else %}
+        <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+      {% endif %}
+    </form>
+  </div>
   <hr>
   <ul>
     <li>주소 : {{ restaurant.address }}</li>
@@ -61,9 +71,31 @@
   <div class="d-grid gap-2 mb-2">
     <a href="{% url 'reviews:create' restaurant.id %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">REVIEW</a>
   </div>
-
 </main>
 
 {% endblock content %}
 
-{% block script %}{% endblock script %}
+{% block script %}
+<script>
+  const form = document.querySelector('#wish-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const restaurantId = event.target.dataset.restaurantId
+    axios({
+      method: 'post',
+      url: `/restaurants/${restaurantId}/wish/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+      .then((response) => {
+        const isWished = response.data.is_wished
+        const wishBtn = document.querySelector('#wish-form > input[type=submit]')
+        if (isWished === true) {
+          wishBtn.value = 'NOT WISH'
+        } else {
+          wishBtn.value = 'WISH'
+        }
+      })
+  })
+</script>
+{% endblock script %}

@@ -2,10 +2,21 @@ from django.db import models
 from django.conf import settings
 
 class Restaurant(models.Model):
+    CHOICES = [
+                ("서울", "서울특별시"),
+                ("경기도", "경기도"),
+                ("인천", "인천광역시"),
+                ("강원도", "강원도"),
+                ("전라북도", "전라북도"),
+                ("전라남도", "전라남도"),
+                ("경상북도", "경상북도"),
+                ("경상남도", "경상남도"),
+            ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     wish_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='wish_restaurants')
     name = models.CharField(max_length=50)
     views = models.PositiveIntegerField(default=0)
+    region = models.CharField(max_length=20, choices=CHOICES)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=50, null=True, blank=True)
     category = models.CharField(max_length=50, null=True, blank=True)

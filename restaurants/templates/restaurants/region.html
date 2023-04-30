@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'restaurants/region_style.css' %}">
+{% endblock style %}
+
+{% block content %}
+<h3>{{ restaurant_region }}</h3>
+<ul>
+  {% for restaurant in region_restaurants %}
+  <li>{{ restaurant.name }}
+    <div>
+      <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+        {% csrf_token %}
+        {% if request.user in restaurant.wish_users.all %}
+          <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+        {% else %}
+          <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+        {% endif %}
+      </form>
+    </div>
+  </li>
+  <li>{{ restaurant.address }}</li>
+  <li><a href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기</a></li>
+  {% endfor %}
+</ul>
+{% endblock content %}
+
+{% block script %}
+<script>
+  const form = document.querySelector('#wish-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const restaurantId = event.target.dataset.restaurantId
+    axios({
+      method: 'post',
+      url: `/restaurants/${restaurantId}/wish/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+      .then((response) => {
+        const isWished = response.data.is_wished
+        const wishBtn = document.querySelector('#wish-form > input[type=submit]')
+        if (isWished === true) {
+          wishBtn.value = 'NOT WISH'
+        } else {
+          wishBtn.value = 'WISH'
+        }
+      })
+  })
+</script>
+{% endblock script %}

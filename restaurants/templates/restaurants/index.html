@@ -23,10 +23,19 @@
   <main>
     <section class="main__section__container">
       <h2 class="main__section__title">카테고리별 맛집 리스트</h2>
+      {% regroup restaurants by category as categories_list %}
+      {% for category in categories_list %}
+      <a href="{% url 'restaurants:category' category.grouper %}">{{ category.grouper }} 인기 맛집 TOP 10</a>
+      {% endfor %}
     </section>
 
     <section class="main__section__container">
       <h2 class="main__section__title">EAT딜을 판매중인 식당</h2>
+      {% for eatdeal in eatdeals %}
+      <li>{{ eatdeal.name }}</li>
+      <li>{{ eatdeal.region }} - {{ eatdeal.category }}</li>
+      <li><a href="{% url 'restaurants:detail' eatdeal.pk %}">{{ eatdeal.name }} 정보 더보기</a></li>
+      {% endfor %}
     </section>
 
     <section class="main__section__container">
@@ -35,6 +44,10 @@
 
     <section class="main__section__container">
       <h2 class="main__section__title">지역별 인기맛집</h2>
+      {% regroup restaurants by region as regions_list %}
+      {% for region in regions_list %}
+      <a href="{% url 'restaurants:region' region.grouper %}">{{ region.grouper }} 인기 맛집 TOP 10</a>
+      {% endfor %}
     </section>
   </main>
 {% endblock content %}
