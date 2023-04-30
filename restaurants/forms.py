@@ -12,6 +12,24 @@ class RestaurantForm(forms.ModelForm):
             }
         ),
     )
+    region = forms.CharField(
+        label = '지역',
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+            },
+            choices= [
+                ("서울", "서울특별시"),
+                ("경기도", "경기도"),
+                ("인천", "인천광역시"),
+                ("강원도", "강원도"),
+                ("전라북도", "전라북도"),
+                ("전라남도", "전라남도"),
+                ("경상북도", "경상북도"),
+                ("경상남도", "경상남도"),
+            ]
+        )
+    )
     address = forms.CharField(
         label = '주소',
         widget = forms.TextInput(

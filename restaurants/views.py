@@ -4,11 +4,18 @@ from reviews.forms import Review
 from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'restaurants/index.html')
+    restaurants = Restaurant.objects.all()
+    eatdeals = Restaurant.objects.filter(eatdeal=True)
+    context = {
+        'restaurants': restaurants,
+        'eatdeals': eatdeals,
+    }
+    return render(request, 'restaurants/index.html', context)
 
 # @login_required
 def create(request):
@@ -81,13 +88,14 @@ def wish(request, restaurant_id):
     context = {
         'is_wished': is_wished
     }
-    return redirect('restaurants:detail', restaurant.pk)
+    return JsonResponse(context)
 
 def category(request, restaurant_category):
-    restaurants = Restaurant.objects.filter(category=restaurant_category)
+    category_restaurants = Restaurant.objects.filter(category=restaurant_category)
     context = {
-        'restaurants': restaurants
-    }
+            'restaurant_category': restaurant_category,
+            'category_restaurants': category_restaurants,
+        }
     return render(request, 'restaurants/category.html', context)
 
 def eatdeal(request):
@@ -97,9 +105,10 @@ def eatdeal(request):
     }
     return render(request, 'restaurants/eatdeal.html', context)
 
-def region(request, restaurant_address):
-    restaurants = Restaurant.objects.filter(address=restaurant_address)
+def region(request, restaurant_region):
+    region_restaurants = Restaurant.objects.filter(region=restaurant_region)
     context = {
-        'restaurants': restaurants
+        'restaurant_region': restaurant_region,
+        'region_restaurants': region_restaurants,
     }
     return render(request, 'restaurants/region.html', context)
