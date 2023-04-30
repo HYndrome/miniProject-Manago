@@ -7,7 +7,6 @@ from .forms import ReviewForm, CommentForm
 def create(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.method == 'POST':
-        restaurant = Restaurant.objects.get(pk=restaurant_id)
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
             review = review_form.save(commit=False)
@@ -47,6 +46,7 @@ def delete(request, restaurant_id, review_id):
     
 def update(request, restaurant_id, review_id):
     review = Review.objects.get(pk=review_id)
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, instance=review)
         if review_form.is_valid():
@@ -55,10 +55,11 @@ def update(request, restaurant_id, review_id):
             review.save()
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     else:
-        form = ReviewForm(instance=review)
+        form = ReviewForm(instance=review, user=request.user)
     context = {
         'form': form,
         'review': review,
+        'restaurant': restaurant,
         'restaurant_id': restaurant_id,
         'review_id': review_id,
     }
