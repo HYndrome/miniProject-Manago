@@ -15,7 +15,7 @@ def create(request, restaurant_id):
             review.save()
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review.id)
     else:
-        form = ReviewForm
+        form = ReviewForm(user=request.user)
     context = {
         'form': form,
         'restaurant_id': restaurant_id,

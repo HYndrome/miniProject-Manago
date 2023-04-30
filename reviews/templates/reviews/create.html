@@ -9,27 +9,28 @@
 <h1>Create</h1>
 <form action="{% url 'reviews:create' restaurant_id %}" method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="radio" name="rate" id="good" value="5" style="display:none">
+  <input type="radio" name="rate" id="good" value="5">
   <label for="good">
     <img src="{% static 'reviews/good_face_act.png' %}" alt="good_face_act" class="enabled">
     <img src="{% static 'reviews/good_face.png' %}" alt="good_face" class="disabled">
     맛있다
   </label>
 
-  <input type="radio" name="rate" id="ok" value="3" style="display:none">
+  <input type="radio" name="rate" id="ok" value="3">
   <label for="ok">
     <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png" class="enabled">
     <img src="{% static 'reviews/ok_face.png' %}" alt="ok_face.png" class="disabled">
     괜찮다
   </label>
 
-  <input type="radio" name="rate" id="no" value="1" style="display:none">
+  <input type="radio" name="rate" id="no" value="1">
   <label for="no">
     <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act" class="enabled">
     <img src="{% static 'reviews/no_face.png' %}" alt="no_face" class="disabled">
     별로
   </label>
+  {{ form.as_p }}
+
   <input type="submit">
 </form>
 {% endblock content %}
