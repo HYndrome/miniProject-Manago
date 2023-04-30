@@ -1,10 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'reviews/css/create.css' %}">
+{% endblock style %}
 
 {% block content %}
-<h1>Create</h1>
-<form action="{% url 'reviews:create' restaurant_id %}" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit">
-</form>
+<div class="review_create">
+  <form action="{% url 'reviews:create' restaurant_id %}" method="POST">
+    {% csrf_token %}
+    <span class="res_name fs-2">{{ restaurant.name }}</span>에 대한 솔직한 리뷰를 써주세요.
+    <div class="review_form">
+      <div class="radio">
+        <input type="radio" name="rate" id="good" value="5">
+        <label for="good">
+          <img src="{% static 'reviews/good_face_act.png' %}" alt="good_face_act" class="enabled">
+          <img src="{% static 'reviews/good_face.png' %}" alt="good_face" class="disabled">
+          <span class="rate_text">맛있다</span>
+        </label>
+
+        <input type="radio" name="rate" id="ok" value="3">
+        <label for="ok">
+          <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png" class="enabled">
+          <img src="{% static 'reviews/ok_face.png' %}" alt="ok_face.png" class="disabled">
+          <span class="rate_text">괜찮다</span>
+        </label>
+
+        <input type="radio" name="rate" id="no" value="1">
+        <label for="no">
+          <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act" class="enabled">
+          <img src="{% static 'reviews/no_face.png' %}" alt="no_face" class="disabled">
+          <span class="rate_text">별로</span>
+        </label>
+      </div>
+      {{ form.as_p }}
+    </div>
+    <div class="review_button d-flex">
+      <a href="{% url 'restaurants:detail' restaurant_id %}" class="review_button_item review_cancel " type="button">취소</a>
+      <input class="review_button_item review_submit " type="submit" value="리뷰 올리기">
+    </div>
+  </form>
+</div>
 {% endblock content %}

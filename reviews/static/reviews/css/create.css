@@ -1,0 +1,81 @@
+.review_create {
+  width: 678px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+  margin-bottom: 7rem;
+  color:#838383;
+}
+
+.review_form {
+  border: solid #CBCBCB 1px;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.res_name {
+  color:#FF7100;
+}
+
+.rate_text {
+  font-size: 0.8rem;
+  line-height: 36px;
+}
+
+#content {
+  border: 0;
+  resize: none;
+  margin: 1rem auto;
+  padding: 0;
+}
+
+input[type=radio] {
+  display: none;
+}
+input[type=radio] + label {
+  margin-right: 10px;
+}
+input[type=radio]:checked + label .enabled {
+  display: inline-block;
+}
+input[type=radio]:checked + label {
+  color: #FF7100;
+}
+input[type=radio]:not(:checked) + label .disabled {
+  display: inline-block;
+}
+input[type=radio]:not(:checked) + label {
+  color: #CBCBCB;
+}
+
+label img {
+  display: none;
+  height: 36px;
+}
+
+.review_button_item {
+  text-align: center;
+  width: 140px;
+  line-height: 50px;
+  border-radius: 50px;
+}
+.review_button_item:not(:last-child){
+  margin-right: 10px;
+}
+
+.review_cancel {
+  margin-left: auto;
+  text-decoration: none;
+  color: #838383;
+  background-color: white;
+  border: 1px solid #838383;
+}
+
+.review_submit {
+  background-color: #FF7100;
+  border-color: #FF7100;
+  border-style: none;
+  color: white;
+  font-weight: 500;
+}
