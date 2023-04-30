@@ -5,6 +5,7 @@ from .forms import ReviewForm, CommentForm
 
 
 def create(request, restaurant_id):
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.method == 'POST':
         restaurant = Restaurant.objects.get(pk=restaurant_id)
         review_form = ReviewForm(request.POST)
@@ -18,6 +19,7 @@ def create(request, restaurant_id):
         form = ReviewForm(user=request.user)
     context = {
         'form': form,
+        'restaurant': restaurant,
         'restaurant_id': restaurant_id,
     }
     return render(request, 'reviews/create.html', context)
