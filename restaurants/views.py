@@ -38,6 +38,7 @@ def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     menus = restaurant.menu_set.all()
     reviews = Review.objects.filter(restaurant_id=restaurant_id)
+    # 리뷰 평균 
     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant_id).aggregate(Avg('rate'))['rate__avg']
     menu_form = MenuForm()
     review_form = ReviewForm()
