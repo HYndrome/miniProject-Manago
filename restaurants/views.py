@@ -5,6 +5,7 @@ from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Avg
 
 # Create your views here.
 
@@ -37,6 +38,7 @@ def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     menus = restaurant.menu_set.all()
     reviews = Review.objects.filter(restaurant_id=restaurant_id)
+    reviews_averagerate = Review.objects.filter(restaurant_id=restaurant_id).aggregate(Avg('rate'))['rate__avg']
     menu_form = MenuForm()
     review_form = ReviewForm()
     context = {
@@ -44,7 +46,8 @@ def detail(request, restaurant_id):
         'menus': menus,
         'reviews': reviews,
         'menu_form': menu_form,
-        'review_form': review_form
+        'review_form': review_form,
+        'reviews_averagerate': reviews_averagerate,
     }
     return render(request, 'restaurants/detail.html', context)
 
