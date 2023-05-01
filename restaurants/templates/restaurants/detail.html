@@ -7,11 +7,17 @@
 
 {% block content %}
 <main class="main">
+  <div class="restaurant__title">
+    <h1>
+      {{ restaurant.name }}
+    </h1>
+    <span>
+      {{ reviews_averagerate}}
+    </span>
+  </div>
   <h1>
-    restaurants DETAIL
+    {{ restaurant.name }}
   </h1>
-  <hr>
-  <h2>{{ restaurant.name }}</h2>
   <div>
     <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
       {% csrf_token %}
@@ -113,8 +119,10 @@
               <p>맛있다</p>
             {% elif review.rate >= 3%}
               <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png">
+              <p>괜찮다</p>
             {% else %}
               <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act">
+              <p>별로</p>
             {% endif %}
           </div>
         </a>
