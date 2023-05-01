@@ -40,68 +40,6 @@
     </div>
 
 
-    {% comment %} 해당 유저가 작성한 게시물 목록 {% endcomment %}
-    {% if person.post_set.all %}
-    <p><b>작성 게시물({{ person.post_set.all|length }})</b></p>
-      <table class="table text-center mt-0 mb-5">
-        <thead class="table-secondary">
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">제 목</th>
-            <th scope="col">작성일</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for post in person.post_set.all|dictsortreversed:'created_at' %}
-
-          <tr>
-            {% comment %} 게시물 번호 {% endcomment %}
-            <td scope="row" class='no-width'>
-              {{ post.pk }}
-            </td>
-
-            {% comment %} 게시물 제목 {% endcomment %}
-            <td>
-              <a href="{% url 'restaurants:detail' post.pk %}" class='d-flex row'>
-                <div class='d-flex justify-content-center gap-3'>
-                  <div>
-                    <div class='img-form mb-2'>
-                      {% if %}
-                        <img src="{{  }}" alt="" class=''>
-                      {% else %}
-                        <img src="{% static '' %}" alt="" class=''>
-                      {% endif %}
-                    </div>
-
-                  </div>
-                  <div>
-                    <div class='img-form mb-2'>
-                      {% if  %}
-                        <img src="{{  }}" alt="" class=''>
-                      {% else %}
-                        <img src="{% static '' %}" alt="" class=''>
-                      {% endif %}
-                    </div>
-
-                  </div>
-                </div>
-              </a>
-            </td>
-
-            {% comment %} 게시물 작성일 {% endcomment %}
-            <td class="text-secondary date-width">
-              {{ post.created_at|date:"Y-m-d" }}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
-    {% else %}
-
-    {% endif %}
-
-
     <!-- 팔로잉 Modal -->
     <div class="modal fade" id="followings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
