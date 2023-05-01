@@ -16,16 +16,10 @@ def create(request, restaurant_id):
             review.restaurant = restaurant
             review.rate = int(request.POST.get('rate'))
             review.save()
-            print(request.FILES.getlist('image_review'))
             for img in request.FILES.getlist('image_review'):
-                print(img)
-                # Photo 객체를 하나 생성한다.
                 photo = ReviewPhoto()
-                # 외래키로 현재 생성한 Post의 기본키를 참조한다.
                 photo.review = review
-                # imgs로부터 가져온 이미지 파일 하나를 저장한다.
                 photo.image_review = img
-                # 데이터베이스에 저장
                 photo.save()
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review.id)
     else:
@@ -72,7 +66,14 @@ def update(request, restaurant_id, review_id):
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.user = request.user
+            review.rate = int(request.POST.get('rate'))
             review.save()
+            review.reviewphoto_set.all().delete()
+            for img in request.FILES.getlist('image_review'):
+                photo = ReviewPhoto()
+                photo.review = review
+                photo.image_review = img
+                photo.save()
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     else:
         form = ReviewForm(instance=review, user=request.user)
