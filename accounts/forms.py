@@ -81,6 +81,12 @@ class CustomUserCreationForm(UserCreationForm):
         )
     )
 
+    image = forms.ImageField(
+        label = '이미지',
+        required=False,
+
+    )
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields =(
@@ -91,6 +97,7 @@ class CustomUserCreationForm(UserCreationForm):
             'password1',
             'password2',
             'region',
+            'image',
             )
 
 
