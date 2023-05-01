@@ -36,11 +36,13 @@ def create(request):
 def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     menus = restaurant.menu_set.all()
+    reviews = Review.objects.filter(restaurant_id=restaurant_id)
     menu_form = MenuForm()
     review_form = ReviewForm()
     context = {
         'restaurant': restaurant,
         'menus': menus,
+        'reviews': reviews,
         'menu_form': menu_form,
         'review_form': review_form
     }

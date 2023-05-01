@@ -71,6 +71,57 @@
   <div class="d-grid gap-2 mb-2">
     <a href="{% url 'reviews:create' restaurant.id %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">REVIEW</a>
   </div>
+
+  <hr>
+  {% for review in reviews %}
+    <ul class="comments_container">
+      <li class="comment__container">
+        <a class="d-flex" href="{% url 'reviews:detail' restaurant.pk review.pk %}">
+          <div class="comment__user">
+            <div class="comment__user__image__container">
+              {% if review.user.profile_image %}
+                {% comment %} {{ review.user.profile_image }} {% endcomment %}
+              {% else %}
+                <img class="comment__user__image" src="{% static '토르발즈.png' %}" alt="유저프로필사진 없음">
+              {% endif %}
+            </div>
+            <span class="comment__user__id">
+              {{ review.user }}
+            </span>
+            <div class="comment__user__info d-flex justify-content-center align-items-center">
+              <svg class="comment__user__info__icon" fill="#DBDBDB" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M20.7,5.2a1.024,1.024,0,0,1,0,1.448L18.074,9.276l-3.35-3.35L17.35,3.3a1.024,1.024,0,0,1,1.448,0Zm-4.166,5.614-3.35-3.35L4.675,15.975,3,21l5.025-1.675Z"></path></g></svg>
+              <span>
+                {{ review.user.review_set.count }}
+              </span>
+              <svg class="comment__user__info__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 19V18C3 15.7909 4.79086 14 7 14H11C13.2091 14 15 15.7909 15 18V19M15 11C16.6569 11 18 9.65685 18 8C18 6.34315 16.6569 5 15 5M21 19V18C21 15.7909 19.2091 14 17 14H16.5M12 8C12 9.65685 10.6569 11 9 11C7.34315 11 6 9.65685 6 8C6 6.34315 7.34315 5 9 5C10.6569 5 12 6.34315 12 8Z" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              <span>
+                {{ review.user.followers.count }}
+              </span>
+            </div>
+          </div>
+          <div class="comment__content">
+            <p class="comment__content__updateat">
+              {{ review.created_at |date:"Y-m-d" }}
+            </p>
+            <p>
+              {{ review.content }}
+            </p>
+          </div>
+          <div class="comment__rate__container">
+            {% if review.rate >= 4 %}
+              <img src= "{% static 'reviews/good_face_act.png' %}" alt="good_face_act">
+              <p>맛있다</p>
+            {% elif review.rate >= 3%}
+              <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png">
+            {% else %}
+              <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act">
+            {% endif %}
+          </div>
+        </a>
+      </li>
+    </ul>
+  {% endfor %}
+
 </main>
 
 {% endblock content %}

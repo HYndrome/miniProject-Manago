@@ -17,16 +17,16 @@
 </form>
 <hr>
 <p>댓글 목록</p>
-<form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
-  {% csrf_token %}
-  {{ comment_form.as_p }}
-  <input type="submit">
-</form>
+  <form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <input type="submit">
+  </form>
 {% for comment in comments %}
-<p>댓글 내용 - {{ comment.content }}</p>
-<form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="삭제">
-</form>
+  <p>댓글 내용 - {{ comment.content }}</p>
+  <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
 {% endfor %}
 {% endblock content %}
