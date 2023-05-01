@@ -5,6 +5,12 @@
 <p>리뷰 번호 - {{ review.pk }}</p>
 <p>평가 - {{ review.rate }}</p>
 <p>리뷰 내용 - {{ review.content }}</p>
+<p>리뷰 사진 - </p>
+
+{% for photo in review.reviewphoto_set.all %}
+  <img src="{{ photo.image_review.url }}" alt="review_img">
+{% endfor %}
+
 <a href="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}">[수정]</a>
 <a href="{% url 'reviews:delete' restaurant_id=restaurant_id review_id=review_id %}">[삭제]</a>
 <form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">

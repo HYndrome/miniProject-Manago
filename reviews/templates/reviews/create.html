@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="review_create">
-  <form action="{% url 'reviews:create' restaurant_id %}" method="POST">
+  <form action="{% url 'reviews:create' restaurant_id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <span class="res_name fs-2">{{ restaurant.name }}</span>에 대한 솔직한 리뷰를 써주세요.
     <div class="review_form">
@@ -34,6 +34,10 @@
         </label>
       </div>
       {{ form.as_p }}
+    </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+      <input class="form-control" type="file" id="formFileMultiple" name="image_review" multiple>
     </div>
     <div class="review_button d-flex">
       <a href="{% url 'restaurants:detail' restaurant_id %}" class="review_button_item review_cancel " type="button">취소</a>
