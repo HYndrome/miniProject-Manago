@@ -1,38 +1,101 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'reviews/css/detail.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp|Material+Icons+Two+Tone|Material+Icons+Outlined|Material+Icons+Round" rel="stylesheet">
+{% endblock style %}
 
 {% block content %}
-<h1>review detail</h1>
-<p>리뷰 번호 - {{ review.pk }}</p>
-<p>평가 - {{ review.rate }}</p>
-<p>리뷰 내용 - {{ review.content }}</p>
-<p>리뷰 사진 - </p>
+<div class="review_bg">
+  <div class="review_card">
+    <header class="review_card_header d-flex">
+      <div class="review_card_user_img">
+        {% if review.user.image %}
+          <img src="{{ review.user.image.url }}" alt="{{ review.user }}_profile_image">
+        {% else %}
+          <img src="{% static '토르발즈.png' %}" alt="default_profile_img">
+        {% endif %}
+      </div>
+      <div class="review_card_user d-flex flex-column mx-2">
+        {% comment %} <span class="review_username"><a href="{% url 'accounts:profile' review.username %}">{{ request.user.username }}</a></span> {% endcomment %}
+        <span class="review_username">{{ request.user.username }}</span>
+        <span class="review_user_info"><i class="bi bi-pencil-fill"></i> {{ review.user.review_set.count }} <i class="bi bi-people-fill"></i> {{ review.user.followers.count }}</span>
+      </div>
+      <div class="review_card_rate ms-auto">
+        {% if review.rate == 5 %}
+          <img src="{% static 'reviews/good_face_act.png' %}" alt="good_img">
+          <p>맛있다</p>
+        {% elif review.rate == 3 %}
+          <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_img">
+          <p>괜찮다</p>
+        {% elif review.rate == 1 %}
+          <img src="{% static 'reviews/no_face_act.png' %}" alt="no_img">
+          <p>별로</p>
+        {% endif %}
+      </div>
+    </header>
+    <div class="review_info d-flex justify-content-between my-2">
+      {% comment %} <span class="review_res_link"><a href="{% url 'restaurants:detail' restaurant_id %}"><span class="text-decoration-none">@ </span>{{ review.restaurant.name }}<span class="text-decoration-none"> - </span>{{ review.restaurant.region }}</a></span> {% endcomment %}
+      <span class="review_res_link"><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant_id %}" style="color: #ff7100">@ {{ review.restaurant.name }} - {{ review.restaurant.region }}</a></span>
+      <span class="review_created">{{ review.created_at|date:"Y-m-d" }}</span>
+    </div>
+    <p>{{ review.content|linebreaksbr }}</p>
 
-{% for photo in review.reviewphoto_set.all %}
-  <img src="{{ photo.image_review.url }}" alt="review_img">
-{% endfor %}
-<a href="{% url 'restaurants:detail' restaurant_id %}">[맛집으로]</a>
-<a href="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}">[수정]</a>
-<a href="{% url 'reviews:delete' restaurant_id=restaurant_id review_id=review_id %}">[삭제]</a>
-<form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
-  {% csrf_token %}
-  {% if request.user in review.like_users.all %}
-    <input type="submit" value="좋아요 취소">
-  {% else %}
-    <input type="submit" value="좋아요">
-  {% endif %}
-</form>
-<hr>
-<p>댓글 목록</p>
-  <form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <input type="submit">
-  </form>
-{% for comment in comments %}
-  <p>댓글 내용 - {{ comment.content }}</p>
-  <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="삭제">
-  </form>
-{% endfor %}
+    <div class="review_picture_container">
+      {% for photo in review.reviewphoto_set.all %}
+      <div class="review_picture">
+        <img src="{{ photo.image_thumbnail.url }}" alt="review_thumbnail">
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="mt-3 d-flex justify-content-between">
+      <form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in review.like_users.all %}
+          <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart-fill"></i></button>
+        {% else %}
+          <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart"></i></button>
+        {% endif %}
+      </form>
+
+      <div class="d-flex ">
+        {% if request.user == review.user %}
+          <a class="btn btn-sm btn-outline-danger mx-1" href="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}">수정</a>
+          <form action="{% url 'reviews:delete' restaurant_id=restaurant_id review_id=review_id %}">
+            {% csrf_token %}
+            <input class="btn btn-sm btn-outline-danger mx-1" type="submit" value="삭제">
+          </form>
+        {% endif %}
+        <a class="btn btn-sm btn-outline-danger mx-1" href="{% url 'restaurants:detail' restaurant_id  %}">뒤로</a>
+      </div>
+    </div>
+    <hr>
+
+    <p>댓글 목록</p>
+    
+    {% for comment in comments %}
+      <p>댓글 내용 - {{ comment.content }}</p>
+      <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+    {% endfor %}
+    <form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
+      {% csrf_token %}
+      {% for field in comment_form %}
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="{{ field.auto_id }}">{{ field.label }}</span>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <input type="submit">
+    </form>
+  </div>
+</div>
 {% endblock content %}
+
+{% block script %}
+{% endblock script %}
