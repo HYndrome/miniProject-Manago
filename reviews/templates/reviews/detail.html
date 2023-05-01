@@ -10,7 +10,7 @@
 {% for photo in review.reviewphoto_set.all %}
   <img src="{{ photo.image_review.url }}" alt="review_img">
 {% endfor %}
-
+<a href="{% url 'restaurants:detail' restaurant_id %}">[맛집으로]</a>
 <a href="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}">[수정]</a>
 <a href="{% url 'reviews:delete' restaurant_id=restaurant_id review_id=review_id %}">[삭제]</a>
 <form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
