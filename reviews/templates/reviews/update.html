@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="review_create">
-  <form action="{% url 'reviews:create' restaurant_id %}" method="POST">
+  <form action="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
     {% csrf_token %}
     <span class="res_name fs-2">{{ restaurant.name }}</span>에 대한 솔직한 리뷰를 써주세요.
     <div class="review_form">
