@@ -23,16 +23,7 @@ class CustomUserCreationForm(UserCreationForm):
         ),
     )
 
-    last_name = forms.CharField(
-        label='성',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            },
-        ),
-    )
-
-    first_name = forms.CharField(
+    name = forms.CharField(
         label='이름',
         widget=forms.TextInput(
             attrs={
@@ -92,8 +83,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields =(
             'username',
             'email',
-            'last_name',
-            'first_name',
+            'name',
             'password1',
             'password2',
             'region',
