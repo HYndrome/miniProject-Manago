@@ -10,7 +10,7 @@
 <ul>
   {% for restaurant in region_restaurants %}
   <li>{{ restaurant.name }}
-    <div>
+    {% comment %} <div>
       <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
         {% csrf_token %}
         {% if request.user in restaurant.wish_users.all %}
@@ -19,7 +19,7 @@
           <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
         {% endif %}
       </form>
-    </div>
+    </div> {% endcomment %}
   </li>
   <li>{{ restaurant.address }}</li>
   <li><a href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기</a></li>
@@ -27,7 +27,7 @@
 </ul>
 {% endblock content %}
 
-{% block script %}
+{% comment %} {% block script %}
 <script>
   const form = document.querySelector('#wish-form')
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
@@ -50,4 +50,4 @@
       })
   })
 </script>
-{% endblock script %}
+{% endblock script %} {% endcomment %}
