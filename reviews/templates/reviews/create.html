@@ -19,7 +19,7 @@
           <span class="rate_text">맛있다</span>
         </label>
 
-        <input type="radio" name="rate" id="ok" value="3">
+        <input type="radio" name="rate" id="ok" value="3" checked>
         <label for="ok">
           <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png" class="enabled">
           <img src="{% static 'reviews/ok_face.png' %}" alt="ok_face.png" class="disabled">
@@ -36,8 +36,7 @@
       {{ form.as_p }}
     </div>
     <div class="mb-3">
-      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-      <input class="form-control" type="file" id="formFileMultiple" name="image_review" multiple>
+      <input class="form-control" type="file" name="image_review" multiple>
     </div>
     <div class="review_button d-flex">
       <a href="{% url 'restaurants:detail' restaurant_id %}" class="review_button_item review_cancel " type="button">취소</a>
