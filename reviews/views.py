@@ -14,6 +14,7 @@ def create(request, restaurant_id):
             review = review_form.save(commit=False)
             review.user = request.user
             review.restaurant = restaurant
+            review.rate = int(request.POST.get('rate'))
             review.save()
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review.id)
     else:
