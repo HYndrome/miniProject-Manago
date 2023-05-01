@@ -6,29 +6,41 @@
 {% endblock style %}
 
 {% block content %}
-<h3>{{ restaurant_category }}</h3>
-<ul>
+  <header class="d-flex justify-content-center align-items-center text-center border-bottom mb-3">
+    <div>
+      <h1>{{ restaurant_category }} 맛집 베스트 5곳</h1>
+      <h4 class="mt-3">"내 입맛에도 딱! {{ restaurant_category }} 맛집!"</h4>
+    </div>
+  </header>
   {% for restaurant in category_restaurants %}
-  <li>{{ restaurant.name }}
-    {% comment %} <div>
-      <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
-        {% csrf_token %}
-        {% if request.user in restaurant.wish_users.all %}
-          <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% else %}
-          <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% endif %}
-      </form>
-    </div> {% endcomment %}
-  </li>
-  <li>{{ restaurant.address }}</li>
-  <li><a href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기</a></li>
+  <div class="container mb-3">
+    <div class="row">
+      <div class="col-lg-3">
+        <img class="food-img" src="{% static 'restaurants/review1.jpg' %}" alt="img">
+      </div>
+      <div class="col-lg-9">
+        <h5>{{ restaurant.name }}</h5>
+        <p>{{ restaurant.address }}</p>
+        <a href="{% url 'restaurants:detail' restaurant.pk %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">{{ restaurant.name }} 정보 더보기</a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-</ul>
 {% endblock content %}
+{% comment %} <div>
+  <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+    {% csrf_token %}
+    {% if request.user in restaurant.wish_users.all %}
+      <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+    {% else %}
+      <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+    {% endif %}
+  </form>
+</div> {% endcomment %}
 
-{% comment %} {% block script %}
-<script>
+{% block script %}
+
+{% comment %} <script>
   const form = document.querySelector('#wish-form')
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
   form.addEventListener('submit', function (event) {
@@ -49,5 +61,5 @@
         }
       })
   })
-</script>
-{% endblock script %} {% endcomment %}
+</script> {% endcomment %}
+{% endblock script %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Restaurant, Menu
+from reviews.models import Review
 from reviews.forms import Review
 from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
@@ -98,9 +99,11 @@ def wish(request, restaurant_id):
 
 def category(request, restaurant_category):
     category_restaurants = Restaurant.objects.filter(category=restaurant_category)
+    reviews = Review.objects.all()
     context = {
             'restaurant_category': restaurant_category,
             'category_restaurants': category_restaurants,
+            'reviews': reviews,
         }
     return render(request, 'restaurants/category.html', context)
 
