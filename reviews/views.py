@@ -96,12 +96,10 @@ def likes(request, restaurant_id, review_id):
     else:
         review.like_users.add(request.user)
         is_liked = True
-    print(review.like_users.count())
     context = {
         'is_liked': is_liked,
         'review_like_count': review.like_users.count(),
     }
-    # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     return JsonResponse(context)
 
 
