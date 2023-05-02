@@ -9,13 +9,20 @@ from django.http import JsonResponse
 from django.db.models import Avg
 
 # Create your views here.
-
 def index(request):
     restaurants = Restaurant.objects.all()
+    for restaurant in restaurants:
+        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
+    sorted = restaurants.order_by('-rate')
     eatdeals = Restaurant.objects.filter(eatdeal=True)
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
+        'sorted': sorted
     }
     return render(request, 'restaurants/index.html', context)
 
@@ -121,3 +128,4 @@ def region(request, restaurant_region):
         'region_restaurants': region_restaurants,
     }
     return render(request, 'restaurants/region.html', context)
+

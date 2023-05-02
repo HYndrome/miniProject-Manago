@@ -40,6 +40,11 @@
 
     <section class="main__section__container">
       <h2 class="main__section__title">평점이 높은 인기 식당</h2>
+      {% for sort in sorted %}
+      {% comment %} <li>{{ sort.name }}</li>
+      <li>{{ sort.region }} - {{ sort.category }}</li> {% endcomment %}
+      <li><a href="{% url 'restaurants:detail' sort.pk %}">{{ sort.name }} 정보 더보기</a></li>
+      {% endfor %}
     </section>
 
     <section class="main__section__container">
