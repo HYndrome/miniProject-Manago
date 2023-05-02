@@ -93,8 +93,9 @@
               <div class="mx-2">
                 <span class="comment_created">{{ comment.created_at|date:'Y-m-d' }}</span>
               </div>
-              <div class="ms-auto">
+              <div class="ms-auto d-flex">
                 {% if request.user == comment.user %}
+                  <input type="button" class="comment-edit-btn" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk }}" value="수정">
                   <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
                     {% csrf_token %}
                     <input class="btn btn-sm btn-outline-danger comment_del" type="submit" value="삭제" >
@@ -102,7 +103,17 @@
                 {% endif %}
               </div>
             </header>
-            <p class="mt-2">{{ comment.content|linebreaksbr }}</p>
+            <p id="comment-content-{{ comment.pk }}"class="mt-2">{{ comment.content|linebreaksbr }}</p>
+
+            <form class="comment-edit-form my-3" id="comment-edit-form-{{ comment.pk }}" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk }}" data-restaurant-id="{{ restaurant_id }}" hidden>
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                {{ comment_form }}
+                <input class="btn btn-outline-secondary update" type="submit" value="댓글 수정">
+                <input class="btn btn-outline-secondary cancel" type="button" data-comment-id="{{ comment.pk }}"value="취소">
+              </div>
+            </form>
+
           </li>
         {% endfor %}
       </ul>

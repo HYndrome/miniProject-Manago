@@ -122,6 +122,23 @@ def comment_create(request, restaurant_id, review_id):
 
 
 @login_required
+def comment_update(request, restaurant_id, review_id, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.user == comment.user:
+        comment_form = CommentForm(request.POST, instance=comment)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.save()
+            # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
+    context = {
+        'content': comment.content,
+
+    }
+    # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id, context=context)
+    return JsonResponse(context)
+
+
+@login_required
 def comment_delete(request, restaurant_id, review_id, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     if request.user == comment.user:

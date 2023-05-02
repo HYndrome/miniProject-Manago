@@ -29,3 +29,50 @@ reviewLikeForm.addEventListener('submit', function (event) {
     console.log(error.response)
   })
 })
+
+const commentUpdate = document.querySelectorAll('.comment-edit-btn')
+
+commentUpdate.forEach(function (comment) {
+  comment.addEventListener('click', function (event) {
+    event.preventDefault()
+    const commentId = event.target.dataset.commentId
+    const commentUpdateDiv = document.querySelector(`#comment-edit-form-${commentId}`)
+    const contentAreaText = commentUpdateDiv.querySelector(`#comment-edit-form-${commentId}>div>textarea`)
+    commentUpdateDiv.hidden = false
+    contentAreaText.textContent = document.querySelector(`#comment-content-${commentId}`).textContent
+  })
+})
+
+const commentUpdateConfirms = document.querySelectorAll('.comment-edit-form>div>.update')
+
+commentUpdateConfirms.forEach(function (updateBtn) {
+  updateBtn.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const reviewId = event.target.dataset.reviewId
+    const commentId = event.target.dataset.commentId
+    const restaurantId = event.target.dataset.restaurantId
+    axios({
+      method: 'post',
+      url: `/reviews/${restaurantId}/${reviewId}/comments/${commentId}/update/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+    .then((response) => {
+      const updateComment = response.data.content
+      console.log(response)
+      updateBtn.hidden = true
+      document.querySelector(`#comment-content-${commentId}`).textContent = updateComment
+    })
+    .catch((error) => {
+      console.log(error.response)
+    })
+  })
+})
+
+const commentUpdateCancels = document.querySelectorAll('.comment-edit-form>div>.cancel')
+    commentUpdateCancels.forEach(function (cancelBtn) {
+      cancelBtn.addEventListener('click', (event) => {
+        const commentId = event.target.dataset.commentId
+        const commentUpdateForm = document.querySelector(`#comment-edit-form-${commentId}`)
+        commentUpdateForm.hidden = true
+      })
+    })
