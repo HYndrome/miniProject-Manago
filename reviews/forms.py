@@ -27,11 +27,11 @@ class ReviewForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(
-        label = '댓글 내용',
+        label = False,
         widget = forms.Textarea(
             attrs = {
                 'class': 'form-control',
-                'placeholder': '내용을 입력해주세요.',
+                'placeholder': '댓글 내용을 입력해주세요.',
                 'rows': 3,
             }
         )

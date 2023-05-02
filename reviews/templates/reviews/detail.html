@@ -19,8 +19,8 @@
         {% endif %}
       </div>
       <div class="review_card_user d-flex flex-column mx-2">
-        {% comment %} <span class="review_username"><a href="{% url 'accounts:profile' review.username %}">{{ request.user.username }}</a></span> {% endcomment %}
-        <span class="review_username">{{ request.user.username }}</span>
+        {% comment %} <span class="review_username"><a href="{% url 'accounts:profile' review.username %}">{{ review.user.username }}</a></span> {% endcomment %}
+        <span class="review_username">{{ review.user.username }}</span>
         <span class="review_user_info"><i class="bi bi-pencil-fill"></i> {{ review.user.review_set.count }} <i class="bi bi-people-fill"></i> {{ review.user.followers.count }}</span>
       </div>
       <div class="review_card_rate ms-auto">
@@ -54,10 +54,14 @@
     <div class="mt-3 d-flex justify-content-between">
       <form action="{% url 'reviews:likes' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
         {% csrf_token %}
-        {% if request.user in review.like_users.all %}
-          <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart-fill"></i></button>
+        {% if request.user.is_authenticated %}
+          {% if request.user in review.like_users.all %}
+            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart-fill"></i></button>
+          {% else %}
+            <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart"></i></button>
+          {% endif %}
         {% else %}
-          <button class="btn btn-sm btn-outline-danger" type="submit"><i class="bi bi-heart"></i></button>
+          <button class="btn btn-sm btn-outline-danger disabled" type="submit"><i class="bi bi-heart-fill"></i></button>
         {% endif %}
       </form>
 
@@ -73,26 +77,48 @@
       </div>
     </div>
     <hr>
-
-    <p>댓글 목록</p>
-    
-    {% for comment in comments %}
-      <p>댓글 내용 - {{ comment.content }}</p>
-      <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
+    <div class="comments_container">
+      <p><i class="bi bi-chat"></i> 댓글({{ review.comment_set.count }})</p>
+      <ul class="comment_list list-unstyled">
+        {% for comment in comments %}
+          <li class="comment_container py-2 border-bottom">
+            <header class="d-flex">
+              <div class="comment_user_profile_img">
+                {% if comment.user.image %}
+                  <img src="{{ comment.user.image.url }}" alt="{{ comment.user }}_profile_image">
+                {% else %}
+                  <img src="{% static '토르발즈.png' %}" alt="default_profile_img">
+                {% endif %}
+              </div>
+              <div class="mx-2">
+                <span class="comment_username">{{ comment.user.username }}</span>
+              </div>
+              <div class="mx-2">
+                <span class="comment_created">{{ comment.created_at|date:'Y-m-d' }}</span>
+              </div>
+              <div class="ms-auto">
+                {% if request.user == comment.user %}
+                  <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn btn-sm btn-outline-danger comment_del" type="submit" value="삭제" >
+                  </form>
+                {% endif %}
+              </div>
+            </header>
+            <p class="mt-2">{{ comment.content|linebreaksbr }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+      <form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
         {% csrf_token %}
-        <input type="submit" value="삭제">
-      </form>
-    {% endfor %}
-    <form action="{% url 'reviews:comment_create' restaurant_id=restaurant_id review_id=review_id %}" method="POST">
-      {% csrf_token %}
-      {% for field in comment_form %}
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="{{ field.auto_id }}">{{ field.label }}</span>
-          {{ field }}
+          <div class="input-group mb-3">
+            {{ comment_form }}
+            <input class="btn btn-outline-secondary" type="submit" value="댓글 작성">
+          </div>
+        <div class="d-flex">
         </div>
-      {% endfor %}
-      <input type="submit">
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock content %}

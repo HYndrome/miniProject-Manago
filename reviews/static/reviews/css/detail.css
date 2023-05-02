@@ -75,3 +75,27 @@ header .review_card_header {
   padding: 0;
   border: 0;
 } */
+
+.comments_container {
+
+}
+.comment_list {
+  
+}
+.commnet_container {
+
+}
+.comment_user_profile_img > img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.comment_created {
+  color: #b1b1b1;
+  font-size: 12px;
+}
+.comment_del {
+  --bs-btn-padding-y: .25rem;
+  --bs-btn-padding-x: .5rem;
+  --bs-btn-font-size: .75rem;
+}
