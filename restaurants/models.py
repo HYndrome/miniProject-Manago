@@ -53,6 +53,7 @@ class Restaurant(models.Model):
     eatdeal = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    rate = models.IntegerField(null=True, blank=True)
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
