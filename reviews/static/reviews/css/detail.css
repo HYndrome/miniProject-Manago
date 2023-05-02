@@ -8,7 +8,6 @@
   margin: 0 auto;
   padding: 1rem;
   background-color: #fff;
-  /* margin-right: auto; */
 }
 
 header .review_card_header {
@@ -37,7 +36,6 @@ header .review_card_header {
 }
 .review_res_link {
   color: #ff7100;
-  /* text-decoration: none; */
 }
 .review_created {
   color: #b1b1b1;
@@ -62,29 +60,13 @@ header .review_card_header {
 }
 
 .review_picture_container {
-  /* max-height: 200px; */
   white-space: nowrap;
   overflow-x: auto;
 }
 .review_picture {
   display: inline-block;
 }
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
-} */
 
-.comments_container {
-
-}
-.comment_list {
-  
-}
-.commnet_container {
-
-}
 .comment_user_profile_img > img{
   width: 30px;
   height: 30px;
