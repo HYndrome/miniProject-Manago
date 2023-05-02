@@ -4,6 +4,7 @@ from .models import Review, Comment, ReviewPhoto
 from .forms import ReviewForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import json
 
 @login_required
 def create(request, restaurant_id):
@@ -125,16 +126,18 @@ def comment_create(request, restaurant_id, review_id):
 def comment_update(request, restaurant_id, review_id, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     if request.user == comment.user:
-        comment_form = CommentForm(request.POST, instance=comment)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
+        if request.method == 'POST':
+            print(request.body)
+            jsonObject = json.loads(request.body)
+            print(jsonObject)
+            comment.content = jsonObject['content']
             comment.save()
-            # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
+            # comment = Comment.objects.filter(pk=comment_pk)
+            # comment.update(content=jsonObject['content'])
+
     context = {
         'content': comment.content,
-
     }
-    # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id, context=context)
     return JsonResponse(context)
 
 

@@ -30,6 +30,8 @@ reviewLikeForm.addEventListener('submit', function (event) {
   })
 })
 
+
+
 const commentUpdate = document.querySelectorAll('.comment-edit-btn')
 
 commentUpdate.forEach(function (comment) {
@@ -43,7 +45,7 @@ commentUpdate.forEach(function (comment) {
   })
 })
 
-const commentUpdateConfirms = document.querySelectorAll('.comment-edit-form>div>.update')
+const commentUpdateConfirms = document.querySelectorAll('.comment-edit-form')
 
 commentUpdateConfirms.forEach(function (updateBtn) {
   updateBtn.addEventListener('submit', function (event) {
@@ -51,16 +53,20 @@ commentUpdateConfirms.forEach(function (updateBtn) {
     const reviewId = event.target.dataset.reviewId
     const commentId = event.target.dataset.commentId
     const restaurantId = event.target.dataset.restaurantId
+    const data = {
+      content: document.querySelector(`#comment-edit-form-${commentId}>div>textarea`).value,
+    }
     axios({
       method: 'post',
       url: `/reviews/${restaurantId}/${reviewId}/comments/${commentId}/update/`,
       headers: {'X-CSRFToken': csrftoken},
+      data: JSON.stringify(data),
     })
     .then((response) => {
-      const updateComment = response.data.content
-      console.log(response)
+      console.log(response);
+      console.log(data);
       updateBtn.hidden = true
-      document.querySelector(`#comment-content-${commentId}`).textContent = updateComment
+      document.querySelector(`#comment-content-${commentId}`).textContent = data['content']
     })
     .catch((error) => {
       console.log(error.response)
@@ -69,10 +75,10 @@ commentUpdateConfirms.forEach(function (updateBtn) {
 })
 
 const commentUpdateCancels = document.querySelectorAll('.comment-edit-form>div>.cancel')
-    commentUpdateCancels.forEach(function (cancelBtn) {
-      cancelBtn.addEventListener('click', (event) => {
-        const commentId = event.target.dataset.commentId
-        const commentUpdateForm = document.querySelector(`#comment-edit-form-${commentId}`)
-        commentUpdateForm.hidden = true
-      })
-    })
+commentUpdateCancels.forEach(function (cancelBtn) {
+  cancelBtn.addEventListener('click', (event) => {
+    const commentId = event.target.dataset.commentId
+    const commentUpdateForm = document.querySelector(`#comment-edit-form-${commentId}`)
+    commentUpdateForm.hidden = true
+  })
+})
