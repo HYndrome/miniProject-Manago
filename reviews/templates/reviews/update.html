@@ -12,21 +12,21 @@
     <span class="res_name fs-2">{{ restaurant.name }}</span>에 대한 솔직한 리뷰를 써주세요.
     <div class="review_form">
       <div class="radio">
-        <input type="radio" name="rate" id="good" value="5" {% if review.rate >= 5 %}checked{% endif %}>
+        <input type="radio" name="rate" id="good" value="5" {% if review.rate == 5 %}checked{% endif %}>
         <label for="good">
           <img src="{% static 'reviews/good_face_act.png' %}" alt="good_face_act" class="enabled">
           <img src="{% static 'reviews/good_face.png' %}" alt="good_face" class="disabled">
           <span class="rate_text">맛있다</span>
         </label>
 
-        <input type="radio" name="rate" id="ok" value="3" {% if review.rate >= 3 and review.rate < 5 %}checked{% endif %}>
+        <input type="radio" name="rate" id="ok" value="3" {% if review.rate == 3 %}checked{% endif %}>
         <label for="ok">
           <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png" class="enabled">
           <img src="{% static 'reviews/ok_face.png' %}" alt="ok_face.png" class="disabled">
           <span class="rate_text">괜찮다</span>
         </label>
 
-        <input type="radio" name="rate" id="no" value="1" {% if review.rate < 3 %}checked{% endif %}>
+        <input type="radio" name="rate" id="no" value="1" {% if review.rate == 3 %}checked{% endif %}>
         <label for="no">
           <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act" class="enabled">
           <img src="{% static 'reviews/no_face.png' %}" alt="no_face" class="disabled">
@@ -39,7 +39,7 @@
       <input class="form-control" type="file" name="image_review" multiple>
     </div>
     <div class="review_button d-flex">
-      <a href="{% url 'restaurants:detail' restaurant_id %}" class="review_button_item review_cancel " type="button">취소</a>
+      <a href="{% url 'reviews:detail' restaurant_id review_id %}" class="review_button_item review_cancel " type="button">취소</a>
       <input class="review_button_item review_submit " type="submit" value="리뷰 올리기">
     </div>
   </form>
