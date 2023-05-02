@@ -26,7 +26,7 @@ def index(request):
     }
     return render(request, 'restaurants/index.html', context)
 
-# @login_required
+@login_required
 def create(request):
     if request.method == 'POST':
         restaurant_form = RestaurantForm(request.POST)
@@ -60,14 +60,14 @@ def detail(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-# @login_required
+@login_required
 def delete(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.user == restaurant.user:
         restaurant.delete()
     return redirect('restaurants:index')
 
-# @login_required
+@login_required
 def menu(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     menu_form = MenuForm(request.POST)
@@ -83,14 +83,14 @@ def menu(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-# @login_required
+@login_required
 def menu_delete(request, restaurant_id, menu_id):
     menu = Menu.objects.get(pk=menu_id)
     if request.user == menu.user:
         menu.delete()
     return redirect('restaurants:detail', restaurant_id)
 
-# @login_required
+@login_required
 def wish(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.user in restaurant.wish_users.all():

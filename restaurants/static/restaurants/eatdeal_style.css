@@ -15,9 +15,21 @@ h5 {
   color: rgb(154, 154, 154);
 }
 
-.food-img {
+.img-wrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+.img-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(50, 50);
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  margin: auto;
 }
 
 .span__rate {
