@@ -3,10 +3,23 @@
 
 {% block style %}
   <link rel="stylesheet" href="{% static 'restaurants/detail_style.css' %}">
-{% endblock style %}
+  {% endblock style %}
 
 {% block content %}
 <main class="main">
+  {% comment %} owl carousel {% endcomment %}
+  <div class="owl-carousel owl-theme">
+    {% for review in reviews %}
+      {% for photo in review.reviewphoto_set.all %}
+        <div class="item">
+          <img src="{{ photo.image_thumbnail.url }}" alt=""> 
+        </div>
+      {% endfor %}
+    {% endfor %}
+      <div class="item"><h4>1</h4></div>
+
+  </div>
+
   <div class="main__top">
     <div class="restaurant__title">
       <h1 class="restaurant__title__name">
@@ -197,6 +210,7 @@
 
 {% endblock content %}
 
+
 {% block script %}
 <script>
   const form = document.querySelector('#wish-form')
@@ -219,6 +233,24 @@
         }
       })
   })
-
+</script>
+{% comment %} owl carousel {% endcomment %}
+<script type="text/javascript">
+  $('.owl-carousel').owlCarousel({
+  loop:true,
+  margin:10,
+  nav:true,
+  responsive:{
+      0:{
+          items:1
+      },
+      600:{
+          items:3
+      },
+      1000:{
+          items:5
+      }
+  }
+})
 </script>
 {% endblock script %}

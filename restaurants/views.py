@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Restaurant, Menu
-from reviews.models import Review
+from reviews.models import Review, ReviewPhoto
 from reviews.forms import Review
 from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
