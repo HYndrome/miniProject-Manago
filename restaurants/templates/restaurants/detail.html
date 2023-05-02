@@ -18,21 +18,23 @@
     </div>
 
     <div class="restaurant__input">
-      <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
-        {% csrf_token %}
-        {% if request.user in restaurant.wish_users.all %}
-          <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% else %}
-          <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% endif %}
-      </form>
-
-      <a href="{% url 'reviews:create' restaurant.id %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">REVIEW</a>
-
+      {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+        <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+          {% csrf_token %}
+          {% if request.user in restaurant.wish_users.all %}
+            <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+          {% else %}
+            <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+          {% endif %}
+        </form>
+        <a href="{% url 'reviews:create' restaurant.id %}" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">REVIEW</a>
+      {% comment %} {% endif %} {% endcomment %}
+      {% if request.user == restaurant.user %}
       <form action="{% url 'restaurants:delete' restaurant.pk %}" method="POST">
         {% csrf_token %}
         <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="DELETE">
       </form>
+      {% endif %}
     </div>
   </div>
   <div class="restaurant__status">
@@ -55,7 +57,7 @@
       </span>
     </div>
   </div>
-  <table>
+  <table class="restaurants__info">
     <tbody>
       <tr>
         <th>주소</th>
@@ -97,14 +99,20 @@
       <tr>
         <th>메뉴</th>
         <td>
-          <ul>
+          <ul class="restaurant__info__menu">
             {% for menu in menus %}
-              <li>{{ menu.name }} : {{ menu.price }}
+              <li>
                 <span>
-                  <form style="display: inline;" action="{% url 'restaurants:menu_delete' restaurant.pk menu.pk %}" method="POST">
-                    {% csrf_token %}
-                    <input type="submit" value="MENU_DELETE">
-                  </form>
+                  {{ menu.name }}
+                </span>
+                <span>
+                  {{ menu.price }}
+                  {% if request.user == restaurant.user %}
+                    <form style="display: inline;" action="{% url 'restaurants:menu_delete' restaurant.pk menu.pk %}" method="POST">
+                      {% csrf_token %}
+                      <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="DELETE">
+                    </form>
+                  {% endif %}
                 </span>
               </li>
             {% endfor %}
@@ -211,5 +219,6 @@
         }
       })
   })
+
 </script>
 {% endblock script %}

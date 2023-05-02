@@ -4,6 +4,7 @@ main {
 }
 
 
+
 .main__top {
   display: flex;
 }
@@ -34,8 +35,7 @@ main {
   display: flex;
   height: 20px;
   padding-bottom: 40px;
-  border-bottom: 1px solid 
-  #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
 }
 
 .restaurant__status__item {
@@ -51,6 +51,50 @@ main {
 }
 
 
+.restaurants__info {
+  margin-top: 20px;
+}
+
+.restaurant__info__menu li {
+  border-bottom: 1px solid #e9e9e9;
+  margin-bottom: 4px;
+}
+
+.restaurants__info tbody tr th {
+  width: 110px;
+  font-size: .9rem;
+  color: rgba(79,79,79,0.6);
+  line-height: 1.7;
+  text-align: left;
+  vertical-align: top;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.restaurants__info tbody tr td {
+  font-size: .9rem;
+  color: #4f4f4f;
+  line-height: 1.7;
+  text-align: left;
+  vertical-align: middle;
+  padding-bottom: 5px;
+}
+
+.restaurant__info__menu {
+  font-size: .9rem;
+  color: #4f4f4f;
+  line-height: 1.7;
+  text-align: left;
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0;
+}
+
+.restaurant__info__menu li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
 
 
 .comments_container {
