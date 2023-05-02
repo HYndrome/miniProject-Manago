@@ -105,7 +105,7 @@ def wish(request, restaurant_id):
     return JsonResponse(context)
 
 def category(request, restaurant_category):
-    category_restaurants = Restaurant.objects.filter(category=restaurant_category)
+    category_restaurants = Restaurant.objects.filter(category=restaurant_category).order_by('-rate')
     reviews = Review.objects.all()
     context = {
             'restaurant_category': restaurant_category,
@@ -115,17 +115,19 @@ def category(request, restaurant_category):
     return render(request, 'restaurants/category.html', context)
 
 def eatdeal(request):
-    restaurants = Restaurant.objects.filter(eatdeal=True)
+    restaurants = Restaurant.objects.filter(eatdeal=True).order_by('-rate')
     context = {
         'restaurants': restaurants
     }
     return render(request, 'restaurants/eatdeal.html', context)
 
 def region(request, restaurant_region):
-    region_restaurants = Restaurant.objects.filter(region=restaurant_region)
+    region_restaurants = Restaurant.objects.filter(region=restaurant_region).order_by('-rate')
+    reviews = Review.objects.all()
     context = {
         'restaurant_region': restaurant_region,
         'region_restaurants': region_restaurants,
+        'reviews': reviews,
     }
     return render(request, 'restaurants/region.html', context)
 
