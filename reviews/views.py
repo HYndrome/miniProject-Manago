@@ -3,7 +3,7 @@ from restaurants.models import Restaurant
 from .models import Review, Comment, ReviewPhoto
 from .forms import ReviewForm, CommentForm
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 
 @login_required
 def create(request, restaurant_id):
@@ -92,9 +92,17 @@ def likes(request, restaurant_id, review_id):
     review = Review.objects.get(pk=review_id)
     if review.like_users.filter(pk=request.user.pk).exists():
         review.like_users.remove(request.user)
+        is_liked = False
     else:
         review.like_users.add(request.user)
-    return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
+        is_liked = True
+    print(review.like_users.count())
+    context = {
+        'is_liked': is_liked,
+        'review_like_count': review.like_users.count(),
+    }
+    # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
+    return JsonResponse(context)
 
 
 @login_required
