@@ -1,6 +1,7 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
-
 
 app_name = 'accounts'
 urlpatterns = [
@@ -12,4 +13,4 @@ urlpatterns = [
     path('password/', views.change_password, name='change_password'),
     path('profile/<str:username>/', views.profile, name='profile'),
     path('<int:user_pk>/follow/', views.follow, name='follow'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
