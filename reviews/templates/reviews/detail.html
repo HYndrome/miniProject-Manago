@@ -19,7 +19,6 @@
         {% endif %}
       </div>
       <div class="review_card_user d-flex flex-column mx-2">
-        {% comment %} <span class="review_username"><a href="{% url 'accounts:profile' review.username %}">{{ review.user.username }}</a></span> {% endcomment %}
         <span class="review_username">{{ review.user.username }}</span>
         <span class="review_user_info"><i class="bi bi-pencil-fill"></i> {{ review.user.review_set.count }} <i class="bi bi-people-fill"></i> {{ review.user.followers.count }}</span>
       </div>
@@ -37,7 +36,6 @@
       </div>
     </header>
     <div class="review_info d-flex justify-content-between my-2">
-      {% comment %} <span class="review_res_link"><a href="{% url 'restaurants:detail' restaurant_id %}"><span class="text-decoration-none">@ </span>{{ review.restaurant.name }}<span class="text-decoration-none"> - </span>{{ review.restaurant.region }}</a></span> {% endcomment %}
       <span class="review_res_link"><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant_id %}" style="color: #ff7100">@ {{ review.restaurant.name }} - {{ review.restaurant.region }}</a></span>
       <span class="review_created">{{ review.created_at|date:"Y-m-d" }}</span>
     </div>
