@@ -63,8 +63,6 @@ commentUpdateConfirms.forEach(function (updateBtn) {
       data: JSON.stringify(data),
     })
     .then((response) => {
-      console.log(response);
-      console.log(data);
       updateBtn.hidden = true
       document.querySelector(`#comment-content-${commentId}`).textContent = data['content']
     })

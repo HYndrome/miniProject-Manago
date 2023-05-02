@@ -76,7 +76,7 @@ header .review_card_header {
   color: #b1b1b1;
   font-size: 12px;
 }
-.comment_del {
+.comment_btn {
   --bs-btn-padding-y: .25rem;
   --bs-btn-padding-x: .5rem;
   --bs-btn-font-size: .75rem;

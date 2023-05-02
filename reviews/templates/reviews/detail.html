@@ -95,10 +95,10 @@
               </div>
               <div class="ms-auto d-flex">
                 {% if request.user == comment.user %}
-                  <input type="button" class="comment-edit-btn" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk }}" value="수정">
+                  <input type="button" class="comment-edit-btn btn btn-sm btn-outline-danger comment_btn mx-1" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk }}" value="수정">
                   <form action="{% url 'reviews:comment_delete' restaurant_id=restaurant_id review_id=review_id comment_pk=comment.pk %}" method="POST">
                     {% csrf_token %}
-                    <input class="btn btn-sm btn-outline-danger comment_del" type="submit" value="삭제" >
+                    <input class="btn btn-sm btn-outline-danger comment_btn" type="submit" value="삭제" >
                   </form>
                 {% endif %}
               </div>
@@ -109,7 +109,7 @@
               {% csrf_token %}
               <div class="input-group mb-3">
                 {{ comment_form }}
-                <input class="btn btn-outline-secondary update" type="submit" value="댓글 수정">
+                <input class="btn btn-outline-secondary update" type="submit" value="수정">
                 <input class="btn btn-outline-secondary cancel" type="button" data-comment-id="{{ comment.pk }}"value="취소">
               </div>
             </form>

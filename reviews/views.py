@@ -127,13 +127,9 @@ def comment_update(request, restaurant_id, review_id, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     if request.user == comment.user:
         if request.method == 'POST':
-            print(request.body)
             jsonObject = json.loads(request.body)
-            print(jsonObject)
             comment.content = jsonObject['content']
             comment.save()
-            # comment = Comment.objects.filter(pk=comment_pk)
-            # comment.update(content=jsonObject['content'])
 
     context = {
         'content': comment.content,
