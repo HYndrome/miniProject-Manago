@@ -18,7 +18,8 @@
                       <div class="card-body">
                           <table style="color:black; margin-left:10px;">
                               <tr>
-                                  <td>{{ person.username }}</td>
+                                  <td class="profile_title">아이디</td>
+                                  <td class="profile_content">{{ person.username }}</td>
                               </tr>
                               <tr>
                                   <td class="profile_title">이메일</td>
@@ -26,10 +27,29 @@
                               </tr>
                               <tr>
                                   <td class="profile_title">이름</td>
-                                  <td class="profile_content">{{ }}</td>
+                                  <td class="profile_content">{{ person.name }}</td>
                               </tr>
-                          </table>
-      
+                
+                              </table>
+                              <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+                              <form action="{% url 'accounts:follow' person.pk %}" method="POST" >
+                                {% csrf_token %}
+                                {% if request.user in person.followers.all %}
+                                 <input type="submit" value="UnFollow" class='btn btn-primary'>
+                                {% else %}
+                                {% if request.user.is_authenticated %}
+                                <input type="submit" value="Follow" class='btn btn-primary'>
+                                {% else %}
+                                <input type="submit" value="Follow" disabled class='btn btn-primary'>
+                                {% endif %}
+                                {% endif %}
+                                </form>
+                      </div>                
+
+                                {% comment %} 팔로워 수 및 팔로잉 수 modal 트리거 {% endcomment %}
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                               <p class='my-auto'><a data-bs-toggle="modal" data-bs-target="#followers">팔로워 <b>{{ person.followers.all|length }}</b></a> / <a data-bs-toggle="modal" data-bs-target="#followings">팔로잉 <b>{{ person.followings.all|length }}</b></a></p></div>
+                    </div>
                           <hr>
                           <div style="text-align: center;">
                           <!-- <div style="margin-left: 10px;"> -->
