@@ -12,17 +12,16 @@ from django.db.models import Avg
 def index(request):
     restaurants = Restaurant.objects.all()
     for restaurant in restaurants:
-        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
         reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
         rt = Restaurant.objects.get(pk=restaurant.pk)
         rt.rate = reviews_averagerate
         rt.save()
-    sorted = restaurants.order_by('-rate')
-    eatdeals = Restaurant.objects.filter(eatdeal=True)
+    rankings = restaurants.order_by('-rate')[:8]
+    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
-        'sorted': sorted
+        'rankings': rankings
     }
     return render(request, 'restaurants/index.html', context)
 
@@ -107,6 +106,10 @@ def wish(request, restaurant_id):
 def category(request, restaurant_category):
     category_restaurants = Restaurant.objects.filter(category=restaurant_category).order_by('-rate')
     reviews = Review.objects.all()
+    for restaurant in category_restaurants:
+        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
+        restaurant.first_review = Review.objects.filter(restaurant_id=restaurant.pk).order_by('-created_at').first()
+        restaurant.save()
     context = {
             'restaurant_category': restaurant_category,
             'category_restaurants': category_restaurants,
@@ -116,14 +119,24 @@ def category(request, restaurant_category):
 
 def eatdeal(request):
     restaurants = Restaurant.objects.filter(eatdeal=True).order_by('-rate')
+    reviews = Review.objects.all()
+    for restaurant in restaurants:
+        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
+        restaurant.first_review = Review.objects.filter(restaurant_id=restaurant.pk).order_by('-created_at').first()
+        restaurant.save()
     context = {
-        'restaurants': restaurants
+        'restaurants': restaurants,
+        'reviews': reviews,
     }
     return render(request, 'restaurants/eatdeal.html', context)
 
 def region(request, restaurant_region):
     region_restaurants = Restaurant.objects.filter(region=restaurant_region).order_by('-rate')
     reviews = Review.objects.all()
+    for restaurant in region_restaurants:
+        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
+        restaurant.first_review = Review.objects.filter(restaurant_id=restaurant.pk).order_by('-created_at').first()
+        restaurant.save()
     context = {
         'restaurant_region': restaurant_region,
         'region_restaurants': region_restaurants,
