@@ -18,7 +18,7 @@
       <div class="row justify-content-center mt-3 mb-3">
         <div class="col-12 col-lg-3">
           <div class="picture_container float-end">
-            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="picture align-self-center" src="#" alt=""></a>
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="picture align-self-center" src="{{ restaurant.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt=""></a>
           </div>
         </div>
         <div class="col-12 col-lg-6">
