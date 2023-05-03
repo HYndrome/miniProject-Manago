@@ -43,6 +43,9 @@ def create(request):
 
 def detail(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
+    restaurant.views = restaurant.views + 1
+    restaurant.save()
+    
     menus = restaurant.menu_set.all()
     reviews = Review.objects.filter(restaurant_id=restaurant_id)
     # 리뷰 평균 

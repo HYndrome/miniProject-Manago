@@ -21,7 +21,7 @@ main {
 .restaurant__title__rate {
   font-size: 1.8rem;
   line-height: 46px;
-  color: #e9e9e9;
+  color: #ff7100;
   margin-left: 5px;
 }
 
@@ -36,6 +36,7 @@ main {
   height: 20px;
   padding-bottom: 40px;
   border-bottom: 1px solid #e9e9e9;
+  color: #9B9B9B
 }
 
 .restaurant__status__item {
@@ -166,3 +167,25 @@ main {
   color: #9B9B9B;
   margin: 0;
 }
+
+.restaurant__input__btn {
+  color: #9B9B9B;
+  border: 0;
+  text-decoration: none;
+  font-size: 15px;
+  background-color: transparent;
+  margin-left: 15px;
+  padding: 0;
+}
+
+.restaurant__input__btn:hover {
+  color: #ff7100;
+}
+
+.restaurant__input__icon {
+  font-size: 45px;
+}
+/* 
+.restaurant__status__item {
+  font-size: 1px;
+} */
