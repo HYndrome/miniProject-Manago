@@ -17,12 +17,14 @@ def index(request):
         rt = Restaurant.objects.get(pk=restaurant.pk)
         rt.rate = reviews_averagerate
         rt.save()
-    sorted = restaurants.order_by('-rate')
-    eatdeals = Restaurant.objects.filter(eatdeal=True)
+    rankings = restaurants.order_by('-rate')[:8]
+    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('rate')[:8]
+
+
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
-        'sorted': sorted
+        'rankings': rankings
     }
     return render(request, 'restaurants/index.html', context)
 

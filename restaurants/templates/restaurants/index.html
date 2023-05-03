@@ -25,28 +25,50 @@
       <h2 class="main__section__title">카테고리별 맛집 리스트</h2>
       {% regroup restaurants by category as categories_list %}
       {% for category in categories_list %}
-      <a href="{% url 'restaurants:category' category.grouper %}">{{ category.grouper }} 인기 맛집 TOP 10</a>
+        <a href="{% url 'restaurants:category' category.grouper %}">{{ category.grouper }} 인기 맛집 TOP 10</a>
       {% endfor %}
     </section>
 
     <section class="main__section__container">
       <h2 class="main__section__title">EAT딜을 판매중인 식당</h2>
-      {% for eatdeal in eatdeals %}
-      <li>{{ eatdeal.name }}</li>
-      <li>{{ eatdeal.region }} - {{ eatdeal.category }}</li>
-      <li><a href="{% url 'restaurants:detail' eatdeal.pk %}">{{ eatdeal.name }} 정보 더보기</a></li>
-      {% endfor %}
+      <div class="row">
+        {% for eatdeal in eatdeals %}
+          <div class="main__section__items col-6 col-md-3">
+            <a href="{% url 'restaurants:detail' eatdeal.pk %}">
+              <div class="main__section__items__image__container">
+                <img class="main__section__items__image__eatdeallogo" src="{% static 'restaurants/eatdeal.png' %}" alt="">
+                {% comment %} <img src="{{ eatdeal.review_set.reviewphoto_set.image_thumbnail.url }}" alt=""> {% endcomment %}
+              </div>
+              <div class="main__section__items__image__info">
+                <span class="main__section__items__image__info__title">{{ eatdeal.name }}</span>
+                <span class="main__section__items__image__info__rate">{{ eatdeal.rate|floatformat:1 }}</span>
+                <p class="main__section__items__image__info__category">{{ eatdeal.region }} - {{ eatdeal.category }}</p>
+              </div>
+            </a>  
+          </div>
+        {% endfor %}
+      </div>
+      
     </section>
 
     <section class="main__section__container">
       <h2 class="main__section__title">평점이 높은 인기 식당</h2>
-      {% for sort in sorted %}
-        {% if sort.rate is not NONE %}
-        {% comment %} <li>{{ sort.name }}</li>
-        <li>{{ sort.region }} - {{ sort.category }}</li> {% endcomment %}
-        <li><a href="{% url 'restaurants:detail' sort.pk %}">{{ sort.name }} 정보 더보기</a></li>
-        {% endif %}
-      {% endfor %}
+      <div class="row">
+        {% for ranking in rankings %}
+          <div class="main__section__items col-6 col-md-3">
+            <a href="{% url 'restaurants:detail' ranking.pk %}">
+              <div class="main__section__items__image__container">
+                {% comment %} <img src="{{ eatdeal.review_set.reviewphoto_set.image_thumbnail.url }}" alt=""> {% endcomment %}
+              </div>
+              <div class="main__section__items__image__info">
+                <span class="main__section__items__image__info__title">{{ ranking.name }}</span>
+                <span class="main__section__items__image__info__rate">{{ ranking.rate|floatformat:1 }}</span>
+                <p class="main__section__items__image__info__category">{{ ranking.region }} - {{ ranking.category }}</p>
+              </div>
+            </a>  
+          </div>
+        {% endfor %}
+      </div>
     </section>
 
     <section class="main__section__container">
