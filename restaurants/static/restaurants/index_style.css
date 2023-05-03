@@ -67,11 +67,16 @@
   padding-bottom: 30px;
 }
 
-.main__section__items__image__info {
+.main__section__items__image {
+  width: 100%;
+  height: 100%;
+}
+
+.main__section__items__info {
 
 }
 
-.main__section__items__image__info__title {
+.main__section__items__info__title {
   display: inline-block;
   overflow: hidden;
   max-width: 64%;
@@ -82,15 +87,15 @@
   white-space: nowrap;
 }
 
-.main__section__items__image__info__rate {
+.main__section__items__info__rate {
   color: #e9e9e9;
   margin-left: 5px;
-  font-size: 1.37rem;
+  line-height: 1.3em;
   display: inline-block;
   vertical-align: middle;
 }
 
-.main__section__items__image__info__category {
+.main__section__items__info__category {
   color: #9b9b9b;
   line-height: 1.3em;
   font-size: 0.750rem;

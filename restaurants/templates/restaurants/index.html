@@ -37,12 +37,12 @@
             <a href="{% url 'restaurants:detail' eatdeal.pk %}">
               <div class="main__section__items__image__container">
                 <img class="main__section__items__image__eatdeallogo" src="{% static 'restaurants/eatdeal.png' %}" alt="">
-                {% comment %} <img src="{{ eatdeal.review_set.reviewphoto_set.image_thumbnail.url }}" alt=""> {% endcomment %}
+                <img class="main__section__items__image" src="{{ eatdeal.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt="">
               </div>
-              <div class="main__section__items__image__info">
-                <span class="main__section__items__image__info__title">{{ eatdeal.name }}</span>
-                <span class="main__section__items__image__info__rate">{{ eatdeal.rate|floatformat:1 }}</span>
-                <p class="main__section__items__image__info__category">{{ eatdeal.region }} - {{ eatdeal.category }}</p>
+              <div class="main__section__items__info">
+                <span class="main__section__items__info__title">{{ eatdeal.name }}</span>
+                <span class="main__section__items__info__rate">{{ eatdeal.rate|floatformat:1 }}</span>
+                <p class="main__section__items__info__category">{{ eatdeal.region }} - {{ eatdeal.category }}</p>
               </div>
             </a>  
           </div>
@@ -58,12 +58,12 @@
           <div class="main__section__items col-6 col-md-3">
             <a href="{% url 'restaurants:detail' ranking.pk %}">
               <div class="main__section__items__image__container">
-                {% comment %} <img src="{{ eatdeal.review_set.reviewphoto_set.image_thumbnail.url }}" alt=""> {% endcomment %}
+                <img class="main__section__items__image" src="{{ ranking.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt="">
               </div>
-              <div class="main__section__items__image__info">
-                <span class="main__section__items__image__info__title">{{ ranking.name }}</span>
-                <span class="main__section__items__image__info__rate">{{ ranking.rate|floatformat:1 }}</span>
-                <p class="main__section__items__image__info__category">{{ ranking.region }} - {{ ranking.category }}</p>
+              <div class="main__section__items__info">
+                <span class="main__section__items__info__title">{{ ranking.name }}</span>
+                <span class="main__section__items__info__rate">{{ ranking.rate|floatformat:1 }}</span>
+                <p class="main__section__items__info__category">{{ ranking.region }} - {{ ranking.category }}</p>
               </div>
             </a>  
           </div>
