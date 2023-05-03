@@ -57,6 +57,7 @@
                           <hr>
                           <div style="text-align: center;">
                           <!-- <div style="margin-left: 10px;"> -->
+                              <a href="{% url 'accounts:logout' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;로그아웃</a>&nbsp;&middot;&nbsp;
                               <a href="{% url 'accounts:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
                               <a href="{% url 'accounts:change_password' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-lock"></i>&nbsp;비밀번호변경</a>&nbsp;&middot;&nbsp;
                               <a href="{% url 'accounts:delete' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;회원탈퇴</a> <br>

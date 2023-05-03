@@ -25,13 +25,20 @@
             <a href="{% url 'restaurants:eatdeal' %}">EAT딜</a>
           </div>
           <div class="ms-4 py-auto">
+            <a href="{% url 'restaurants:create' %}">맛집 등록</a>
+          </div>
+          <div class="ms-4 py-auto">
             <a href="#">맛집리스트</a>
           </div>
         </div>
         <div class="navbar__userprofileimage__container ms-3">
           {% if request.user.is_authenticated %}
-            <a href="{% url 'accounts:logout' %}">
-              <img class="navbar__userprofileimage" src="{% static '토르발즈.png' %}" alt="유저프로필이미지">
+            <a href="{% url 'accounts:profile' request.user.username %}">
+              {% if request.user.image %}
+                <img class="navbar__userprofileimage" src="{{ request.user.image.url }}" alt="유저프로필이미지">
+              {% else %}
+                <img class="navbar__userprofileimage" src="{% static '토르발즈.png' %}" alt="유저프로필이미지">
+              {% endif %}
             </a>
           {% else %}
             <a href="{% url 'accounts:login' %}">

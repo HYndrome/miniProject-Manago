@@ -12,11 +12,12 @@
     {% for review in reviews %}
       {% for photo in review.reviewphoto_set.all %}
         <div class="item">
-          <img src="{{ photo.image_thumbnail.url }}" alt=""> 
+          <a href="{% url 'reviews:detail' restaurant.pk review.pk %}">
+            <img src="{{ photo.image_thumbnail.url }}" alt=""> 
+          </a>
         </div>
       {% endfor %}
     {% endfor %}
-      <div class="item"><h4>1</h4></div>
   </div>
 
   <div class="main__top">
@@ -236,20 +237,20 @@
 {% comment %} owl carousel {% endcomment %}
 <script type="text/javascript">
   $('.owl-carousel').owlCarousel({
-  loop:true,
-  margin:10,
-  nav:true,
-  responsive:{
-      0:{
-          items:1
-      },
-      600:{
-          items:3
-      },
-      1000:{
-          items:5
-      }
-  }
-})
+    stagePadding: 50,
+    loop:false,
+    margin:10,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+  })
 </script>
 {% endblock script %}

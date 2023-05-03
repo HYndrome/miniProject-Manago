@@ -4,6 +4,7 @@ from .models import Review, Comment, ReviewPhoto
 from .forms import ReviewForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import json
 
 @login_required
 def create(request, restaurant_id):
@@ -96,12 +97,10 @@ def likes(request, restaurant_id, review_id):
     else:
         review.like_users.add(request.user)
         is_liked = True
-    print(review.like_users.count())
     context = {
         'is_liked': is_liked,
         'review_like_count': review.like_users.count(),
     }
-    # return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     return JsonResponse(context)
 
 
@@ -121,6 +120,21 @@ def comment_create(request, restaurant_id, review_id):
         'comment_form': comment_form,
     }
     return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id, context=context)
+
+
+@login_required
+def comment_update(request, restaurant_id, review_id, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.user == comment.user:
+        if request.method == 'POST':
+            jsonObject = json.loads(request.body)
+            comment.content = jsonObject['content']
+            comment.save()
+
+    context = {
+        'content': comment.content,
+    }
+    return JsonResponse(context)
 
 
 @login_required
