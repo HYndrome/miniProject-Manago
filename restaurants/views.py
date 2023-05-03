@@ -64,7 +64,14 @@ def detail(request, restaurant_id):
     restaurant.save()
     
     menus = restaurant.menu_set.all()
+
     reviews = Review.objects.filter(restaurant_id=restaurant_id)
+    select_rate = request.GET.get('rate')
+
+    review_count_5 = reviews.filter(rate=5).count()
+    review_count_3 = reviews.filter(rate=3).count()
+    review_count_1 = reviews.filter(rate=1).count()
+    reviews_filter = review_filter(reviews, select_rate)
     # 리뷰 평균 
     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant_id).aggregate(Avg('rate'))['rate__avg']
     menu_form = MenuForm()
@@ -76,8 +83,19 @@ def detail(request, restaurant_id):
         'menu_form': menu_form,
         'review_form': review_form,
         'reviews_averagerate': reviews_averagerate,
+        
+        'reviews_filter': reviews_filter,
+        'review_count_5': review_count_5,
+        'review_count_3': review_count_3,
+        'review_count_1': review_count_1,
     }
     return render(request, 'restaurants/detail.html', context)
+
+def review_filter(queryset, rate):
+    if rate:
+        return queryset.filter(rate=int(rate))
+    else:
+        return queryset
 
 @login_required
 def delete(request, restaurant_id):

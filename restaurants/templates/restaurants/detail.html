@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+
 {% block style %}
   <link rel="stylesheet" href="{% static 'restaurants/detail_style.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -14,7 +15,7 @@
       {% for photo in review.reviewphoto_set.all %}
         <div class="item">
           <a href="{% url 'reviews:detail' restaurant.pk review.pk %}">
-            <img src="{{ photo.image_thumbnail.url }}" alt=""> 
+            <img src="{{ photo.image_thumbnail.url }}" alt="">
           </a>
         </div>
       {% endfor %}
@@ -27,26 +28,32 @@
         {{ restaurant.name }}
       </h1>
       <span class="restaurant__title__rate">
-        {{ reviews_averagerate|floatformat:1 }}
+        <i class="bi bi-star-fill"></i>{{ reviews_averagerate|floatformat:1 }}
       </span>
     </div>
 
     <div class="restaurant__input">
-      {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+      {% if request.user.is_authenticated %}
         <a href="{% url 'reviews:create' restaurant.id %}" class="restaurant__input__btn d-flex flex-column align-items-center" style=""><i class="bi bi-pencil-square restaurant__input__icon"></i>리뷰 작성</a>
         <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
           {% csrf_token %}
           {% if request.user in restaurant.wish_users.all %}
           <button type="submit" class="restaurant__input__btn d-flex flex-column align-items-center" style="">
-            <i class="bi bi-star-fill restaurant__input__icon"></i>가고싶다
+            <i class="bi bi-star-fill restaurant__input__icon text-color-main"></i><span class="text-color-main">가고싶다</span>
           </button>
           {% else %}
           <button type="submit" class="restaurant__input__btn d-flex flex-column align-items-center" style="">
-            <i class="bi bi-star restaurant__input__icon"></i>가고싶다
+            <i class="bi bi-star restaurant__input__icon"></i><span>가고싶다</span>
           </button>
           {% endif %}
         </form>
-      {% comment %} {% endif %} {% endcomment %}
+      {% else %}
+      <a href="{% url 'reviews:create' restaurant.id %}" class="restaurant__input__btn d-flex flex-column align-items-center" style="pointer-events: none;"><i class="bi bi-pencil-square restaurant__input__icon"></i>리뷰 작성</a>
+      <button type="submit" class="restaurant__input__btn d-flex flex-column align-items-center disabled" style="">
+        <i class="bi bi-star restaurant__input__icon"></i>가고싶다
+      </button>
+      {% endif %}
+
       {% if request.user == restaurant.user %}
       <form action="{% url 'restaurants:delete' restaurant.pk %}" method="POST">
         {% csrf_token %}
@@ -89,7 +96,7 @@
         <th>음식 종류</th>
         <td>{{ restaurant.category }}</td>
       </tr>
-      <tr> 
+      <tr>
         <th>가격대</th>
         <td>{{ restaurant.pricerange }}</td>
       </tr>
@@ -142,7 +149,7 @@
               <div class="input-group mb-3">
                 <span class="input-group-text" style = "width: 13rem;" id="{{ field.auto_id }}">{{ field.label }}</span>
                 {{ field }}
-              </div> 
+              </div>
               {% endfor %}
               <div class="d-grid gap-2 mb-2">
                 <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="MENU 등록">
@@ -153,21 +160,30 @@
       </tr>
     </tbody>
   </table>
-  
-  
+  <p class="text-end rt_updated_at">업데이트: {{ restaurant.updated_at|date:"Y-m-d" }}</p>
+
 
 
 
 
   <hr>
-  {% for review in reviews %}
-    <ul class="comments_container">
+  <div class="review__top my-1 d-flex">
+    <p><i class="bi bi-chat-left-dots"></i> 리뷰 ({{ restaurant.review_set.count }})</p>
+    <form class="review__top_filter ms-auto">
+        <button type="submit"  value="" name="rate" class="filter-btn text-color-sub">전체 ({{ restaurant.review_set.count }})</button> | 
+        <button type="submit"  value="5" name="rate" class="filter-btn text-color-sub">맛있다 ({{ review_count_5 }})</button> |
+        <button type="submit"  value="3" name="rate" class="filter-btn text-color-sub">괜찮다 ({{ review_count_3 }})</button> |
+        <button type="submit"  value="1" name="rate" class="filter-btn text-color-sub">별로 ({{ review_count_1 }})</button>
+    </form>
+  </div>
+  <ul class="comments_container">
+  {% for review in reviews_filter %}
       <li class="comment__container">
         <a class="d-flex" href="{% url 'reviews:detail' restaurant.pk review.pk %}">
           <div class="comment__user">
             <div class="comment__user__image__container">
-              {% if review.user.profile_image %}
-                {% comment %} {{ review.user.profile_image }} {% endcomment %}
+              {% if review.user.image %}
+                <img class="comment__user__image" src="{{ review.user.image.url }}" alt="{{ review.user }}_profile_image">
               {% else %}
                 <img class="comment__user__image" src="{% static '토르발즈.png' %}" alt="유저프로필사진 없음">
               {% endif %}
@@ -176,25 +192,32 @@
               {{ review.user }}
             </span>
             <div class="comment__user__info d-flex justify-content-center align-items-center">
-              <svg class="comment__user__info__icon" fill="#DBDBDB" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M20.7,5.2a1.024,1.024,0,0,1,0,1.448L18.074,9.276l-3.35-3.35L17.35,3.3a1.024,1.024,0,0,1,1.448,0Zm-4.166,5.614-3.35-3.35L4.675,15.975,3,21l5.025-1.675Z"></path></g></svg>
+              <i class="bi bi-pencil-fill"></i>
               <span>
                 {{ review.user.review_set.count }}
-              </span>
-              <svg class="comment__user__info__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 19V18C3 15.7909 4.79086 14 7 14H11C13.2091 14 15 15.7909 15 18V19M15 11C16.6569 11 18 9.65685 18 8C18 6.34315 16.6569 5 15 5M21 19V18C21 15.7909 19.2091 14 17 14H16.5M12 8C12 9.65685 10.6569 11 9 11C7.34315 11 6 9.65685 6 8C6 6.34315 7.34315 5 9 5C10.6569 5 12 6.34315 12 8Z" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-              <span>
+              </span>&nbsp;
+              <i class="bi bi-people-fill"></i>
+              <span>&nbsp;
                 {{ review.user.followers.count }}
               </span>
             </div>
           </div>
-          <div class="comment__content">
+          <div class="comment__content my-2">
             <p class="comment__content__updateat">
               {{ review.created_at |date:"Y-m-d" }}
             </p>
             <p>
               {{ review.content }}
             </p>
+            <div class="review_picture_container mb-3">
+              {% for photo in review.reviewphoto_set.all %}
+              <div class="review_picture">
+                <img src="{{ photo.image_thumbnail.url }}" alt="review_thumbnail" width="100px">
+              </div>
+              {% endfor %}
+            </div>
           </div>
-          <div class="comment__rate__container">
+          <div class="comment__rate__container my-2">
             {% if review.rate >= 4 %}
               <img src= "{% static 'reviews/good_face_act.png' %}" alt="good_face_act">
               <p>맛있다</p>
@@ -208,8 +231,8 @@
           </div>
         </a>
       </li>
+      {% endfor %}
     </ul>
-  {% endfor %}
 
 </main>
 

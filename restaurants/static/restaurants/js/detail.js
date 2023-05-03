@@ -11,11 +11,16 @@ form.addEventListener('submit', function (event) {
     .then((response) => {
       const isWished = response.data.is_wished
       const wishBtn = document.querySelector('#wish-form > button[type=submit] > i')
+      const wishText = document.querySelector('#wish-form > button[type=submit] > span')
       if (isWished === true) {
         wishBtn.classList.add('bi-star-fill')
+        wishBtn.classList.add('text-color-main')
+        wishText.classList.add('text-color-main')
         wishBtn.classList.remove('bi-star')
       } else {
         wishBtn.classList.remove('bi-star-fill')
+        wishBtn.classList.remove('text-color-main')
+        wishText.classList.remove('text-color-main')
         wishBtn.classList.add('bi-star')
       }
       const wishCountTag = document.querySelector('#wish-count')
