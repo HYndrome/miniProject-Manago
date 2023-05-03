@@ -11,17 +11,34 @@ from django.db.models import Avg
 # Create your views here.
 def index(request):
     restaurants = Restaurant.objects.all()
+    # Restaurant 평균 평점 갱신
     for restaurant in restaurants:
         reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
         rt = Restaurant.objects.get(pk=restaurant.pk)
         rt.rate = reviews_averagerate
         rt.save()
+    # Restaurant thumbnail 갱신
+    flag = False
+    for restaurant in restaurants:
+        for review in restaurant.review_set.all():
+            flag = False
+            if flag == True:
+                    break
+            for reviewphoto in review.reviewphoto_set.all():
+                if reviewphoto.image_review:
+                    print(reviewphoto.image_review)
+                    restaurant.image_first = reviewphoto.image_review
+                    restaurant.save()
+                    flag = True
+                    break
+
     rankings = restaurants.order_by('-rate')[:8]
     eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
+                    
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
-        'rankings': rankings
+        'rankings': rankings,
     }
     return render(request, 'restaurants/index.html', context)
 
