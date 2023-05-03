@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from imagekit.models import ImageSpecField
+from imagekit.processors import Thumbnail
 
 category_CHOICES = [
             ("족발,보쌈", "족발,보쌈"),
@@ -55,8 +57,11 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     rate = models.IntegerField(null=True, blank=True)
-    first_review = models.ForeignKey('reviews.Review', related_name='restaurant_review', on_delete=models.CASCADE, null=True, blank=True)
-    first_photo = models.ForeignKey('reviews.ReviewPhoto', related_name='restaurant_photo', on_delete=models.CASCADE, null=True, blank=True)
+    image_first = models.ImageField(null=True, blank=True)
+    image_thumbnail = ImageSpecField(source='image_first',
+                                      processors=[Thumbnail(200, 200)],
+                                      format='JPEG',
+                                      options={'quality': 100})
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)

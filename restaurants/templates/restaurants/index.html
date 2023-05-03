@@ -37,7 +37,7 @@
             <a href="{% url 'restaurants:detail' eatdeal.pk %}">
               <div class="main__section__items__image__container">
                 <img class="main__section__items__image__eatdeallogo" src="{% static 'restaurants/eatdeal.png' %}" alt="">
-                <img class="main__section__items__image" src="{{ eatdeal.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt="">
+                <img class="main__section__items__image" src="{{ eatdeal.image_thumbnail.url }}" alt="{{ eatdeal.name }}">
               </div>
               <div class="main__section__items__info">
                 <span class="main__section__items__info__title">{{ eatdeal.name }}</span>
@@ -58,7 +58,7 @@
           <div class="main__section__items col-6 col-md-3">
             <a href="{% url 'restaurants:detail' ranking.pk %}">
               <div class="main__section__items__image__container">
-                <img class="main__section__items__image" src="{{ ranking.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt="">
+                <img class="main__section__items__image" src="{{ ranking.image_thumbnail.url }}" alt="{{ ranking.name }}">
               </div>
               <div class="main__section__items__info">
                 <span class="main__section__items__info__title">{{ ranking.name }}</span>
