@@ -1,0 +1,140 @@
+[
+{
+    "model": "restaurants.restaurant",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "name": "마가만두",
+        "views": 10,
+        "region": "부산",
+        "address": "부산광역시 동구 대영로243번길 56",
+        "phone": "051-468-4059",
+        "category": "중식",
+        "pricerange": "만원 미만",
+        "parking": "주차공간없음",
+        "business_hours": "11:00 - 21:00 (첫째주, 셋째주 월요일에는 쉽니다)",
+        "time_lastorder": "20:00",
+        "eatdeal": false,
+        "created_at": "2023-05-03T12:40:55.976Z",
+        "updated_at": "2023-05-03T15:10:49.433Z",
+        "rate": 5,
+        "image_first": "179982_1490328588168726_UlJMfij.jpg",
+        "wish_users": []
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "name": "양밍산",
+        "views": 5,
+        "region": "서울",
+        "address": "서울특별시 서대문구 가좌로 36 1F",
+        "phone": "010-9966-6555",
+        "category": "중식",
+        "pricerange": "만원-2만원",
+        "parking": "-",
+        "business_hours": "11:30 - 21:00",
+        "time_lastorder": "20:00",
+        "eatdeal": false,
+        "created_at": "2023-05-03T12:57:09.656Z",
+        "updated_at": "2023-05-03T15:10:49.437Z",
+        "rate": 3,
+        "image_first": "63413_1678505453992344.jpg",
+        "wish_users": []
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "name": "꼼다비뛰드",
+        "views": 4,
+        "region": "서울",
+        "address": "서울특별시 강남구 강남대로110길 62",
+        "phone": "070-4101-8456",
+        "category": "카페,디저트",
+        "pricerange": "만원 미만",
+        "parking": "주차공간없음",
+        "business_hours": "목, 토 11:00 -17:00 (월화수금일은 쉽니다)",
+        "time_lastorder": "16:00",
+        "eatdeal": false,
+        "created_at": "2023-05-03T13:01:44.865Z",
+        "updated_at": "2023-05-03T15:10:49.441Z",
+        "rate": 2,
+        "image_first": "585290_1679191787585_1000009442.jpeg",
+        "wish_users": []
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 4,
+    "fields": {
+        "user": 1,
+        "name": "르솔레이",
+        "views": 3,
+        "region": "서울",
+        "address": "서울특별시 서대문구 연희맛로 7-29",
+        "phone": "010-8930-6371",
+        "category": "카페,디저트",
+        "pricerange": "만원 미만",
+        "parking": "주차공간없음",
+        "business_hours": "12:00 - 20:00",
+        "time_lastorder": "19:00",
+        "eatdeal": false,
+        "created_at": "2023-05-03T13:03:15.174Z",
+        "updated_at": "2023-05-03T15:10:49.445Z",
+        "rate": 3,
+        "image_first": "1196871_1678524720458_1000005997.jpeg",
+        "wish_users": []
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 5,
+    "fields": {
+        "user": 1,
+        "name": "갈월이골목",
+        "views": 6,
+        "region": "서울",
+        "address": "서울특별시 용산구 두텁바위로1길 35",
+        "phone": "070-8955-1789",
+        "category": "양식",
+        "pricerange": "만원-2만원",
+        "parking": "주차공간없음",
+        "business_hours": "11:30 - 24:00 (15:30 - 17:00에는 쉽니다)",
+        "time_lastorder": "14:30, 23:00",
+        "eatdeal": true,
+        "created_at": "2023-05-03T13:05:45.668Z",
+        "updated_at": "2023-05-03T15:10:49.450Z",
+        "rate": 5,
+        "image_first": "1759532_1609176879501068.jpg",
+        "wish_users": []
+    }
+},
+{
+    "model": "restaurants.restaurant",
+    "pk": 6,
+    "fields": {
+        "user": 1,
+        "name": "연남소년",
+        "views": 1,
+        "region": "서울",
+        "address": "서울특별시 마포구 성미산로29안길 27-7 1F",
+        "phone": "02-6949-4249",
+        "category": "양식",
+        "pricerange": "만원-2만원",
+        "parking": "유료주차 가능",
+        "business_hours": "13:00 - 22:00 (월요일에는 쉽니다)",
+        "time_lastorder": "21:00",
+        "eatdeal": true,
+        "created_at": "2023-05-03T13:07:33.054Z",
+        "updated_at": "2023-05-03T15:10:49.453Z",
+        "rate": 3,
+        "image_first": "1881313_1613650927438_213295.jpeg",
+        "wish_users": []
+    }
+}
+]

@@ -124,6 +124,12 @@ def wish(request, restaurant_id):
     return JsonResponse(context)
 
 def category(request, restaurant_category):
+    restaurants = Restaurant.objects.all()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     category_restaurants = Restaurant.objects.filter(category=restaurant_category).order_by('-rate')
     reviews = Review.objects.all()
     context = {
@@ -134,6 +140,12 @@ def category(request, restaurant_category):
     return render(request, 'restaurants/category.html', context)
 
 def eatdeal(request):
+    restaurants = Restaurant.objects.all()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     restaurants = Restaurant.objects.filter(eatdeal=True).order_by('-rate')
     reviews = Review.objects.all()
     context = {
@@ -143,6 +155,12 @@ def eatdeal(request):
     return render(request, 'restaurants/eatdeal.html', context)
 
 def region(request, restaurant_region):
+    restaurants = Restaurant.objects.all()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     region_restaurants = Restaurant.objects.filter(region=restaurant_region).order_by('-rate')
     reviews = Review.objects.all()
     context = {

@@ -8,6 +8,37 @@
 {% block content %}
   <header class="d-flex justify-content-center align-items-center text-center border-bottom">
     <div>
+      <h5 class="update__info mt-4">업데이트 정보 : 
+        <script type="text/javascript">
+          document.write(getTimeStamp() + '<br />');
+
+          function getTimeStamp() {
+            var d = new Date();
+          
+            var s =
+              leadingZeros(d.getFullYear(), 4) + '-' +
+              leadingZeros(d.getMonth() + 1, 2) + '-' +
+              leadingZeros(d.getDate(), 2) + ' ' +
+          
+              leadingZeros(d.getHours(), 2) + ':' +
+              leadingZeros(d.getMinutes(), 2) + ':' +
+              leadingZeros(d.getSeconds(), 2);
+          
+            return s;
+          }
+          
+          function leadingZeros(n, digits) {
+            var zero = '';
+            n = n.toString();
+          
+            if (n.length < digits) {
+              for (i = 0; i < digits - n.length; i++)
+                zero += '0';
+            }
+            return zero + n;
+          }
+        </script>
+      </h5>
       <h1 class="mt-4">{{ restaurant_category }} 맛집 베스트 5곳</h1>
       <h4 class="mt-4 mb-4">"내 입맛에도 딱! {{ restaurant_category }} 맛집!"</h4>
     </div>
@@ -16,21 +47,23 @@
     {% if restaurant.rate is not NONE %}
     <div class="container">
       <div class="row justify-content-center mt-3 mb-3">
-        <div class="col-12 col-lg-auto">
-          <div class="picture_container float-end">
-            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="picture align-self-center" src="#" alt=""></a>
+        <div class="col-auto col-lg-3">
+          <div class="container__img float-end">
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="restaurant__img align-self-center" src="{{ restaurant.review_set.first.reviewphoto_set.first.image_thumbnail.url }}" alt=""></a>
           </div>
         </div>
-        <div class="col-12 col-lg-6">
-          <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
-          <h5>{{ restaurant.address }}</h5>
-          <p>{{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}</p>
-          <div class="text-end">
+        <div class="info__parent col-5 col-lg-6">
+          <div class="info__first">
+            <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
+            <h5>{{ restaurant.address }}</h5>
+          </div>
+          <div class="info__second box">
+            {{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}
+          </div>
+          <div class="info__third text-end">
             <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
           </div>
-          
         </div>
-        
       </div>
       <hr class="divider w-100">
     </div>
