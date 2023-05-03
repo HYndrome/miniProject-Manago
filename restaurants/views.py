@@ -6,7 +6,7 @@ from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.db.models import Avg
+from django.db.models import Count, Avg
 
 # Create your views here.
 def index(request):
@@ -21,9 +21,9 @@ def index(request):
     flag = False
     for restaurant in restaurants:
         for review in restaurant.review_set.all():
-            flag = False
             if flag == True:
                     break
+            flag = False
             for reviewphoto in review.reviewphoto_set.all():
                 if reviewphoto.image_review:
                     print(reviewphoto.image_review)
@@ -34,6 +34,8 @@ def index(request):
 
     rankings = restaurants.order_by('-rate')[:8]
     eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
+    region = Restaurant.objects.annotate(num_restaurant=Count('region'))
+    print(region[0].num_restaurant)
                     
     context = {
         'restaurants': restaurants,

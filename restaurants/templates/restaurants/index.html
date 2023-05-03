@@ -12,11 +12,11 @@
       <p class="header__title">솔직한 리뷰, 믿을 수 있는 평점!</p>
       <h1 class="header__title">망고플레이트</h1>
     </div>
-    <a class="header__tag--l" href="#">
+    <a class="header__tag--l" href="{% url 'restaurants:eatdeal' %}">
       <img class="header__tag--l__img" src="{% static 'restaurants/eatdealpromo.png' %}" alt="eatdeal이동">
     </a>
   </header>
-  <a class="header__tag--s" href="#">
+  <a class="header__tag--s" href="{% url 'restaurants:eatdeal' %}">
     <img class="header__tag__img--s" src="{% static 'restaurants/eatdealpromo_s.png' %}" alt="eatdeal이동">
   </a>
 
@@ -24,9 +24,24 @@
     <section class="main__section__container">
       <h2 class="main__section__title">카테고리별 맛집 리스트</h2>
       {% regroup restaurants by category as categories_list %}
-      {% for category in categories_list %}
-        <a href="{% url 'restaurants:category' category.grouper %}">{{ category.grouper }} 인기 맛집 TOP 10</a>
-      {% endfor %}
+      <div class="owl-carousel owl-carousel--category owl-theme">
+        {% for category in categories_list %}
+        <a href="{% url 'restaurants:category' category.grouper %}">
+          <div class="item main__section__items__image__container">
+            {% for restaurant in category.list %}
+              {% if restaurant.image_thumbnail %}
+                <img class="main__section__carousel__image" src="{{ restaurant.image_thumbnail.url }}" alt="{{ category.grouper }} 인기 맛집 TOP 10">
+              {% else %}
+                <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+              {% endif %}
+            {% endfor %}
+            <div class="main__section__carousel__caption" >
+              <span>{{ category.grouper }} 인기 맛집 TOP 10</span>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
     </section>
 
     <section class="main__section__container">
@@ -37,7 +52,11 @@
             <a href="{% url 'restaurants:detail' eatdeal.pk %}">
               <div class="main__section__items__image__container">
                 <img class="main__section__items__image__eatdeallogo" src="{% static 'restaurants/eatdeal.png' %}" alt="">
-                <img class="main__section__items__image" src="{{ eatdeal.image_thumbnail.url }}" alt="{{ eatdeal.name }}">
+                {% if eatdeal.image_thumbnail %}
+                  <img class="main__section__items__image" src="{{ eatdeal.image_thumbnail.url }}" alt="{{ eatdeal.name }}">
+                {% else %}
+                  <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+                {% endif %}
               </div>
               <div class="main__section__items__info">
                 <span class="main__section__items__info__title">{{ eatdeal.name }}</span>
@@ -48,7 +67,6 @@
           </div>
         {% endfor %}
       </div>
-      
     </section>
 
     <section class="main__section__container">
@@ -58,7 +76,11 @@
           <div class="main__section__items col-6 col-md-3">
             <a href="{% url 'restaurants:detail' ranking.pk %}">
               <div class="main__section__items__image__container">
-                <img class="main__section__items__image" src="{{ ranking.image_thumbnail.url }}" alt="{{ ranking.name }}">
+                {% if ranking.image_thumbnail %}
+                  <img class="main__section__items__image" src="{{ ranking.image_thumbnail.url }}" alt="{{ ranking.name }}">
+                {% else %}
+                  <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+                {% endif %}
               </div>
               <div class="main__section__items__info">
                 <span class="main__section__items__info__title">{{ ranking.name }}</span>
@@ -74,9 +96,28 @@
     <section class="main__section__container">
       <h2 class="main__section__title">지역별 인기맛집</h2>
       {% regroup restaurants by region as regions_list %}
-      {% for region in regions_list %}
-      <a href="{% url 'restaurants:region' region.grouper %}">{{ region.grouper }} 인기 맛집 TOP 10</a>
-      {% endfor %}
+      <div class="owl-carousel owl-carousel--region owl-theme">
+        {% for region in regions_list %}
+        <a href="{% url 'restaurants:region' region.grouper %}">
+          <div class="item main__section__items__image__container">
+            {% for restaurant in region.list %}
+              {% if restaurant.image_thumbnail %}
+                <img class="main__section__carousel__image" src="{{ restaurant.image_thumbnail.url }}" alt="{{ region.grouper }} 인기 맛집 TOP 10">
+              {% else %}
+              <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+              {% endif %}
+            {% endfor %}
+            <div class="main__section__carousel__caption" >
+              <span>{{ region.grouper }} 인기 맛집 TOP 10</span>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
     </section>
   </main>
 {% endblock content %}
+
+{% block script %}
+<script src="{% static 'restaurants/js/index_owl.js' %}" type="text/javascript"></script>
+{% endblock script %}
