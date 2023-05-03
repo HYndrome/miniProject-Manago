@@ -12,15 +12,12 @@ from django.db.models import Avg
 def index(request):
     restaurants = Restaurant.objects.all()
     for restaurant in restaurants:
-        reviews = Review.objects.filter(restaurant_id=restaurant.pk)
         reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
         rt = Restaurant.objects.get(pk=restaurant.pk)
         rt.rate = reviews_averagerate
         rt.save()
     rankings = restaurants.order_by('-rate')[:8]
-    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('rate')[:8]
-
-
+    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
