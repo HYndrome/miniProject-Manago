@@ -6,26 +6,57 @@
 {% endblock style %}
 
 {% block content %}
-<h3>잇딜 진행 중</h3>
-<ul>
+  <header class="d-flex justify-content-center align-items-center text-center border-bottom">
+    <div>
+      <h1 class="mt-4">잇딜 진행 중 맛집</h1>
+      <h4 class="mt-4 mb-4">"기왕이면 저렴하게 맛보고 즐기고!"</h4>
+    </div>
+  </header>
   {% for restaurant in restaurants %}
-  <li>{{ restaurant.name }}
-    {% comment %} <div>
-      <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
-        {% csrf_token %}
-        {% if request.user in restaurant.wish_users.all %}
-          <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% else %}
-          <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-        {% endif %}
-      </form>
-    </div> {% endcomment %}
-  </li>
-  <li>{{ restaurant.address }}</li>
-  <li><a href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기</a></li>
+    <div class="container mb-3 border-bottom">
+      <div class="row mt-3 mb-3">
+        <div class="col-lg-3">
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              {% for review in reviews %}
+                {% if review.restaurant_id == restaurant.pk %}
+                  {% for photo in review.reviewphoto_set.all %}
+                  <div class="carousel-item active">
+                    <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="align-self-center img-thumbnail" src="{{ photo.image_review.url }}" alt=""></a>
+                  </div>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <h3><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }} <span class="span__rate">{{ restaurant.rate|floatformat:1 }}</span></a></h3>
+          <h5>{{ restaurant.address }}</h5>
+          {% for review in reviews %}
+            {% if review.restaurant_id == restaurant.pk %}
+              <p><span class="span__reviewuser">{{ review.user }}</span> {{ review.content }}</p>
+            {% endif %}
+          {% endfor %}
+          <div class="text-end">
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endfor %}
-</ul>
 {% endblock content %}
+
+      {% comment %} <div>
+        <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+          {% csrf_token %}
+          {% if request.user in restaurant.wish_users.all %}
+            <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+          {% else %}
+            <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+          {% endif %}
+        </form>
+      </div> {% endcomment %}
 
 {% comment %} {% block script %}
 <script>

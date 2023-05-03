@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Restaurant, Menu
-from reviews.models import Review
+from reviews.models import Review, ReviewPhoto
 from reviews.forms import Review
 from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
@@ -26,7 +26,7 @@ def index(request):
     }
     return render(request, 'restaurants/index.html', context)
 
-# @login_required
+@login_required
 def create(request):
     if request.method == 'POST':
         restaurant_form = RestaurantForm(request.POST)
@@ -60,14 +60,14 @@ def detail(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-# @login_required
+@login_required
 def delete(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.user == restaurant.user:
         restaurant.delete()
     return redirect('restaurants:index')
 
-# @login_required
+@login_required
 def menu(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     menu_form = MenuForm(request.POST)
@@ -83,14 +83,14 @@ def menu(request, restaurant_id):
     }
     return render(request, 'restaurants/detail.html', context)
 
-# @login_required
+@login_required
 def menu_delete(request, restaurant_id, menu_id):
     menu = Menu.objects.get(pk=menu_id)
     if request.user == menu.user:
         menu.delete()
     return redirect('restaurants:detail', restaurant_id)
 
-# @login_required
+@login_required
 def wish(request, restaurant_id):
     restaurant = Restaurant.objects.get(pk=restaurant_id)
     if request.user in restaurant.wish_users.all():
@@ -105,7 +105,7 @@ def wish(request, restaurant_id):
     return JsonResponse(context)
 
 def category(request, restaurant_category):
-    category_restaurants = Restaurant.objects.filter(category=restaurant_category)
+    category_restaurants = Restaurant.objects.filter(category=restaurant_category).order_by('-rate')
     reviews = Review.objects.all()
     context = {
             'restaurant_category': restaurant_category,
@@ -115,17 +115,19 @@ def category(request, restaurant_category):
     return render(request, 'restaurants/category.html', context)
 
 def eatdeal(request):
-    restaurants = Restaurant.objects.filter(eatdeal=True)
+    restaurants = Restaurant.objects.filter(eatdeal=True).order_by('-rate')
     context = {
         'restaurants': restaurants
     }
     return render(request, 'restaurants/eatdeal.html', context)
 
 def region(request, restaurant_region):
-    region_restaurants = Restaurant.objects.filter(region=restaurant_region)
+    region_restaurants = Restaurant.objects.filter(region=restaurant_region).order_by('-rate')
+    reviews = Review.objects.all()
     context = {
         'restaurant_region': restaurant_region,
         'region_restaurants': region_restaurants,
+        'reviews': reviews,
     }
     return render(request, 'restaurants/region.html', context)
 
