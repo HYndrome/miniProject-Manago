@@ -16,7 +16,7 @@
                           <strong style="font-size: 18px;"><i class="fas fa-user-cog"></i>내 정보</strong>
                       </div>
                       <div class="card-body">
-                        <img src="{{ signup.image.url }}" alt="이미지">
+                        <img src="{{ request.user.image.url }}" alt="이미지">
                           <table style="color:black; margin-left:10px;">
 
                               <tr>
@@ -31,6 +31,14 @@
                                   <td class="profile_title">이름 :</td>
                                   <td class="profile_content">{{ person.name }}</td>
                               </tr>
+                              <tr>
+                                  <td class="profile_title">작성한 리뷰</td>
+                                  <td class="profile_content">
+                                    {% for review in person.review_set.all %}
+                                     <a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">{{ review.content }}</a>
+                                    {% endfor %}
+                                </td>
+                              </tr>      
                 
                               </table>
                               <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 

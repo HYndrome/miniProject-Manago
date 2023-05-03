@@ -29,6 +29,8 @@
     {{ form.as_p }}
     <input type="submit" value="Login" class="btn btn-outline-secondary d-block w-100 mb-3">
     <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'restaurants:index' %}" role="button">HOME</a>
+    <br>
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'accounts:signup' %}" role="button">회원가입</a>
   </form>
 </div>
 </div>
