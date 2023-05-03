@@ -212,48 +212,7 @@
 
 
 {% block script %}
-<script>
-  const form = document.querySelector('#wish-form')
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-  form.addEventListener('submit', function (event) {
-    event.preventDefault()
-    const restaurantId = event.target.dataset.restaurantId
-    axios({
-      method: 'post',
-      url: `/restaurants/${restaurantId}/wish/`,
-      headers: {'X-CSRFToken': csrftoken},
-    })
-      .then((response) => {
-        const isWished = response.data.is_wished
-        const wishBtn = document.querySelector('#wish-form > input[type=submit]')
-        if (isWished === true) {
-          wishBtn.value = 'NOT WISH'
-        } else {
-          wishBtn.value = 'WISH'
-        }
-        const wishCountTag = document.querySelector('#wish-count')
-        const wishCountData = response.data.wish_count
-        wishCountTag.textContent = wishCountData
-      })
-  })
-</script>
-{% comment %} owl carousel {% endcomment %}
-<script type="text/javascript">
-  $('.owl-carousel').owlCarousel({
-    stagePadding: 50,
-    loop:false,
-    margin:10,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-        }
-    }
-  })
-</script>
+<script src="{% static 'restaurants/js/detail.js' %}"></script>
+<script src="{% static 'restaurants/js/detail_owl.js' %}" type="text/javascript"></script>
+
 {% endblock script %}
