@@ -5,7 +5,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
 
 class Review(models.Model):
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='restaurant_review')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     rate = models.IntegerField(default=3)

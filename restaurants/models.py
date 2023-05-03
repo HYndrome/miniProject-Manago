@@ -55,8 +55,6 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     rate = models.IntegerField(null=True, blank=True)
-    first_review = models.ForeignKey('reviews.Review', related_name='restaurant_review', on_delete=models.CASCADE, null=True, blank=True)
-    first_photo = models.ForeignKey('reviews.ReviewPhoto', related_name='restaurant_photo', on_delete=models.CASCADE, null=True, blank=True)
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
