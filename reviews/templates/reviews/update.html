@@ -36,11 +36,22 @@
       {{ form.as_p }}
     </div>
     <div class="mb-3">
-      <input class="form-control" type="file" name="image_review" multiple>
+      <p class="mb-1">추가할 이미지</p>
+      {{ image_form }}
     </div>
+    <p class="mb-1">삭제할 이미지</p>
+    <ul>
+      {% for image in images %}
+      <li>
+        <img src="{{ image.image_thumbnail.url }}" alt="{{ image.image }}" width="100px;">
+        <input type="checkbox" name="delete_images" value="{{ image.id }}" id="delete_images-{{ image.id }}">
+        <label for="delete_images-{{ image.id }}">{{ image.image_review }}</label>
+      </li>
+      {% endfor %}
+    </ul>
     <div class="review_button d-flex">
       <a href="{% url 'reviews:detail' restaurant_id review_id %}" class="review_button_item review_cancel " type="button">취소</a>
-      <input class="review_button_item review_submit " type="submit" value="리뷰 올리기">
+      <input class="review_button_item review_submit " type="submit" value="리뷰 수정">
     </div>
   </form>
 </div>
