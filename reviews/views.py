@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from restaurants.models import Restaurant
 from .models import Review, Comment, ReviewPhoto
-from .forms import ReviewForm, CommentForm
+from .forms import ReviewForm, CommentForm, ReviewPhotoForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
@@ -25,8 +25,10 @@ def create(request, restaurant_id):
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review.id)
     else:
         form = ReviewForm(user=request.user)
+        image_form = ReviewPhotoForm()
     context = {
         'form': form,
+        'image_form': image_form,
         'restaurant': restaurant,
         'restaurant_id': restaurant_id,
     }
@@ -63,7 +65,7 @@ def update(request, restaurant_id, review_id):
     if request.user != review.user:
         return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     if request.method == 'POST':
-        review_form = ReviewForm(request.POST, instance=review)
+        review_form = ReviewForm(request.POST, request.FILES, instance=review)
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.user = request.user
@@ -78,8 +80,10 @@ def update(request, restaurant_id, review_id):
             return redirect('reviews:detail', restaurant_id=restaurant_id, review_id=review_id)
     else:
         form = ReviewForm(instance=review, user=request.user)
+        image_form = ReviewPhotoForm()
     context = {
         'form': form,
+        'image_form': image_form,
         'review': review,
         'restaurant': restaurant,
         'restaurant_id': restaurant_id,

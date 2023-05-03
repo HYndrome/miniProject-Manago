@@ -36,7 +36,7 @@
       {{ form.as_p }}
     </div>
     <div class="mb-3">
-      <input class="form-control" type="file" name="image_review" multiple>
+      {{ image_form }}
     </div>
     <div class="review_button d-flex">
       <a href="{% url 'restaurants:detail' restaurant_id %}" class="review_button_item review_cancel " type="button">취소</a>
