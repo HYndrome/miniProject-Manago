@@ -14,36 +14,23 @@
   </header>
   {% for restaurant in region_restaurants %}
     {% if restaurant.rate is not NONE %}
-    <div class="container border-bottom">
-      <div class="row mt-3 mb-3">
-        <div class="col-lg-3">
-          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              {% for review in reviews %}
-                {% if review.restaurant_id == restaurant.pk %}
-
-                  <div class="picture_container carousel-item active">
-                  {% for photo in review.reviewphoto_set.all %}
-                    <div class="picture">
-                      <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="align-self-center img-thumbnail mb-3 mt-3" src="{{ photo.image_thumbnail.url }}" alt=""></a>
-                    </div>
-                  {% endfor %}
-                  </div>
-
-                {% endif %}
-              {% endfor %}
-            </div>
+    <div class="container">
+      <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-12 col-lg-3">
+          <div class="picture_container float-end">
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="picture align-self-center" src="#" alt=""></a>
           </div>
         </div>
-        <div class="col-lg-9">
-          <h3><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
+        <div class="col-12 col-lg-6">
+          <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
           <h5>{{ restaurant.address }}</h5>
-          <p>{{ restaurant.first_review.user }} : {{ restaurant.first_review.content }}</p>
+          <p>{{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}</p>
           <div class="text-end">
             <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
           </div>
         </div>
       </div>
+      <hr class="divider w-100">
     </div>
     {% endif %}
   {% endfor %}
