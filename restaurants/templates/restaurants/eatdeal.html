@@ -20,11 +20,13 @@
             <div class="carousel-inner">
               {% for review in reviews %}
                 {% if review.restaurant_id == restaurant.pk %}
+                  <div class="picture_container carousel-item active">
                   {% for photo in review.reviewphoto_set.all %}
-                  <div class="carousel-item active">
-                    <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="align-self-center img-thumbnail" src="{{ photo.image_review.url }}" alt=""></a>
-                  </div>
+                    <div class="picture">
+                      <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="align-self-center img-thumbnail mb-3 mt-3" src="{{ photo.image_thumbnail.url }}" alt=""></a>
+                    </div>
                   {% endfor %}
+                  </div>
                 {% endif %}
               {% endfor %}
             </div>
@@ -33,11 +35,7 @@
         <div class="col-lg-9">
           <h3><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }} <span class="span__rate">{{ restaurant.rate|floatformat:1 }}</span></a></h3>
           <h5>{{ restaurant.address }}</h5>
-          {% for review in reviews %}
-            {% if review.restaurant_id == restaurant.pk %}
-              <p><span class="span__reviewuser">{{ review.user }}</span> {{ review.content }}</p>
-            {% endif %}
-          {% endfor %}
+          <p>{{ restaurant.first_review.user }} : {{ restaurant.first_review.content }}</p>
           <div class="text-end">
             <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
           </div>

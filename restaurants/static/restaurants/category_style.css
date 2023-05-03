@@ -15,21 +15,13 @@ h5 {
   color: rgb(154, 154, 154);
 }
 
-.img-wrapper {
-    position: relative;
-    width: 500px;
-    height: 500px;
+.picture_container {
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
-.img-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(50, 50);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: auto;
+.picture {
+  display: inline-block;
 }
 
 .span__rate {
@@ -38,4 +30,21 @@ h5 {
 
 .span__reviewuser {
   font-weight: bold;
+}
+
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:visited {
+  color : black;
+  text-decoration: none;
+}
+a:hover {
+  color : black;
+  text-decoration: none;
+}
+a:active {
+  color : black;
+  text-decoration: none;
 }
