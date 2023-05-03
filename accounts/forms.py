@@ -122,7 +122,6 @@ class CustomUserChangeForm(UserChangeForm):
     image = forms.ImageField(
         label = '이미지',
         required=False,
-
     )
 
     class Meta(UserChangeForm.Meta):
@@ -131,7 +130,7 @@ class CustomUserChangeForm(UserChangeForm):
             'email',
             'last_name',
             'first_name',
-            )
+    )
         
 
 class CustomAuthenticationForm(AuthenticationForm):
