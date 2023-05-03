@@ -74,8 +74,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     image = forms.ImageField(
         label = '이미지',
-        required=False,
-
+        required = False,
     )
 
     class Meta(UserCreationForm.Meta):
