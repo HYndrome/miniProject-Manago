@@ -47,3 +47,15 @@
     text-align: center;
   }
 }
+
+:root {
+  --main-mango: #ff7100;
+  --sub-color: #9b9b9b;
+}
+
+.text-color-main {
+  color: var(--main-mango);
+}
+.text-color-sub {
+  color: var(--sub-color);
+}
