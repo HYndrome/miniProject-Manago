@@ -57,6 +57,7 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     rate = models.IntegerField(null=True, blank=True)
+    image_first = models.ImageField(null=True, blank=True)
     image_thumbnail = ImageSpecField(source='image_first',
                                       processors=[Thumbnail(200, 200)],
                                       format='JPEG',
