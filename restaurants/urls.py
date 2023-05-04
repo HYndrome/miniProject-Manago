@@ -9,6 +9,7 @@ urlpatterns = [
     path('<int:restaurant_id>/delete/', views.delete, name='delete'),
     path('<int:restaurant_id>/menu/', views.menu, name='menu'),
     path('<int:restaurant_id>/menu/<int:menu_id>/delete', views.menu_delete, name='menu_delete'),
+    path('<int:restaurant_id>/wish_srt/', views.wish_srt, name='wish_srt'),
     path('<int:restaurant_id>/wish/', views.wish, name='wish'),
     path('category/<str:restaurant_category>/', views.category, name='category'),
     path('eatdeal/', views.eatdeal, name='eatdeal'),
