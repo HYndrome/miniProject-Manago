@@ -1,3 +1,7 @@
+html, body{
+  height: 100%
+}
+
 .navbar--main {
   box-shadow: 0 4px 11px rgba(0,0,0,0.1);
 }
@@ -23,8 +27,18 @@
   border:3px solid #FF7D17; padding: 0px;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.content {
+  flex: 1;
+}
 
 .footer__container {
+  height: auto;
   background-color: #3E3E3E;
   color: #9b9b9b;
   padding: 3rem 1rem 2rem 1rem;
