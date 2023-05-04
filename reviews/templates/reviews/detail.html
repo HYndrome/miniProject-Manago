@@ -38,7 +38,7 @@
       <span class="review_res_link"><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant_id %}" style="color: #ff7100">@ {{ review.restaurant.name }} - {{ review.restaurant.region }}</a></span>
       <span class="review_created">{{ review.created_at|date:"Y-m-d" }}</span>
     </div>
-    <p>{{ review.content|linebreaksbr }}</p>
+    <p class="text-break">{{ review.content|linebreaksbr }}</p>
 
     <div class="review_picture_container">
       {% for photo in review.reviewphoto_set.all %}
@@ -103,7 +103,7 @@
                 {% endif %}
               </div>
             </header>
-            <p id="comment-content-{{ comment.pk }}"class="mt-2">{{ comment.content|linebreaksbr }}</p>
+            <p id="comment-content-{{ comment.pk }}"class="mt-2 text-break">{{ comment.content|linebreaksbr }}</p>
 
             <form class="comment-edit-form my-3" id="comment-edit-form-{{ comment.pk }}" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk }}" data-restaurant-id="{{ restaurant_id }}" hidden>
               {% csrf_token %}

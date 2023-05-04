@@ -148,7 +148,7 @@ main {
 }
 
 .comment__content {
-  flex: 1 0 auto;
+  /* flex: 1 0 auto; */
   font-size: 15px;
   color: #000000;
 }

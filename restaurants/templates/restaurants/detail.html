@@ -202,12 +202,12 @@
               </span>
             </div>
           </div>
-          <div class="comment__content my-2">
+          <div class="comment__content my-2 me-2">
             <p class="comment__content__updateat">
               {{ review.created_at |date:"Y-m-d" }}
             </p>
-            <p>
-              {{ review.content }}
+            <p class="text-break">
+              {{ review.content|linebreaksbr }}
             </p>
             <div class="review_picture_container mb-3">
               {% for photo in review.reviewphoto_set.all %}
@@ -217,7 +217,7 @@
               {% endfor %}
             </div>
           </div>
-          <div class="comment__rate__container my-2">
+          <div class="comment__rate__container my-2 ms-auto">
             {% if review.rate >= 4 %}
               <img src= "{% static 'reviews/good_face_act.png' %}" alt="good_face_act">
               <p>맛있다</p>
