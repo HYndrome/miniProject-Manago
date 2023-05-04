@@ -33,8 +33,6 @@ def index(request):
                     break
     rankings = restaurants.order_by('-rate')[:8]
     eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
-    region = Restaurant.objects.annotate(num_restaurant=Count('region'))
-    print(region[0].num_restaurant)
                     
     context = {
         'restaurants': restaurants,

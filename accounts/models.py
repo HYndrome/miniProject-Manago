@@ -13,6 +13,7 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     # image = models.ImageField(blank=True, upload_to='')
     image = ProcessedImageField(
+        null=True,
         blank=True,
         processors=[Thumbnail(200,200)],
         format= 'JPEG',
