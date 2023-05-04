@@ -38,6 +38,8 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
+            user = form.save(commit=False)
+            user.user = request.user
             form.save()
             return redirect('restaurants:index')
     else:
@@ -89,6 +91,7 @@ def change_password(request):
 def profile(request, username):
     User = get_user_model()
     person = User.objects.get(username=username)
+    request.session['visited_profile_id'] = person.id
     context = {
         'person': person,
     }
