@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucky Seven</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
 <body>
-  <h1><a href="restaurants:index">go!!</a></h1>
+  <dir class="wrap">
+    <div class="card">
+      <img src="{% static 'backgroundimage.jpg' %}" alt="">
+      <div class="logo">
+        <img src="{% static 'logo_img.png' %}" alt="">
+        <img src="{% static 'logo_texts.png' %}" alt="">
+      </div>
+    </div>
+  </dir>
 </body>
 </html>

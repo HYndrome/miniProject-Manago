@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: */
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  vertical-align: top;
+}
+.wrap {
+  background: #282828;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .background-image {
+  background-image: url("{% static 'backgroundimage.jpg' %}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+img.background-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+} */
+.card {
+  width: 500px;
+  height: 280px;
+}
