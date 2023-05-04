@@ -14,10 +14,10 @@ def index(request):
     # Restaurant 평균 평점 갱신
     for restaurant in restaurants:
         reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
-        print(reviews_averagerate)
-        rt = Restaurant.objects.get(pk=restaurant.pk)
-        rt.rate = reviews_averagerate
-        rt.save()
+        if reviews_averagerate:
+            rt = Restaurant.objects.get(pk=restaurant.pk)
+            rt.rate = round(reviews_averagerate, 1)
+            rt.save()
     # Restaurant thumbnail 갱신
     flag = False
     for restaurant in restaurants:
