@@ -119,13 +119,18 @@ class CustomUserChangeForm(UserChangeForm):
         ),
     )
 
+    image = forms.ImageField(
+        label = '이미지',
+        required=False,
+    )
+
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
         fields = (
             'email',
             'last_name',
             'first_name',
-            )
+    )
         
 
 class CustomAuthenticationForm(AuthenticationForm):
