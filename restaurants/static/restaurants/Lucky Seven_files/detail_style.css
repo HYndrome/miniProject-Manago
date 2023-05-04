@@ -130,7 +130,7 @@ main {
 .comment__user__id {
   display: block;
   margin: 2px;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.3;
   text-align: center;
   word-break: break-all;
@@ -138,8 +138,8 @@ main {
 }
 
 .comment__user__info {
-  font-size: 12px;
-  color: #9b9b9b;
+  font-size: 10px;
+  color: #DBDBDB;
 }
 
 .comment__user__info__icon {
@@ -189,33 +189,3 @@ main {
 .restaurant__status__item {
   font-size: 1px;
 } */
-
-.rt_updated_at {
-  font-size: 14px;
-  color: #9B9B9B;
-}
-
-.review_picture_container {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 60vi;
-  /* flex-shrink: 1; */
-}
-.review_picture {
-  display: inline-block;
-}
-
-.comment__container:hover {
-  background-color: #f6f6f6;
-}
-
-.review__top_filter {
-  color: #9B9B9B;
-  font-size: 18px;
-}
-
-.filter-btn {
-  background-color: transparent;
-  border: none;
-}

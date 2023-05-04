@@ -50,11 +50,34 @@
   text-decoration: none;
 }
 
+
+.main__section__carousel__caption {
+  width: 80%;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  text-shadow: 6px 6px 16px rgba(0,0,0,0.9);
+  text-align: center;
+  overflow: hidden;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; */
+  word-wrap: normal;
+  display: block;
+  color: #ffffff;
+  word-break: break-all;
+}
+
+
+
+
+
 .main__section__items__image__container {
   position: relative;
   width:  200px;
   height: 200px;
-  background-color: gray;
 }
 
 .main__section__items__image__eatdeallogo {
@@ -105,7 +128,7 @@
   padding-right: 10px;
 }
 
-@media (max-width: 720px ) {
+@media (max-width: 768px ) {
   .header__main {
     height: 336px;
   }
