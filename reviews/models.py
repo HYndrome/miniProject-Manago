@@ -15,6 +15,11 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def delete(self, *args, **kargs):
+        if self.reviewphoto_set:
+            for review_photo in self.reviewphoto_set.all():
+                os.remove(os.path.join(settings.MEDIA_ROOT, review_photo.image_review.path))
+        super(Review, self).delete(*args, **kargs)
 
 class ReviewPhoto(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
@@ -25,10 +30,7 @@ class ReviewPhoto(models.Model):
                                       processors=[Thumbnail(200, 200)],
                                       format='JPEG',
                                       options={'quality': 100})
-    def delete(self, *args, **kargs):
-        if self.image_review:
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.image_review.path))
-        super(ReviewPhoto, self).delete(*args, **kargs)
+    
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
