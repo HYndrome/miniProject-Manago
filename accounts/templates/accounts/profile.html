@@ -16,8 +16,12 @@
                           <strong style="font-size: 18px;"><i class="fas fa-user-cog"></i>내 정보</strong>
                       </div>
                       <div class="card-body">
-                        <img src="{{ request.user.image.url }}" alt="이미지">
-                          <table style="color:black; margin-left:10px;">
+                        {% if person.image %}
+                        <img src="{{ person.image.url }}" alt="이미지">
+                        {% else %}
+                        {% endif %}
+                          
+                        <table style="color:black; margin-left:10px;">
 
                               <tr>
                                   <td class="profile_title">아이디 :</td>

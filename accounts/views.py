@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth import get_user_model
 
+
 # Create your views here.
 def login(request):
     if request.user.is_authenticated:
@@ -41,7 +42,7 @@ def signup(request):
             user = form.save(commit=False)
             user.user = request.user
             form.save()
-            return redirect('restaurants:index')
+            return redirect('accounts:login')
     else:
         form = CustomUserCreationForm()
     context = {
