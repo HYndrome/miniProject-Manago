@@ -21,20 +21,15 @@ def index(request):
     flag = False
     for restaurant in restaurants:
         for review in restaurant.review_set.all():
-            if flag == True:
-                    break
             flag = False
             for reviewphoto in review.reviewphoto_set.all():
                 if reviewphoto.image_review:
-                    print(reviewphoto.image_review)
                     restaurant.image_first = reviewphoto.image_review
                     restaurant.save()
                     flag = True
                     break
     rankings = restaurants.order_by('-rate')[:8]
     eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
-    region = Restaurant.objects.annotate(num_restaurant=Count('region'))
-    # print(region[0].num_restaurant)
                     
     context = {
         'restaurants': restaurants,
