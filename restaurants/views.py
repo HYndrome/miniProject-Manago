@@ -12,25 +12,33 @@ from django.db.models import Count, Avg
 def index(request):
     restaurants = Restaurant.objects.all()
     # Restaurant 평균 평점 갱신
-    for restaurant in restaurants:
-        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
-        if reviews_averagerate:
-            rt = Restaurant.objects.get(pk=restaurant.pk)
-            rt.rate = round(reviews_averagerate, 1)
-            rt.save()
+    avg_restaurants = Restaurant.objects.annotate(avg_rate=Avg('review__rate'))
+    for restaurant in avg_restaurants:
+        restaurant.rate = round(restaurant.avg_rate, 1)
+        restaurant.save()
+    # for restaurant in restaurants:
+    #     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+    #     rt = Restaurant.objects.get(pk=restaurant.pk)
+    #     rt.rate = round(reviews_averagerate, 1)
+    #     rt.save()
     # Restaurant thumbnail 갱신
     flag = False
     for restaurant in restaurants:
         for review in restaurant.review_set.all():
+            if flag == True:
+                    break
             flag = False
             for reviewphoto in review.reviewphoto_set.all():
                 if reviewphoto.image_review:
+                    print(reviewphoto.image_review)
                     restaurant.image_first = reviewphoto.image_review
                     restaurant.save()
                     flag = True
                     break
     rankings = restaurants.order_by('-rate')[:8]
     eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
+    region = Restaurant.objects.annotate(num_restaurant=Count('region'))
+    # print(region[0].num_restaurant)
                     
     context = {
         'restaurants': restaurants,
@@ -141,11 +149,11 @@ def wish(request, restaurant_id):
 
 def category(request, restaurant_category):
     restaurants = Restaurant.objects.all()
-    # for restaurant in restaurants:
-    #     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
-    #     rt = Restaurant.objects.get(pk=restaurant.pk)
-    #     rt.rate = reviews_averagerate
-    #     rt.save()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     category_restaurants = Restaurant.objects.filter(category=restaurant_category).order_by('-rate')
     reviews = Review.objects.all()
     context = {
@@ -157,11 +165,11 @@ def category(request, restaurant_category):
 
 def eatdeal(request):
     restaurants = Restaurant.objects.all()
-    # for restaurant in restaurants:
-    #     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
-    #     rt = Restaurant.objects.get(pk=restaurant.pk)
-    #     rt.rate = reviews_averagerate
-    #     rt.save()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     restaurants = Restaurant.objects.filter(eatdeal=True).order_by('-rate')
     reviews = Review.objects.all()
     context = {
@@ -172,11 +180,11 @@ def eatdeal(request):
 
 def region(request, restaurant_region):
     restaurants = Restaurant.objects.all()
-    # for restaurant in restaurants:
-    #     reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
-    #     rt = Restaurant.objects.get(pk=restaurant.pk)
-    #     rt.rate = reviews_averagerate
-    #     rt.save()
+    for restaurant in restaurants:
+        reviews_averagerate = Review.objects.filter(restaurant_id=restaurant.pk).aggregate(Avg('rate'))['rate__avg']
+        rt = Restaurant.objects.get(pk=restaurant.pk)
+        rt.rate = reviews_averagerate
+        rt.save()
     region_restaurants = Restaurant.objects.filter(region=restaurant_region).order_by('-rate')
     reviews = Review.objects.all()
     context = {
