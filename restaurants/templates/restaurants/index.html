@@ -48,7 +48,7 @@
       <h2 class="main__section__title">EAT딜을 판매중인 식당</h2>
       <div class="row">
         {% for eatdeal in eatdeals %}
-          <div class="main__section__items col-6 col-md-3">
+          <div class="main__section__items col-6 col-md-3 col-xxl-2">
             <a href="{% url 'restaurants:detail' eatdeal.pk %}">
               <div class="main__section__items__image__container">
                 <img class="main__section__items__image__eatdeallogo" src="{% static 'restaurants/eatdeal.png' %}" alt="">
@@ -73,7 +73,7 @@
       <h2 class="main__section__title">평점이 높은 인기 식당</h2>
       <div class="row">
         {% for ranking in rankings %}
-          <div class="main__section__items col-6 col-md-3">
+          <div class="main__section__items col-6 col-md-3 col-xxl-2">
             <a href="{% url 'restaurants:detail' ranking.pk %}">
               <div class="main__section__items__image__container">
                 {% if ranking.image_thumbnail %}

@@ -77,17 +77,22 @@
 .main__section__items__image__container {
   position: relative;
   width:  90%;
-  height: 90%;
+  aspect-ratio: 1/1;
 }
 
 .main__section__items__image__eatdeallogo {
-  position: absolute;
   position: absolute;
   top: 12px;
   left: 12px;
   z-index: 1;
   width: 18%;
   padding-bottom: 18%;
+}
+
+.main__section__carousel__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .main__section__items__image {
