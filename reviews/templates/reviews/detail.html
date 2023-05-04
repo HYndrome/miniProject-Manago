@@ -10,15 +10,15 @@
 <div class="review_bg">
   <div class="review_card">
     <header class="review_card_header d-flex">
-      <div class="review_card_user_img">
+      <a href="{% url 'accounts:profile' review.user.username %}" class="review_card_user_img">
         {% if review.user.image %}
           <img src="{{ review.user.image.url }}" alt="{{ review.user }}_profile_image">
         {% else %}
           <img src="{% static '토르발즈.png' %}" alt="default_profile_img">
         {% endif %}
-      </div>
+      </a>
       <div class="review_card_user d-flex flex-column mx-2">
-        <span class="review_username">{{ review.user.username }}</span>
+        <a href="{% url 'accounts:profile' review.user.username %}" class="review_username">{{ review.user.username }}</a>
         <span class="review_user_info"><i class="bi bi-pencil-fill"></i> {{ review.user.review_set.count }} <i class="bi bi-people-fill"></i> {{ review.user.followers.count }}</span>
       </div>
       <div class="review_card_rate ms-auto">
@@ -80,15 +80,15 @@
         {% for comment in comments %}
           <li class="comment_container py-2 border-bottom">
             <header class="d-flex">
-              <div class="comment_user_profile_img">
+              <a href="{% url 'accounts:profile' comment.user.username %}" class="comment_user_profile_img">
                 {% if comment.user.image %}
                   <img src="{{ comment.user.image.url }}" alt="{{ comment.user }}_profile_image">
                 {% else %}
                   <img src="{% static '토르발즈.png' %}" alt="default_profile_img">
                 {% endif %}
-              </div>
+              </a>
               <div class="mx-2">
-                <span class="comment_username">{{ comment.user.username }}</span>
+                <a href="{% url 'accounts:profile' comment.user.username %}" class="comment_username">{{ comment.user.username }}</a>
               </div>
               <div class="mx-2">
                 <span class="comment_created">{{ comment.created_at|date:'Y-m-d' }}</span>

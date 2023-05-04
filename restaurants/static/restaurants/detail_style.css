@@ -119,6 +119,8 @@ main {
 .comment__user__image__container {
   width: 70px;
   height: 70px;
+  padding: 0;
+
 }
 
 .comment__user__image {
