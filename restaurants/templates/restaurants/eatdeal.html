@@ -44,45 +44,57 @@
     </div>
   </header>
   {% for restaurant in restaurants %}
-  <div class="container">
-    <div class="row justify-content-center mt-3 mb-3">
-      <div class="col-auto col-lg-3">
-        <div class="container__img float-end">
-        {% if restaurant.image_thumbnail %}
-          <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}"><img class="restaurant__img align-self-center" src="{{ restaurant.image_thumbnail.url }}" alt=""></a>
-        {% else %}
-          <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
-        {% endif %}
+    {% if restaurant.rate is not NONE %}
+    <div class="container">
+      <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-12 col-lg-3">
+          <div class="container__img float-end">
+          {% if restaurant.image_thumbnail %}
+            <a href="{% url 'restaurants:detail' restaurant.pk %}"><img class="restaurant__img align-self-center" src="{{ restaurant.image_thumbnail.url }}" alt=""></a>
+          {% else %}
+            <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+          {% endif %}
+          </div>
+        </div>
+        <div class="info__parent col-12 col-lg-6" style="flex: 1; position: relative;">
+          <div class="info__row row">
+            <div class="info__first col-10">
+              <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
+              <h5>{{ restaurant.address }}</h5>
+            </div>
+            <div class="info__second text-end col-2">
+              <form action="{% url 'restaurants:wish_srt' restaurant.pk %}" method="POST">
+                {% csrf_token %}
+                {% if request.user in restaurant.wish_users.all %}
+                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% else %}
+                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% endif %}
+              </form>
+              {% comment %} <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+                {% csrf_token %}
+                {% if request.user in restaurant.wish_users.all %}
+                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% else %}
+                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% endif %}
+              </form> {% endcomment %}
+            </div>
+          </div>
+          
+          <div class="info__third box">
+            {{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}
+          </div>
+          <div class="info__fourth text-end">
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
+          </div>
         </div>
       </div>
-      <div class="info__parent col-5 col-lg-6">
-        <div class="info__first">
-          <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
-          <h5>{{ restaurant.address }}</h5>
-        </div>
-        <div class="info__second box">
-          {{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}
-        </div>
-        <div class="info__third text-end">
-          <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
-        </div>
-      </div>
+      <hr class="divider w-100">
     </div>
-    <hr class="divider w-100">
-  </div>
+    {% endif %}
   {% endfor %}
 {% endblock content %}
-
-      {% comment %} <div>
-        <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
-          {% csrf_token %}
-          {% if request.user in restaurant.wish_users.all %}
-            <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-          {% else %}
-            <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
-          {% endif %}
-        </form>
-      </div> {% endcomment %}
 
 {% comment %} {% block script %}
 <script>

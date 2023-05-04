@@ -157,6 +157,21 @@ def wish(request, restaurant_id):
     }
     return JsonResponse(context)
 
+@login_required
+def wish_srt(request, restaurant_id):
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    if request.user in restaurant.wish_users.all():
+        restaurant.wish_users.remove(request.user)
+        is_wished = False
+    else:
+        restaurant.wish_users.add(request.user)
+        is_wished = True
+    context = {
+        'is_wished': is_wished,
+        'wish_count': restaurant.wish_users.count(),
+    }
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
 def category(request, restaurant_category):
     restaurants = Restaurant.objects.all()
     for restaurant in restaurants:
