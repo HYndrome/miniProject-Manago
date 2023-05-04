@@ -101,16 +101,7 @@ class CustomUserChangeForm(UserChangeForm):
         ),
     )
 
-    last_name = forms.CharField(
-        label='성',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            },
-        ),
-    )
-
-    first_name = forms.CharField(
+    name = forms.CharField(
         label='이름',
         widget=forms.TextInput(
             attrs={
@@ -118,6 +109,24 @@ class CustomUserChangeForm(UserChangeForm):
             },
         ),
     )
+
+    # last_name = forms.CharField(
+    #     label='성',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': 'form-control',
+    #         },
+    #     ),
+    # )
+
+    # first_name = forms.CharField(
+    #     label='이름',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': 'form-control',
+    #         },
+    #     ),
+    # )
 
     image = forms.ImageField(
         label = '이미지',
@@ -127,9 +136,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
         fields = (
+            'name',
             'email',
-            'last_name',
-            'first_name',
+            'image',
+            # 'last_name',
+            # 'first_name',
     )
         
 
