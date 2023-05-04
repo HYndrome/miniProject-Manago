@@ -72,9 +72,17 @@ def detail(request, restaurant_id):
 
     # review_counts = reviews.filter(rate__in=[1, 3, 5]).values('rate').annotate(count=Count('id'))
     review_counts = reviews.values('rate').annotate(count=Count('id'))
-    review_count_1 = next((r['count'] for r in review_counts if r['rate'] == 1), 0)
-    review_count_3 = next((r['count'] for r in review_counts if r['rate'] == 3), 0)
-    review_count_5 = next((r['count'] for r in review_counts if r['rate'] == 5), 0)
+    review_count_1, review_count_3, review_count_5 = 0, 0, 0
+    for review in review_counts:
+        if review['rate'] == 1:
+            review_count_1 = review['count']
+        elif review['rate'] == 3:
+            review_count_3 = review['count']
+        elif review['rate'] == 5:
+            review_count_5 = review['count']
+    # review_count_1 = next((r['count'] for r in review_counts if r['rate'] == 1), 0)
+    # review_count_3 = next((r['count'] for r in review_counts if r['rate'] == 3), 0)
+    # review_count_5 = next((r['count'] for r in review_counts if r['rate'] == 5), 0)
     # print(review_counts)
 
     reviews_filter = review_filter(reviews, select_rate)
