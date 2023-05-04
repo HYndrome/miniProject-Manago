@@ -13,7 +13,7 @@ def index(request):
     # Restaurant 평균 평점 갱신
     avg_restaurants = Restaurant.objects.annotate(avg_rate=Avg('review__rate'))
     for restaurant in avg_restaurants:
-        if restaurant.rate:
+        if restaurant.avg_rate:
             restaurant.rate = round(restaurant.avg_rate, 1)
             restaurant.save()
     # for restaurant in restaurants:
