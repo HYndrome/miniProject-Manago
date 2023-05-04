@@ -56,7 +56,7 @@ class Restaurant(models.Model):
     eatdeal = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    rate = models.IntegerField(null=True, blank=True)
+    rate = models.DecimalField(max_digits=2, decimal_places=1, null=True)
     image_first = models.ImageField(null=True, blank=True)
     image_thumbnail = ImageSpecField(source='image_first',
                                       processors=[Thumbnail(200, 200)],
