@@ -23,7 +23,7 @@ header .review_card_header {
 .review_card_user > span {
   margin: 1px;
 }
-.review_card_user .review_username {
+.review_card_user {
   font-size: 18px;
 }
 .review_card_user .review_user_info {
@@ -80,4 +80,14 @@ header .review_card_header {
   --bs-btn-padding-y: .25rem;
   --bs-btn-padding-x: .5rem;
   --bs-btn-font-size: .75rem;
+}
+
+.comment_username,
+.review_username {
+  color: black;
+  text-decoration: none;
+}
+.comment_username:hover,
+.review_username:hover {
+  color: black;
 }

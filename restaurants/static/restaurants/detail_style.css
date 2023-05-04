@@ -120,6 +120,8 @@ main {
 .comment__user__image__container {
   width: 70px;
   height: 70px;
+  padding: 0;
+
 }
 
 .comment__user__image {
@@ -149,8 +151,7 @@ main {
 }
 
 .comment__content {
-  flex: 1 0 auto;
-  max-width: 70%;
+  /* flex: 1 0 auto; */
   font-size: 15px;
   color: #000000;
   word-wrap: break-word;
