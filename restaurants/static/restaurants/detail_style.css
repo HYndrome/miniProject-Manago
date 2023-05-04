@@ -105,6 +105,7 @@ main {
 .comment__container {
   border-bottom: 1px solid #DBDBDB;
   list-style: none;
+  width:100%;
 }
 
 .comment__container a {
@@ -149,8 +150,11 @@ main {
 
 .comment__content {
   flex: 1 0 auto;
+  max-width: 70%;
   font-size: 15px;
   color: #000000;
+  word-wrap: break-word;
+  min-width: 0;
 }
 
 .comment__rate__container {

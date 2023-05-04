@@ -177,62 +177,65 @@
     </form>
   </div>
   <ul class="comments_container">
-  {% for review in reviews_filter %}
+    {% for review in reviews_filter %}
       <li class="comment__container">
-        <a class="d-flex" href="{% url 'reviews:detail' restaurant.pk review.pk %}">
-          <div class="comment__user">
-            <div class="comment__user__image__container">
-              {% if review.user.image %}
-                <img class="comment__user__image" src="{{ review.user.image.url }}" alt="{{ review.user }}_profile_image">
+        <a href="{% url 'reviews:detail' restaurant.pk review.pk %}">
+          <div class="d-flex">
+            <div class="comment__user">
+              <div class="comment__user__image__container">
+                {% if review.user.image %}
+                  <img class="comment__user__image" src="{{ review.user.image.url }}" alt="{{ review.user }}_profile_image">
+                {% else %}
+                  <img class="comment__user__image" src="{% static '토르발즈.png' %}" alt="유저프로필사진 없음">
+                {% endif %}
+              </div>
+              <span class="comment__user__id">
+                {{ review.user }}
+              </span>
+              <div class="comment__user__info d-flex justify-content-center align-items-center">
+                <i class="bi bi-pencil-fill"></i>
+                <span>
+                  {{ review.user.review_set.count }}
+                </span>&nbsp;
+                <i class="bi bi-people-fill"></i>
+                <span>&nbsp;
+                  {{ review.user.followers.count }}
+                </span>
+              </div>
+            </div>
+            <div class="comment__content my-2">
+              <p class="comment__content__updateat">
+                {{ review.created_at |date:"Y-m-d" }}
+              </p>
+              <p class="">
+                {{ review.content }}
+              </p>
+              <div class="review_picture_container mb-3">
+                {% for photo in review.reviewphoto_set.all %}
+                <div class="review_picture">
+                  <img src="{{ photo.image_thumbnail.url }}" alt="review_thumbnail" width="100px">
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="comment__rate__container my-2">
+              {% if review.rate >= 4 %}
+                <img src= "{% static 'reviews/good_face_act.png' %}" alt="good_face_act">
+                <p>맛있다</p>
+              {% elif review.rate >= 3%}
+                <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png">
+                <p>괜찮다</p>
               {% else %}
-                <img class="comment__user__image" src="{% static '토르발즈.png' %}" alt="유저프로필사진 없음">
+                <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act">
+                <p>별로</p>
               {% endif %}
             </div>
-            <span class="comment__user__id">
-              {{ review.user }}
-            </span>
-            <div class="comment__user__info d-flex justify-content-center align-items-center">
-              <i class="bi bi-pencil-fill"></i>
-              <span>
-                {{ review.user.review_set.count }}
-              </span>&nbsp;
-              <i class="bi bi-people-fill"></i>
-              <span>&nbsp;
-                {{ review.user.followers.count }}
-              </span>
-            </div>
           </div>
-          <div class="comment__content my-2">
-            <p class="comment__content__updateat">
-              {{ review.created_at |date:"Y-m-d" }}
-            </p>
-            <p>
-              {{ review.content }}
-            </p>
-            <div class="review_picture_container mb-3">
-              {% for photo in review.reviewphoto_set.all %}
-              <div class="review_picture">
-                <img src="{{ photo.image_thumbnail.url }}" alt="review_thumbnail" width="100px">
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="comment__rate__container my-2">
-            {% if review.rate >= 4 %}
-              <img src= "{% static 'reviews/good_face_act.png' %}" alt="good_face_act">
-              <p>맛있다</p>
-            {% elif review.rate >= 3%}
-              <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png">
-              <p>괜찮다</p>
-            {% else %}
-              <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act">
-              <p>별로</p>
-            {% endif %}
-          </div>
+          
         </a>
       </li>
-      {% endfor %}
-    </ul>
+    {% endfor %}
+  </ul>
 
 </main>
 
