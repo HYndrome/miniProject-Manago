@@ -55,7 +55,7 @@
       {% endif %}
 
       {% if request.user == restaurant.user %}
-      <form action="{% url 'restaurants:delete' restaurant.pk %}" method="POST">
+      <form action="{% url 'restaurants:delete' restaurant.pk%}" method="POST">
         {% csrf_token %}
         <button type="submit" class="restaurant__input__btn d-flex flex-column align-items-center" style=""><i class="bi bi-x-lg restaurant__input__icon"></i>DELETE</button>
       </form>
