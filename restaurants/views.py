@@ -138,7 +138,8 @@ def menu(request, restaurant_id):
 @login_required
 def menu_delete(request, restaurant_id, menu_id):
     menu = Menu.objects.get(pk=menu_id)
-    if request.user == menu.user:
+    restaurant = Restaurant.objects.get(pk=restaurant_id)
+    if request.user == restaurant.user:
         menu.delete()
     return redirect('restaurants:detail', restaurant_id)
 
