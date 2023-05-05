@@ -79,6 +79,7 @@ html, body{
 .text-color-main {
   color: var(--main-mango);
 }
+
 .text-color-sub {
   color: var(--sub-color);
 }
