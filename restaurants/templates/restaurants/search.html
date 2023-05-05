@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'restaurants/css/search.css' %}">
+{% endblock style %}
 
 {% block content %}
-  {% for restaurant in search_list %}
-    <p>{{ restaurant.name }}</p>
-  {% empty %}
-    <p>검색어를 입력</p>
-    <p>검색어를 입력</p>
-    <p>검색어를 입력</p>
-    <p>검색어를 입력</p>
-  {% endfor %}
+<div class="container-md my-5">
+  {% if search_text %}
+    <h3 class="m-3">검색하신 <span class="text-color-main">{{ search_text }}</span>에 대한 맛집 검색 결과입니다.</h3>
+    {% for restaurant in search_list %}
+      <a href="{% url 'restaurants:detail' restaurant.pk %}" class="d-flex p-2 text-decoration-none text-dark">
+        <div class="">
+          <img src="{{ restaurant.review_set.all.first.reviewphoto_set.all.first.image_thumbnail.url }}" alt="">
+        </div>
+        <div class="flex-shrink-1 ms-3">
+          <p class="fs-4">{{ restaurant.name }}</p>
+          <p>{{ restaurant.address }}</p>
+          {% for menu in restaurant.menu_set.all %}
+            {% if forloop.counter == restaurant.menu_set.count %}
+              <span>{{ menu.name }}</span>
+            {% else %}
+              <span>{{ menu.name }} / </span>
+            {% endif %}
+          {% endfor %}
+          <p></p>
+        </div>
+      </a>
+    {% empty %}
+      <h3><span class="text-color-main">{{ search_text }}</span>에 대한 결과가 없습니다.</h3>
+    {% endfor %}
+  {% else %}
+    <p>검색어를 입력해주세요.</p>
+  {% endif %}
+</div>
 {% endblock content %}

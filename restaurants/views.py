@@ -222,16 +222,17 @@ def region(request, restaurant_region):
 
 def search(request):
     restaurant_list = Restaurant.objects.all()
-    search = request.GET.get('search')
-    if search:
+    search_text = request.GET.get('search')
+    search_list = []
+    if search_text:
         search_list = restaurant_list.filter(
-            Q(name__icontains=search) |
-            Q(menu__name__icontains=search) |
-            Q(region__icontains=search)
-        )
-    else:
-        search_list = []
+            Q(name__icontains=search_text) |
+            Q(menu__name__icontains=search_text) |
+            Q(region__icontains=search_text)
+        ).distinct()
+        # search_img = 
     context = {
         'search_list': search_list,
+        'search_text': search_text,
     }
     return render(request,'restaurants/search.html', context)
