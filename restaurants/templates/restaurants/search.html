@@ -23,7 +23,7 @@
           <img src="{{ restaurant.review_set.all.first.reviewphoto_set.all.first.image_thumbnail.url }}" alt="">
         </div>
         <div class="flex-shrink-1 ms-3">
-          <p class="fs-4">{{ restaurant.name }}</p>
+          <p class="fs-4">{{ restaurant.name }} <span class="text-color-sub">{{ restaurant.rate }}</span></p>
           <p>{{ restaurant.address }}</p>
           {% for menu in restaurant.menu_set.all %}
             {% if forloop.counter == restaurant.menu_set.count %}
