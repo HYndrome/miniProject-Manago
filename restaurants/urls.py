@@ -14,4 +14,5 @@ urlpatterns = [
     path('category/<str:restaurant_category>/', views.category, name='category'),
     path('eatdeal/', views.eatdeal, name='eatdeal'),
     path('region/<str:restaurant_region>/', views.region, name='region'),
+    path('search/', views.search, name='search'),
 ]

@@ -156,3 +156,49 @@
   }
 }
 
+.search_container {
+  /* text-align: center; */
+  height: 50px;
+  background-color: #fff;
+  border: var(--main-mango) 3px solid;
+  border-radius: 25px;
+  margin-top: 1rem;
+}
+
+/* .search_item {
+  padding: 0;
+  margin: 0;
+} */
+
+.search-icon {
+  background-color: #fff;
+  color: var(--sub-color);
+  border: 0;
+  border-radius: 25px !important;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 20px;
+  line-height: 50px;
+}
+
+.search_text {
+  height: 100%;
+  font-size: 30px;
+  border: 0;
+  outline: none !important;
+}
+.search_text::placeholder {
+  color: var(--sub-color);
+}
+
+
+.search_submit {
+  height: 100%;
+  background-color: var(--main-mango);
+  border: 0;
+  border-radius: 25px !important;
+  width: 150px;
+  font-size: 25px;
+  color: #ffffff;
+}
+

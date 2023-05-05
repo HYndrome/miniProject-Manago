@@ -2,16 +2,24 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'restaurants/index_style.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="{% static 'restaurants/index_style.css' %}">
 {% endblock style %}
 
 
 {% block content %}
-  <header class="header__main d-flex justify-content-center align-items-center">
+  <header class="header__main d-flex flex-column justify-content-center align-items-center">
     <div>
       <p class="header__title">솔직한 리뷰, 믿을 수 있는 평점!</p>
       <h1 class="header__title">망고플레이트</h1>
     </div>
+    <form action="{% url 'restaurants:search' %}" method='GET'>
+      <div class="search_container input-group flex-nowrap">
+        <span class="search-icon"><i class="bi bi-search"></i></span>
+        <input type="text" class="search_text" placeholder="지역, 식당 또는 음식" name="search">
+        <input type="submit" class="search_submit" value="검 색">
+      </div>
+    </form>
     <a class="header__tag--l" href="{% url 'restaurants:eatdeal' %}">
       <img class="header__tag--l__img" src="{% static 'restaurants/eatdealpromo.png' %}" alt="eatdeal이동">
     </a>

@@ -6,7 +6,7 @@ from .forms import RestaurantForm, MenuForm
 from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Q
 
 # Create your views here.
 def index(request):
@@ -220,3 +220,18 @@ def region(request, restaurant_region):
     }
     return render(request, 'restaurants/region.html', context)
 
+def search(request):
+    restaurant_list = Restaurant.objects.all()
+    search = request.GET.get('search')
+    if search:
+        search_list = restaurant_list.filter(
+            Q(name__icontains=search) |
+            Q(menu__name__icontains=search) |
+            Q(region__icontains=search)
+        )
+    else:
+        search_list = []
+    context = {
+        'search_list': search_list,
+    }
+    return render(request,'restaurants/search.html', context)

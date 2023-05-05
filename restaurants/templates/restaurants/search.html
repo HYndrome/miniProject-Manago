@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for restaurant in search_list %}
+    <p>{{ restaurant.name }}</p>
+  {% empty %}
+    <p>검색어를 입력</p>
+    <p>검색어를 입력</p>
+    <p>검색어를 입력</p>
+    <p>검색어를 입력</p>
+  {% endfor %}
+{% endblock content %}
