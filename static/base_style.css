@@ -77,3 +77,16 @@ html, body{
 /* a {
   text-decoration: none !important;
 } */
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
+@font-face {
+  font-family: 'Dovemayo_gothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Exo 2', 'Dovemayo_gothic', sans-serif;
+}
