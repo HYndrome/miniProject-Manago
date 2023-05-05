@@ -25,21 +25,14 @@
         <div class="flex-shrink-1 ms-3">
           <p class="fs-4">{{ restaurant.name }} <span class="text-color-sub">{{ restaurant.rate }}</span></p>
           <p>{{ restaurant.address }}</p>
-          {% for menu in restaurant.menu_set.all %}
-            {% if forloop.counter == restaurant.menu_set.count %}
-              <span>{{ menu.name }}</span>
-            {% else %}
-              <span>{{ menu.name }} / </span>
-            {% endif %}
-          {% endfor %}
-          <p></p>
+          <p>{{ restaurant.menus }}</p>
         </div>
       </a>
     {% empty %}
       <h3><span class="text-color-main">{{ search_text }}</span>에 대한 결과가 없습니다.</h3>
     {% endfor %}
   {% else %}
-    <p>검색어를 입력해주세요.</p>
+    <h3>검색어를 입력해주세요.</h3>
   {% endif %}
 </div>
 {% endblock content %}

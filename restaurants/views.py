@@ -7,6 +7,8 @@ from reviews.forms import ReviewForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Count, Avg, Q
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 # Create your views here.
 def index(request):
@@ -230,7 +232,15 @@ def search(request):
             Q(menu__name__icontains=search_text) |
             Q(region__icontains=search_text)
         ).distinct()
-        # search_img = 
+    
+        for search_item in search_list:
+            search_item.name = mark_safe(search_item.name.replace(search_text, '<span class="text-color-main">{}</span>'.format(escape(search_text))))
+            search_item.address = mark_safe(search_item.address.replace(search_text, '<span class="text-color-main">{}</span>'.format(escape(search_text))))
+
+            menus = [escape(menu.name) for menu in search_item.menu_set.all()]
+            menus_highlighted = [name.replace(search_text, '<span class="text-color-main">{}</span>'.format(escape(search_text))) for name in menus]
+            search_item.menus = mark_safe(' / '.join(menus_highlighted))
+
     context = {
         'search_list': search_list,
         'search_text': search_text,
