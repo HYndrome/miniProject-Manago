@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'restaurants',
     'reviews',
     'accounts',
+    'clndr',
     'imagekit',
     'django.contrib.humanize',
     'django.contrib.admin',

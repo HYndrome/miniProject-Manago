@@ -31,6 +31,9 @@
           <div class="ms-4 py-auto">
             <a href="#">맛집리스트</a>
           </div>
+          <div class="ms-4 py-auto">
+            <a href="{% url 'clndr:main' %}">만남 달력</a>
+          </div>
         </div>
         <div class="navbar__userprofileimage__container ms-3">
           {% if request.user.is_authenticated %}
