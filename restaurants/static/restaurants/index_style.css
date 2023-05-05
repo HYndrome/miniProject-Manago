@@ -186,6 +186,7 @@
   font-size: 30px;
   border: 0;
   outline: none !important;
+  width: 100%;
 }
 .search_text::placeholder {
   color: var(--sub-color);
