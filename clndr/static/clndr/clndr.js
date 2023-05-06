@@ -53,6 +53,8 @@ const renderCalender = () => {
     const lastDateIndex = dates.lastIndexOf(TLDate);
 
     dates.forEach((date, i) => {
+        const prestringifiedurlDate = `${viewYear}-${viewMonth+1}-${date}`;
+        const urlDate = JSON.stringify(prestringifiedurlDate);
         const condition = i >= firstDateIndex && i < lastDateIndex + 1 ?
             'this' :
             'other';
@@ -65,7 +67,9 @@ const renderCalender = () => {
                 </div>
 
                 <div class="date_event">
-                    <div class="event-itm">EVENT</div>
+                    <div class="event-itm">
+                        <a href="/clndr/${prestringifiedurlDate}/">${date}일의 모임 목록을 확인해보세요!</a>
+                    </div>
                 </div>
 
             </div>

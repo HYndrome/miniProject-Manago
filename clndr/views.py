@@ -3,28 +3,18 @@ from .models import Meet
 from .forms import MeetForm
 import json, datetime
 from datetime import timedelta, datetime
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
 
 # Create your views here.
+
 def main(request):
     # Meet.objects.all().delete()
-
-    # 여기서부터
-    # Get the current year and month from the URL parameters
-    year = int(request.GET.get('year', datetime.today().year))
-    month = int(request.GET.get('month', datetime.today().month))
-
-    # Get the first and last days of the month
-    first_day = datetime(year, month, 1)
-    last_day = datetime(year, month + 1, 1) - timedelta(days=1)
-
-    # Query the database for objects with a date within the month
-    my_objects = Meet.objects.filter(date__range=(first_day, last_day))
-    # 여기까지
 
     meet_form = MeetForm()
     context = {
         'meet_form': meet_form,
-        'my_objects': my_objects,
     }
     return render(request, 'clndr/main.html', context)
 
@@ -41,3 +31,23 @@ def meet(request):
         meet.date = selDate
         meet.save()
         return redirect('clndr:main')
+    
+def detail(request, urlDate):
+    meets = Meet.objects.filter(date=urlDate)
+    context = {
+        'meets': meets,
+    }
+    return render(request, 'clndr/detail.html', context)
+
+def attend(request, meet_id):
+    meet = Meet.objects.get(pk=meet_id)
+    if request.user in meet.attend_users.all():
+        meet.attend_users.remove(request.user)
+        is_attending = False
+    else:
+        meet.attend_users.add(request.user)
+        is_attending = True
+    context = {
+        'is_attending': is_attending,
+    }
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
