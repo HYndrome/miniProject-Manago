@@ -19,45 +19,6 @@ a {
         </div>
     </nav>
 
-<<<<<<< HEAD
-                              <tr>
-                                  <td class="profile_title">아이디 :</td>
-                                  <td class="profile_content">{{ person.username }}</td>
-                              </tr>
-                              <tr>
-                                  <td class="profile_title">이메일 :</td>
-                                  <td class="profile_content">{{ person.email }}</td>
-                              </tr>
-                              <tr>
-                                  <td class="profile_title">이름 :</td>
-                                  <td class="profile_content">{{ person.name }}</td>
-                              </tr>
-                              <tr>
-                                  <td class="profile_title">작성한 리뷰</td>
-                                  <td class="profile_content">
-                                    {% for review in person.review_set.all %}
-                                     <a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">{{ review.content }}</a>
-                                    {% endfor %}
-                                </td>
-                              </tr>      
-                
-                        </table>
-                              <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
-                              <form action="{% url 'accounts:follow' person.pk %}" method="POST" >
-                                {% csrf_token %}
-                                {% if request.user in person.followers.all %}
-                                 <input type="submit" value="UnFollow" class='btn btn-primary'>
-                                {% else %}
-                                {% if request.user.is_authenticated %}
-                                <input type="submit" value="Follow" class='btn btn-primary'>
-                                {% else %}
-                                <input type="submit" value="Follow" disabled class='btn btn-primary'>
-                                {% endif %}
-                                {% endif %}
-                                </form>
-                      </div>                
-=======
->>>>>>> feature/profile3
 
     <div class="content">
         <div class="container-fluid">
