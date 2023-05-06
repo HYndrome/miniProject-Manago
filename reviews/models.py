@@ -3,6 +3,8 @@ from django.conf import settings
 from restaurants.models import Restaurant
 from imagekit.models import ImageSpecField
 from imagekit.processors import Thumbnail
+import os
+
 
 class Review(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -13,14 +15,22 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def delete(self, *args, **kargs):
+        if self.reviewphoto_set:
+            for review_photo in self.reviewphoto_set.all():
+                os.remove(os.path.join(settings.MEDIA_ROOT, review_photo.image_review.path))
+        super(Review, self).delete(*args, **kargs)
 
 class ReviewPhoto(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    image_review = models.ImageField(upload_to='')
+    def image_path(instance, filename):
+        return f'review_images/{instance.review.user.username}/{filename}'
+    image_review = models.ImageField(upload_to=image_path)
     image_thumbnail = ImageSpecField(source='image_review',
                                       processors=[Thumbnail(200, 200)],
                                       format='JPEG',
                                       options={'quality': 100})
+    
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)

@@ -21,13 +21,12 @@ h5 {
 }
 
 .container__img {
-  white-space: nowrap;
-  overflow-x: auto;
+  width: 100%; height: 100%;
 }
 
 .restaurant__img {
   width: 100%;
-  height: 100%;
+  object-fit:cover;
 }
 
 .restaurant__title {
@@ -42,12 +41,27 @@ h5 {
   font-weight: bold;
 }
 
-.info_parent {
-  position: relative;
-  height: 200px;
+@media (max-width: 1200px) {
+  .info__parent {
+    /* border: 5px solid yellow; */
+    padding: 15px;
+  }
+}
+
+.info__row {
+  margin: 0.7px;
+}
+
+/* .info__first {
+  border: 3px solid blue;
 }
 
 .info__second {
+  border: 3px solid blue;
+} */
+
+.info__third {
+  /* border: 3px solid blue; */
   height: 100px;
   overflow: hidden;
   display: -webkit-box;
@@ -55,9 +69,16 @@ h5 {
   -webkit-box-orient: vertical;
 }
 
-.info__third {
-  bottom: 0;
-  right: 0;
+/* .info__fourth{
+  border: 3px solid red;
+} */
+
+@media (min-width: 1200px) {
+  .info__fourth {
+    position:absolute;
+    right:10px;
+    bottom:0px;
+  }
 }
 
 a:link {

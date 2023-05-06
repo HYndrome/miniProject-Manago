@@ -2,6 +2,16 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 
+CHOICES_REGION = [
+    ("서울", "서울특별시"),
+    ("경기도", "경기도"),
+    ("인천", "인천광역시"),
+    ("강원도", "강원도"),
+    ("전라북도", "전라북도"),
+    ("전라남도", "전라남도"),
+    ("경상북도", "경상북도"),
+    ("경상남도", "경상남도"),
+]
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
@@ -59,16 +69,7 @@ class CustomUserCreationForm(UserCreationForm):
                 'class': 'form-select',
             
             },
-            choices= [
-                ("서울", "서울특별시"),
-                ("경기도", "경기도"),
-                ("인천", "인천광역시"),
-                ("강원도", "강원도"),
-                ("전라북도", "전라북도"),
-                ("전라남도", "전라남도"),
-                ("경상북도", "경상북도"),
-                ("경상남도", "경상남도"),
-            ]
+            choices=CHOICES_REGION 
         )
     )
 
@@ -101,16 +102,7 @@ class CustomUserChangeForm(UserChangeForm):
         ),
     )
 
-    last_name = forms.CharField(
-        label='성',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            },
-        ),
-    )
-
-    first_name = forms.CharField(
+    name = forms.CharField(
         label='이름',
         widget=forms.TextInput(
             attrs={
@@ -118,6 +110,24 @@ class CustomUserChangeForm(UserChangeForm):
             },
         ),
     )
+
+    # last_name = forms.CharField(
+    #     label='성',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': 'form-control',
+    #         },
+    #     ),
+    # )
+
+    # first_name = forms.CharField(
+    #     label='이름',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': 'form-control',
+    #         },
+    #     ),
+    # )
 
     image = forms.ImageField(
         label = '이미지',
@@ -127,10 +137,12 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
         fields = (
+            'name',
             'email',
-            'last_name',
-            'first_name',
-    )
+            'image',
+            # 'last_name',
+            # 'first_name',
+        )
         
 
 class CustomAuthenticationForm(AuthenticationForm):

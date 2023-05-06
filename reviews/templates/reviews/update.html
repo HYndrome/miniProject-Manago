@@ -26,7 +26,7 @@
           <span class="rate_text">괜찮다</span>
         </label>
 
-        <input type="radio" name="rate" id="no" value="1" {% if review.rate == 3 %}checked{% endif %}>
+        <input type="radio" name="rate" id="no" value="1" {% if review.rate == 1 %}checked{% endif %}>
         <label for="no">
           <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act" class="enabled">
           <img src="{% static 'reviews/no_face.png' %}" alt="no_face" class="disabled">
