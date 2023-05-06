@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if meets %}
+  {% for meet in meets %}
+  <ul>
+    <li>모임 주선자 : {{ meet.user }}</li>
+    <li>모임 이름 : {{ meet.name }}</li>
+    <li>모임 내용 : {{ meet.content }}</li>
+    <li>참가 인원 : {{ meet.attend_users.count }}</li>
+
+    <li>
+      <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in meet.attend_users.all %}
+          <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+        {% else %}
+          <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+        {% endif %}
+      </form>
+    </li>
+  </ul>
+  {% endfor %}
+{% else %}
+<h3>모임을 개설해보세요!</h3>
+{% endif %}
+{% endblock content %}

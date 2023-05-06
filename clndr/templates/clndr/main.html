@@ -23,20 +23,7 @@
           <div class="day">토</div>
       </div>
       <div class="dates">
-        {% comment %} 여기서부터 {% endcomment %}
-        {% for date in dates %}
-        <div class="date {{ date.class }}">
-            <div class="date-itm">{{ date.day }}</div>
-            <div class="date_event">
-            {% for obj in my_objects %}
-                {% if obj.date.day == date.day %}
-                <div class="event-itm">{{ obj.title }}</div>
-                {% endif %}
-            {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
-        {% comment %} 여기까지 {% endcomment %}
+
       </div>
   </div>
 

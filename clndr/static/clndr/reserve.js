@@ -32,6 +32,7 @@ const dateFunc = () => {
 
         // Create a Date object using the extracted year, month, and day values
         const date = new Date(`${year}-${month}-${day}`);
+        date.setDate(date.getDate() + 1);
 
         // Format the date as a string in "YYYY-MM-DD" format
         const formattedDate = date.toISOString().split('T')[0];
@@ -51,6 +52,7 @@ const dateFunc = () => {
 
         // Create a Date object using the extracted year, month, and day values
         const date = new Date(`${year}-${month}-${day}`);
+        date.setDate(date.getDate() + 1);
 
         // Format the date as a string in "YYYY-MM-DD" format
         const formattedDate = date.toISOString().split('T')[0];
@@ -61,61 +63,6 @@ const dateFunc = () => {
     });
   });
 };
-
-// const selDate = []
-
-// const dateFunc = ()=>{
-//     const dates = document.querySelectorAll('.date');
-//     const year = document.querySelector('.year');
-//     const month = document.querySelector('.month');
-//     dates.forEach((i)=>{
-//         i.addEventListener('click', ()=>{
-//             if(i.classList.contains('other') || i.classList.contains('selected')){
-//                 dates.forEach((ig)=>{ig.classList.remove('selected');});
-//                 i.classList.remove('selected');
-//                 selDate.length=0;
-//             }else if(selDate.length > 0){
-//                 dates.forEach((ig)=>{ig.classList.remove('selected');});
-//                 selDate.length=0;
-//                 i.classList.add('selected');
-//                 selDate.push([year.innerHTML, month.innerHTML, i.innerHTML]);
-//                 // Extract year, month, and day from the selDate array
-//                 const [year, month, dayHtml] = selDate[0];
-
-//                 // Extract day number from the dayHtml string using a regular expression
-//                 const dayMatch = dayHtml.match(/\d+/);
-//                 const day = dayMatch ? dayMatch[0] : '';
-
-//                 // Create a Date object using the extracted year, month, and day values
-//                 const date = new Date(`${year}-${month}-${day}`);
-
-//                 // Format the date as a string in "YYYY-MM-DD" format
-//                 const formattedDate = date.toISOString().split('T')[0];
-//                 document.querySelector('#selected-date').value = JSON.stringify(formattedDate);
-//                 console.log(formattedDate);
-//                 resvTab.classList.add('open');
-//             } else{
-//                 i.classList.add('selected');
-//                 selDate.push([year.innerHTML, month.innerHTML, i.innerHTML]);
-//                 // Extract year, month, and day from the selDate array
-//                 const [year, month, dayHtml] = selDate[0];
-
-//                 // Extract day number from the dayHtml string using a regular expression
-//                 const dayMatch = dayHtml.match(/\d+/);
-//                 const day = dayMatch ? dayMatch[0] : '';
-
-//                 // Create a Date object using the extracted year, month, and day values
-//                 const date = new Date(`${year}-${month}-${day}`);
-
-//                 // Format the date as a string in "YYYY-MM-DD" format
-//                 const formattedDate = date.toISOString().split('T')[0];
-//                 document.querySelector('#selected-date').value = JSON.stringify(formattedDate);
-//                 console.log(formattedDate);
-//                 resvTab.classList.add('open');
-//             }
-//         });
-//     });
-// };
 
 // 초기화 함수 
 const reset = ()=>{
