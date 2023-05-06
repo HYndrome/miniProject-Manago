@@ -31,7 +31,6 @@ img {
   top: 50%;
   transform: translate(-50%, -50%) scale(1.15);
   object-fit: cover;
-  transition: opacity 0.5s, transform 1s;
 }
 
 .logo{
