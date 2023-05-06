@@ -9,6 +9,13 @@ from django.http import JsonResponse
 from django.db.models import Count, Avg, Q
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+KAKAO_JS_KEY = os.getenv('KAKAO_JS_KEY')
+
 
 # Create your views here.
 def index(request):
@@ -105,6 +112,8 @@ def detail(request, restaurant_id):
         'review_count_5': review_count_5,
         'review_count_3': review_count_3,
         'review_count_1': review_count_1,
+
+        'KAKAO_JS_KEY': KAKAO_JS_KEY,
     }
     return render(request, 'restaurants/detail.html', context)
 
