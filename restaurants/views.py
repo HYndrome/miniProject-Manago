@@ -230,7 +230,7 @@ def search(request):
         search_list = restaurant_list.filter(
             Q(name__icontains=search_text) |
             Q(menu__name__icontains=search_text) |
-            Q(region__icontains=search_text)
+            Q(address__icontains=search_text)
         ).distinct()
     
         for search_item in search_list:
