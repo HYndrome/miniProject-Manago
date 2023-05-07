@@ -30,12 +30,13 @@
   <!-- 예약 창 -->
   <div class="resv-wrapper">
       <div class="resv-bg">
-          <button class="resv-close">X</button>
+          <button class="btn btn-primary resv-close mb-3" style="background-color: #ff7001; border-color: #ff7001;">X</button>
+          <hr style="color:white;">
           <form action="{% url 'clndr:meet' %}" method = "POST">
             {% csrf_token %}
             {{ meet_form.as_p }}
             <input type="hidden" name="selected-date" id="selected-date">
-            <input type="submit">
+            <input class="btn btn-primary" type="submit" style="background-color: #ff7001; border-color: #ff7001;">
           </form>
           {% comment %} <div class="resv_info">
               <div class="resv_ym">

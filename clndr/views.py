@@ -51,3 +51,15 @@ def attend(request, meet_id):
         'is_attending': is_attending,
     }
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+def meet_detail(request, meet_id):
+    meet = Meet.objects.get(pk=meet_id)
+    context = {
+        'meet': meet,
+    }
+    return render(request, 'clndr/meet_detail.html', context)
+
+def delete(request, meet_id):
+    meet = Meet.objects.get(pk=meet_id)
+    meet.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
