@@ -3,7 +3,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{% static 'restaurants/index_style.css' %}">
+<link rel="stylesheet" href="{% static 'restaurants/css/index_style.css' %}">
 {% endblock style %}
 
 
@@ -66,7 +66,7 @@
                   <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
                 {% endif %}
               </div>
-              <div class="main__section__items__info">
+              <div>
                 <span class="main__section__items__info__title">{{ eatdeal.name }}</span>
                 <span class="main__section__items__info__rate">{{ eatdeal.rate|floatformat:1 }}</span>
                 <p class="main__section__items__info__category">{{ eatdeal.region }} - {{ eatdeal.category }}</p>
@@ -90,7 +90,7 @@
                   <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
                 {% endif %}
               </div>
-              <div class="main__section__items__info">
+              <div>
                 <span class="main__section__items__info__title">{{ ranking.name }}</span>
                 <span class="main__section__items__info__rate">{{ ranking.rate|floatformat:1 }}</span>
                 <p class="main__section__items__info__category">{{ ranking.region }} - {{ ranking.category }}</p>

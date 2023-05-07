@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'restaurants/eatdeal_style.css' %}">
+  <link rel="stylesheet" href="{% static 'restaurants/css/eatdeal_style.css' %}">
 {% endblock style %}
 
 {% block content %}
@@ -66,9 +66,9 @@
               <form action="{% url 'restaurants:wish_srt' restaurant.pk %}" method="POST">
                 {% csrf_token %}
                 {% if request.user in restaurant.wish_users.all %}
-                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
                 {% else %}
-                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
                 {% endif %}
               </form>
               {% comment %} <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">

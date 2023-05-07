@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'restaurants/detail_style.css' %}">
+  <link rel="stylesheet" href="{% static 'restaurants/css/detail_style.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   {% endblock style %}
 
@@ -131,7 +131,7 @@
                   {% if request.user == restaurant.user %}
                     <form class="ms-3"style="display: inline;" action="{% url 'restaurants:menu_delete' restaurant.pk menu.pk %}" method="POST">
                       {% csrf_token %}
-                      <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="DELETE">
+                      <input type="submit" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);" value="DELETE">
                     </form>
                   {% endif %}
                 </span>
@@ -148,7 +148,7 @@
               </div>
               {% endfor %}
               <div class="d-grid gap-2 mb-2">
-                <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="MENU 등록">
+                <input type="submit" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);" value="MENU 등록">
               </div>
             </form>
           {% endif %}

@@ -24,15 +24,15 @@
         <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
           {% csrf_token %}
           {% if request.user in meet.attend_users.all %}
-            <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+            <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
           {% else %}
-            <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+            <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
           {% endif %}
         </form>
         <form action="{% url 'clndr:delete' meet.pk %}" method="POST">
           {% csrf_token %}
           {% if request.user == meet.user %}
-            <input type="submit" value="DELETE" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+            <input type="submit" value="DELETE" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
           {% endif %}
         </form>
       </div>

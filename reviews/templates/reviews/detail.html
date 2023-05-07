@@ -35,7 +35,7 @@
       </div>
     </header>
     <div class="review_info d-flex justify-content-between my-2">
-      <span class="review_res_link"><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant_id %}" style="color: #ff7100">@ {{ review.restaurant.name }} - {{ review.restaurant.region }}</a></span>
+      <span class="review_res_link"><a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant_id %}" style="color: var(--main-mango)">@ {{ review.restaurant.name }} - {{ review.restaurant.region }}</a></span>
       <span class="review_created">{{ review.created_at|date:"Y-m-d" }}</span>
     </div>
     <p class="text-break">{{ review.content|linebreaksbr }}</p>

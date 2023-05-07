@@ -35,12 +35,12 @@
 
 .main__section__container {
   padding: 3em 5em 3em 5em;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid var(--sub-color);
 }
 
 .main__section__title {
   font-size: 1.5rem;
-  color: #ff792a;
+  color: var(--main-mango);
   line-height: 1.2em;
   text-align: left;
   padding-bottom: 20px;
@@ -100,10 +100,6 @@
   height: 100%;
 }
 
-.main__section__items__info {
-
-}
-
 .main__section__items__info__title {
   display: inline-block;
   overflow: hidden;
@@ -116,7 +112,7 @@
 }
 
 .main__section__items__info__rate {
-  color: #e9e9e9;
+  color: var(--main-mango);
   margin-left: 5px;
   line-height: 1.3em;
   display: inline-block;
@@ -124,7 +120,7 @@
 }
 
 .main__section__items__info__category {
-  color: #9b9b9b;
+  color: var(--sub-color);
   line-height: 1.3em;
   font-size: 0.750rem;
   overflow: hidden;

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'restaurants/create_style.css' %}">
+  <link rel="stylesheet" href="{% static 'restaurants/css/create_style.css' %}">
 {% endblock style %}
 
 {% block content %}
@@ -20,7 +20,7 @@
     </div> 
     {% endfor %}
     <div class="d-grid gap-2 mb-2">
-      <input type="submit" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;" value="CREATE">
+      <input type="submit" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);" value="CREATE">
     </div>
   </form>
 </main>
