@@ -21,8 +21,18 @@
     {% if request.user in meet.attend_users.all %}
       <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
     {% else %}
-      <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+      <input type="submit" value="ATTEND" class="btn btn-primary mb-2" style="background-color: #ff7001; border-color: #ff7001;">
     {% endif %}
   </form>
+
+  <form action="{% url 'clndr:comment' meet.pk %}" method="POST">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <input type="submit" value="댓글 작성" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+  </form>
+
+  {% for comment in comments %}
+    <p>{{ comment.user }} : {{ comment.content }}</p>
+  {% endfor %}
 </div>
 {% endblock content %}

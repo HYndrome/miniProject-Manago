@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Meet
-from .forms import MeetForm
+from .models import Meet, Comment
+from .forms import MeetForm, CommentForm
 import json, datetime
 from datetime import timedelta, datetime
 from django.http import JsonResponse
@@ -54,8 +54,12 @@ def attend(request, meet_id):
 
 def meet_detail(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
+    comment_form = CommentForm()
+    comments = Comment.objects.filter(meet = meet)
     context = {
         'meet': meet,
+        'comments': comments,
+        'comment_form': comment_form,
     }
     return render(request, 'clndr/meet_detail.html', context)
 
@@ -63,3 +67,17 @@ def delete(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
     meet.delete()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+def comment(request, meet_id):
+    meet = Meet.objects.get(pk=meet_id)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.meet = meet
+        comment.user = request.user
+        comment.save()
+        return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    context = {
+        'comment_form': comment_form,
+    }
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'), context=context)
