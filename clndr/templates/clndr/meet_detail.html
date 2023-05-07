@@ -16,23 +16,39 @@
   <p>모임 내용 : {{ meet.content }}</p>
   <p>참가 인원 : {{ meet.attend_users.count }}</p>
 
-  <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
-    {% csrf_token %}
-    {% if request.user in meet.attend_users.all %}
-      <input type="submit" value="NOT ATTEND" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
-    {% else %}
-      <input type="submit" value="ATTEND" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+  <div class="d-flex gap-2">
+    <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in meet.attend_users.all %}
+        <input type="submit" value="NOT ATTEND" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+      {% else %}
+        <input type="submit" value="ATTEND" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+      {% endif %}
+    </form>
+
+    {% if request.user == meet.user %}
+      <a href="{% url 'clndr:update' meet.pk %}" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">EDIT</a>
+      <form action="{% url 'clndr:delete' meet.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="DELETE" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+      </form>
     {% endif %}
-  </form>
+  </div>
 
   <form action="{% url 'clndr:comment' meet.pk %}" method="POST">
     {% csrf_token %}
     {{ comment_form.as_p }}
-    <input type="submit" value="댓글 작성" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+    <input type="submit" value="댓글 작성" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
   </form>
 
   {% for comment in comments %}
     <p>{{ comment.user }} : {{ comment.content }}</p>
+    {% if request.user == comment.user %}
+    <form action="{% url 'clndr:comment_delete' meet.pk comment.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="댓글 삭제" class="btn btn-primary mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+    </form>
+    {% endif %}
   {% endfor %}
 </div>
 {% endblock content %}
