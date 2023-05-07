@@ -29,40 +29,35 @@ a {
                         <div class="content">
                             <form>
                                 <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label>회사 (disabled)</label>
-                                            <input type="text" class="form-control" disabled placeholder="Company" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>ID</label>
-                                            <input type="text" class="form-control" placeholder="Username" value="{{ person.username }}">
+                                            <input type="text" class="form-control" placeholder="Username" value="{{ person.username }}" aria-label="readonly input example" readonly>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">이메일</label>
-                                            <input type="email" class="form-control" placeholder="example@email.com" value="{{ person.email }}">
+                                            <input type="email" class="form-control" placeholder="example@email.com" value="{{ person.email }}" aria-label="readonly input example" readonly>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>이름</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" value="{{ person.name }}">
+                                            <input type="text" class="form-control" placeholder="Last Name" value="{{ person.name }}" aria-label="readonly input example" readonly>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>주소</label>
-                                            <input type="text" class="form-control" placeholder="Address" value="{{ person.region }}">
+                                            <input type="text" class="form-control" placeholder="Address" value="{{ person.region }}" aria-label="readonly input example" readonly>
                                         </div>
                                     </div>
                                 </div>
