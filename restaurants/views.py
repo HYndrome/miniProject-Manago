@@ -46,8 +46,8 @@ def index(request):
                     restaurant.save()
                     flag = True
                     break
-    rankings = restaurants.order_by('-rate')[:8]
-    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:8]
+    rankings = restaurants.order_by('-rate')[:12]
+    eatdeals = Restaurant.objects.filter(eatdeal=True).order_by('-rate')[:12]
     context = {
         'restaurants': restaurants,
         'eatdeals': eatdeals,
