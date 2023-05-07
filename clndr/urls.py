@@ -8,5 +8,6 @@ urlpatterns = [
     path('<str:urlDate>/', views.detail, name='detail'),
     path('<int:meet_id>/attend/', views.attend, name='attend'),
     path('<int:meet_id>/detail/',views.meet_detail, name='meet_detail'),
-    path('<int:meet_id>/delete/', views.delete, name='delete')
+    path('<int:meet_id>/delete/', views.delete, name='delete'),
+    path('<int:meet_id>/comment/', views.comment, name='comment')
 ]
