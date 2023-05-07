@@ -40,7 +40,7 @@
               {% if restaurant.image_thumbnail %}
                 <img class="main__section__carousel__image" src="{{ restaurant.image_thumbnail.url }}" alt="{{ category.grouper }} 인기 맛집 TOP 10">
               {% else %}
-                <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+                <img class="main__section__items__image" src="{% static 'img/no-image.png' %}" alt="no image">
               {% endif %}
             {% endfor %}
             <div class="main__section__carousel__caption" >
@@ -63,7 +63,7 @@
                 {% if eatdeal.image_thumbnail %}
                   <img class="main__section__items__image" src="{{ eatdeal.image_thumbnail.url }}" alt="{{ eatdeal.name }}">
                 {% else %}
-                  <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+                  <img class="main__section__items__image" src="{% static 'img/no-image.png' %}" alt="no image">
                 {% endif %}
               </div>
               <div>
@@ -87,7 +87,7 @@
                 {% if ranking.image_thumbnail %}
                   <img class="main__section__items__image" src="{{ ranking.image_thumbnail.url }}" alt="{{ ranking.name }}">
                 {% else %}
-                  <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+                  <img class="main__section__items__image" src="{% static 'img/no-image.png' %}" alt="no image">
                 {% endif %}
               </div>
               <div>
@@ -112,7 +112,7 @@
               {% if restaurant.image_thumbnail %}
                 <img class="main__section__carousel__image" src="{{ restaurant.image_thumbnail.url }}" alt="{{ region.grouper }} 인기 맛집 TOP 10">
               {% else %}
-              <img class="main__section__items__image" src="{% static 'restaurants/no_image432.png' %}" alt="no image">
+              <img class="main__section__items__image" src="{% static 'img/no-image.png' %}" alt="no image">
               {% endif %}
             {% endfor %}
             <div class="main__section__carousel__caption" >

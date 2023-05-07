@@ -72,7 +72,7 @@ html, body{
 }
 
 :root {
-  --main-mango: #ff7100;
+  --main-mango: #FFB703;
   --sub-color: #9b9b9b;
 }
 
@@ -92,4 +92,8 @@ html, body{
 
 body {
   font-family: 'Exo 2','Dovemayo_gothic', sans-serif;
+}
+
+.logo_img {
+  height: 40px;
 }
