@@ -40,7 +40,7 @@ input[type=radio]:checked + label .enabled {
   display: inline-block;
 }
 input[type=radio]:checked + label {
-  color: #FF7100;
+  color: var(--main-mango);
 }
 input[type=radio]:not(:checked) + label .disabled {
   display: inline-block;
@@ -73,8 +73,8 @@ label img {
 }
 
 .review_submit {
-  background-color: #FF7100;
-  border-color: #FF7100;
+  background-color: var(--main-mango);
+  border-color: var(--main-mango);
   border-style: none;
   color: white;
   font-weight: 500;
