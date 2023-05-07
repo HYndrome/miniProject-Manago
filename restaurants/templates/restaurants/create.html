@@ -7,10 +7,6 @@
 
 {% block content %}
 <main class="main">
-  <h1>
-    restaurants CREATE
-  </h1>
-  <hr>
   <form action="{% url 'restaurants:create' %}" method="POST">
     {% csrf_token %}
     {% for field in restaurant_form %}
