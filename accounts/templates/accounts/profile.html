@@ -18,6 +18,7 @@ a {
             </div>
         </div>
     </nav>
+  </div>
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -67,18 +68,20 @@ a {
                                         <div class="form-group overflow-hidden">
                                             <label>작성한 리뷰</label>
                                                 {% for review in person.review_set.all %}
-                                                <a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">{{ review.content }}</a>
+                                                <p><a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">{{ review.content }}</a></p>
                                                 {% endfor %}
                                         </div>
                                     </div>
                                 </div>
+                                {% if request.user == person %}
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:update' %}" style="font-size:15px;">내정보수정</a></button>
-                                <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:logout' %}" style="font-size:15px;">로그아웃</a></button>
-                                <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:change_password' %}" style="font-size:15px;">비밀번호 변경</a></button>
                                 <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:delete' %}" style="font-size:15px;">회원탈퇴</a></button>
+                                <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:change_password' %}" style="font-size:15px;">비밀번호 변경</a></button>
+                                <button type="submit" class="btn btn-info btn-fill pull-right"><a href="{% url 'accounts:logout' %}" style="font-size:15px;">로그아웃</a></button>
                                 <div class="clearfix"></div>
                                 </div>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
