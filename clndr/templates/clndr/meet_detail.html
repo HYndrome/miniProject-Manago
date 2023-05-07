@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+  .body__main {
+    margin: 3rem;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="body__main">
+  <h3>{{ meet.name }}</h3>
+  <p>모임 주선자 : {{ meet.user }}</p>
+  <p>모임 이름 : {{ meet.name }}</p>
+  <p>모임 내용 : {{ meet.content }}</p>
+  <p>참가 인원 : {{ meet.attend_users.count }}</p>
+
+  <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
+    {% csrf_token %}
+    {% if request.user in meet.attend_users.all %}
+      <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+    {% else %}
+      <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+    {% endif %}
+  </form>
+</div>
+{% endblock content %}

@@ -95,7 +95,7 @@
 
 .today {
   position: relative;
-  background-color: #ff1c1c96;
+  background-color: #ff7001;
   color: #ffffff !important;
 }
 
@@ -137,7 +137,6 @@
 .resv-close{
   cursor: pointer;
   font-size: 20px;
-  background-color: #ffffff;
   text-align: right;
   float: right;
 }
