@@ -28,7 +28,7 @@
   <form action="{% url 'clndr:comment' meet.pk %}" method="POST">
     {% csrf_token %}
     {{ comment_form.as_p }}
-    <input type="submit" value="댓글 작성" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+    <input type="submit" value="댓글 작성" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
   </form>
 
   {% for comment in comments %}
