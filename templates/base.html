@@ -41,7 +41,7 @@
               {% if request.user.image %}
                 <img class="navbar__userprofileimage" src="{{ request.user.image.url }}" alt="유저프로필이미지">
               {% else %}
-                <img class="navbar__userprofileimage" src="{% static '토르발즈.png' %}" alt="유저프로필이미지">
+                <img class="navbar__userprofileimage" src="{% static 'img/no-image.png' %}" alt="유저프로필이미지">
               {% endif %}
             </a>
           {% else %}
