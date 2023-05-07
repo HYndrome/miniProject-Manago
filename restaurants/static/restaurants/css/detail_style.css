@@ -21,7 +21,7 @@ main {
 .restaurant__title__rate {
   font-size: 1.8rem;
   line-height: 46px;
-  color: #ff7100;
+  color: var(--main-mango);
   margin-left: 5px;
 }
 
