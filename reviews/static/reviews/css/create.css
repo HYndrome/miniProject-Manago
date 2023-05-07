@@ -15,7 +15,7 @@
 }
 
 .res_name {
-  color:#FF7100;
+  color: var(--main-mango);
 }
 
 .rate_text {
