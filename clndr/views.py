@@ -69,7 +69,7 @@ def meet_detail(request, meet_id):
 def delete(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
     meet.delete()
-    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    return redirect('clndr:main')
 
 @login_required
 def comment(request, meet_id):
@@ -85,3 +85,29 @@ def comment(request, meet_id):
         'comment_form': comment_form,
     }
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'), context=context)
+
+@login_required
+def update(request, meet_id):
+    meet = Meet.objects.get(pk=meet_id)
+    if request.user == meet.user:
+        if request.method == 'POST':
+            meet_form = MeetForm(request.POST, instance=meet)
+            if meet_form.is_valid():
+                meet_form.save()
+                return redirect('clndr:meet_detail', meet.pk)
+        else:
+            meet_form = MeetForm(instance=meet)
+    else:
+        return redirect('clndr:detail', meet.pk)
+    context = {
+        'meet': meet,
+        'meet_form': meet_form,
+    }
+    return render(request, 'clndr/update.html', context)
+
+@login_required
+def comment_delete(request, meet_id, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    if request.user == comment.user:
+        comment.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
