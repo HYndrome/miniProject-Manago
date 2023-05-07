@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'clndr/clndr.css' %}">
+<div class="calendar">
+  <div class="calendar_header">
+      <div class="calendar_nav mt-5">
+          <button class="nav-btn go-prev">&lt;</button>
+          <span class="year"></span>년
+          <span class="month"></span>월
+          <!-- <button class="nav-btn go-today">오늘로 가기</button> -->
+          <button class="nav-btn go-next">&gt;</button>
+      </div>
+  </div>
+  <div class="calendar_main">
+      <div class="days">
+          <div class="day">일</div>
+          <div class="day">월</div>
+          <div class="day">화</div>
+          <div class="day">수</div>
+          <div class="day">목</div>
+          <div class="day">금</div>
+          <div class="day">토</div>
+      </div>
+      <div class="dates">
+
+      </div>
+  </div>
+
+  <!-- 예약 창 -->
+  <div class="resv-wrapper">
+      <div class="resv-bg">
+          <button class="btn btn-primary resv-close mb-3" style="background-color: var(--main-mango); border-color: var(--main-mango);">X</button>
+          <hr style="color:white;">
+          <form action="{% url 'clndr:meet' %}" method = "POST">
+            {% csrf_token %}
+            {{ meet_form.as_p }}
+            <input type="hidden" name="selected-date" id="selected-date">
+            <input class="btn btn-primary" type="submit" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+          </form>
+          {% comment %} <div class="resv_info">
+              <div class="resv_ym">
+                  <span class="resv-year">2021</span>년
+                  <span class="resv-month">05</span>월
+                  <span class="resv-day">11</span>일
+              </div>
+              <div class="resv-remain">
+                  <span>1</span>자리 남음
+              </div>
+              <h3>
+                  예약자 목록
+              </h3>
+              <div class="resv-list">  
+                  <p>Heo Sang <span>12:30</span></p>
+                  <p>Sang Won <span>12:30</span></p>
+                  <p>Heo Won <span>12:30</span></p>
+              </div>
+              <h3>
+                  프로그램 목록
+              </h3>
+              <div class="resv-event">
+                  <p>EVNET 1 <span>12:30</span></p>
+                  <p>EVNET 2 <span>14:30</span></p>
+                  <p>EVNET 3 <span>17:30</span></p>
+              </div>
+          </div>
+          <div class="resv_set">
+              <input class="resv_set time" type="time" name="" id="">
+              <button class="resv_btn purchase">예약</button>
+              <button class="resv_btn cancel">예약취소</button>
+          </div> {% endcomment %}
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'clndr/clndr.js' %}"></script>
+<script src="{% static 'clndr/reserve.js' %}"></script>
+{% endblock script %}

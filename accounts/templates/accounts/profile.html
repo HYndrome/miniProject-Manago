@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+a {
+    text-decoration-line : none;
+}
+
+.profileimage {
+  border-radius: 50%;
+  border:5px solid var(--main-mango); padding: 0px;
+}
+
+
+{% comment %} a:link {
+    color: white;
+    /* text-decoration: none; */
+}
+a:visited {
+    color : white;
+    /* text-decoration: none; */
+}
+a:hover {
+    color : white;
+    /* text-decoration: none; */
+}
+a:active {
+    color : white;
+    /* text-decoration: none; */
+} {% endcomment %}
+</style>
+{% endblock style %}
+  
+{% block content %}
+    <div class="content mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-auto">
+                    <div class="card card-user text-center" style="padding:2rem; text-align: center; border: 0;">
+                        <div class="image text-center">
+                            {% if person.image %}
+                            <img class="profileimage" src="{{ person.image.url }}" alt="이미지">
+                            {% else %}
+                            <img class="profileimage" src="{% static 'img/no-image.png' %}" alt="유저프로필이미지">
+                            {% endif %}
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                  <h4 class="title"></br>
+                                  </h4>
+                                  <h4 class="title mb-5">{{ person.name }}</br>
+                                  </h4>
+                                  <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-2"> 
+                                    <form action="{% url 'accounts:follow' person.pk %}" method="POST" >
+                                      {% csrf_token %}
+                                      {% if request.user in person.followers.all %}
+                                            <input type="submit" value="UnFollow" class='btn btn-primary' style="background-color: var(--main-mango); border-color: var(--main-mango);">
+                                      {% else %}
+                                            <input type="submit" value="Follow" class='btn btn-primary' style="background-color: var(--main-mango); border-color: var(--main-mango);">
+                                      {% endif %}
+                                      </form>
+                            </div>      
+                                  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <p class='my-auto'><a data-bs-toggle="modal" data-bs-target="#followers">팔로워 <b>{{ person.followers.all|length }}</b></a> / <a data-bs-toggle="modal" data-bs-target="#followings">팔로잉 <b>{{ person.followings.all|length }}</b></a></p></div>
+                            
+                            </div>
+                            <p class="description text-center"> 
+                            </p>
+                        </div>
+                        {% comment %} <hr>
+                        <div class="text-center">
+                            <button type="button" onclick="window.open('https://www.facebook.com');" class="btn btn-simple"><i class="fa fa-facebook-square">facebook</i></button>
+                            <button href="button" onclick="window.open('https://www.twitter.com');"class="btn btn-simple"><i class="fa fa-twitter">twitter</i></button>
+                            <button href="button" onclick="window.open('https://www.google.com');"class="btn btn-simple"><i class="fa fa-google-plus-square">google</i></button>
+
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+
+                <div class="col-auto">
+                    <div class="card mb-5" style="padding:2rem;">
+                        <div class="content">
+                            <form>
+                                <p>ID : {{ person.username }}</p>
+                                <p>이메일 : {{ person.email }}</p>
+                                <p>이름 : {{ person.name }}</p>
+                                <p>주소 : {{ person.region }}</p>
+                                <p>작성한 댓글 목록 : </p>
+                                <ul class="comments_container">
+                                    {% for review in person.review_set.all %}
+                                    <li class="comment__container">
+                                        <a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">
+                                            <div class="d-flex">
+                                                <div class="comment__content my-2 me-2">
+                                                    <p class="">
+                                                        {{ review.restaurant.name }}/{{ review.rate }}점
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% if request.user == person %}
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{% url 'accounts:update' %}" class="btn btn-info btn-fill pull-right" style="font-size:15px; color:white; background-color: var(--main-mango); border-color: var(--main-mango);">내정보수정</a>
+                                <a href="{% url 'accounts:delete' %}" class="btn btn-info btn-fill pull-right" style="font-size:15px; color:white; background-color: var(--main-mango); border-color: var(--main-mango);">회원탈퇴</a>
+                                <a href="{% url 'accounts:change_password' %}" class="btn btn-info btn-fill pull-right" style="font-size:15px; color:white; background-color: var(--main-mango); border-color: var(--main-mango);">비밀번호 변경</a>
+                                <a href="{% url 'accounts:logout' %}" class="btn btn-info btn-fill pull-right" style="font-size:15px; color:white; background-color: var(--main-mango); border-color: var(--main-mango);">로그아웃</a>
+                                <div class="clearfix"></div>
+                                </div>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+  
+  {% endblock %}

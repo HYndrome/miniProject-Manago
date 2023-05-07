@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'chat/css/index.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+{% endblock style %}
+
+
+{% block content %}
+<div class="container p-3">
+  <div class="search_container input-group flex-nowrap">
+    <span class="search-icon"><i class="bi bi-search"></i></span>
+    <input id="room-name-input" class="search_text" type="text"  placeholder="채팅방 이름 (영어 또는 숫자만 입력해주세요)" name="search">
+    <input id="room-name-submit" type="submit" class="search_submit" value="검 색">
+  </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script src="{% static 'chat/js/index.js' %}"></script>
+{% endblock script %}

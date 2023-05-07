@@ -1,0 +1,226 @@
+main {
+  margin: 2rem;
+  padding: 2rem;
+}
+
+
+
+.main__top {
+  display: flex;
+}
+
+.restaurant__title {
+  display: flex;
+}
+
+.restaurant__title__name {
+  font-size: 1.8rem;
+  line-height: 46px;
+}
+
+.restaurant__title__rate {
+  font-size: 1.8rem;
+  line-height: 46px;
+  color: var(--main-mango);
+  margin-left: 5px;
+}
+
+.restaurant__input {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end
+}
+
+.restaurant__status {
+  display: flex;
+  height: 20px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--sub-color);
+  color: var(--sub-color)
+}
+
+.restaurant__status__item {
+  display: flex;
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.restaurant__status__item svg {
+  height: 20px;
+  width: 20px;
+  color: var(--sub-color);
+}
+
+
+.restaurants__info {
+  margin-top: 20px;
+}
+
+.restaurant__info__menu li {
+  border-bottom: 1px solid var(--sub-color);
+  margin-bottom: 4px;
+}
+
+.restaurants__info tbody tr th {
+  width: 110px;
+  font-size: .9rem;
+  color: var(--sub-color);
+  line-height: 1.7;
+  text-align: left;
+  vertical-align: top;
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.restaurants__info tbody tr td {
+  font-size: .9rem;
+  color: var(--sub-color);
+  line-height: 1.7;
+  text-align: left;
+  vertical-align: middle;
+  padding-bottom: 5px;
+}
+
+.restaurant__info__menu {
+  font-size: .9rem;
+  color: var(--sub-color);
+  line-height: 1.7;
+  text-align: left;
+  list-style-type: none;
+  text-decoration: none;
+  padding: 0;
+}
+
+.restaurant__info__menu li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+
+.comments_container {
+  padding: 0;
+}
+
+.comment__container {
+  border-bottom: 1px solid var(--sub-color);
+  list-style: none;
+  width:100%;
+}
+
+.comment__container a {
+  text-decoration: none;
+
+}
+.comment__user {
+  width: 70px;
+  margin: 15px 35px 0 8px;
+}
+
+.comment__user__image__container {
+  width: 70px;
+  height: 70px;
+  padding: 0;
+
+}
+
+.comment__user__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.comment__user__id {
+  display: block;
+  margin: 2px;
+  font-size: 15px;
+  line-height: 1.3;
+  text-align: center;
+  word-break: break-all;
+  color: var(--sub-color);
+}
+
+.comment__user__info {
+  font-size: 12px;
+  color: #9b9b9b;
+}
+
+.comment__user__info__icon {
+  height: 10px;
+  width: 10px;
+}
+
+.comment__content {
+  /* flex: 1 0 auto; */
+  font-size: 15px;
+  color: #000000;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.comment__rate__container {
+  width: 60px;
+  font-size: 15px;
+  color: var(--main-mango);
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.comment__content__updateat{
+  font-size: 14px;
+  color: var(--sub-color);
+  margin: 0;
+}
+
+.restaurant__input__btn {
+  color: var(--sub-color);
+  border: 0;
+  text-decoration: none;
+  font-size: 15px;
+  background-color: transparent;
+  margin-left: 15px;
+  padding: 0;
+}
+
+.restaurant__input__btn:hover {
+  color: var(--main-mango);
+}
+
+.restaurant__input__icon {
+  font-size: 45px;
+}
+/* 
+.restaurant__status__item {
+  font-size: 1px;
+} */
+
+.rt_updated_at {
+  font-size: 14px;
+  color: #9B9B9B;
+}
+
+.review_picture_container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60vi;
+  /* flex-shrink: 1; */
+}
+.review_picture {
+  display: inline-block;
+}
+
+.comment__container:hover {
+  background-color: #f6f6f6;
+}
+
+.review__top_filter {
+  color: var(--sub-color);
+  font-size: 18px;
+}
+
+.filter-btn {
+  background-color: transparent;
+  border: none;
+}

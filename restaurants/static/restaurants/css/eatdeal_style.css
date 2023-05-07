@@ -1,0 +1,103 @@
+header {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(243, 243, 243);
+  background-position: center;
+  background-size: cover;
+  position:relative;
+}
+
+.update__info {
+  font-size:medium;
+  font-weight: lighter;
+}
+
+h4 {
+  color: grey;
+}
+
+h5 {
+  color: rgb(154, 154, 154);
+}
+
+.container__img {
+  width: 100%; height: 100%;
+}
+
+.restaurant__img {
+  width: 100%;
+  object-fit:cover;
+}
+
+.restaurant__title {
+  color: rgb(81, 81, 81);
+}
+
+.span__rate {
+  color: var(--main-mango);
+}
+
+.span__reviewuser {
+  font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  .info__parent {
+    /* border: 5px solid yellow; */
+    padding: 15px;
+  }
+}
+
+.info__row {
+  margin: 0.7px;
+}
+
+/* .info__first {
+  border: 3px solid blue;
+}
+
+.info__second {
+  border: 3px solid blue;
+} */
+
+.info__third {
+  /* border: 3px solid blue; */
+  height: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+/* .info__fourth{
+  border: 3px solid red;
+} */
+
+@media (min-width: 1200px) {
+  .info__fourth {
+    position:absolute;
+    right:10px;
+    bottom:0px;
+  }
+}
+
+a:link {
+  color : rgb(81, 81, 81);
+  text-decoration: none;
+}
+a:visited {
+  color : rgb(81, 81, 81);
+  text-decoration: none;
+}
+a:hover {
+  color : rgb(81, 81, 81);
+  text-decoration: none;
+}
+a:active {
+  color : rgb(81, 81, 81);
+  text-decoration: none;
+}
+
+.divider {
+  color: rgb(81, 81, 81);
+}

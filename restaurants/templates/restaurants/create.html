@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'restaurants/css/create_style.css' %}">
+{% endblock style %}
+
+{% block content %}
+<main class="main">
+  <form action="{% url 'restaurants:create' %}" method="POST">
+    {% csrf_token %}
+    {% for field in restaurant_form %}
+    <div class="input-group mb-3">
+      <span class="input-group-text" style = "width: 13rem;" id="{{ field.auto_id }}">{{ field.label }}</span>
+      {{ field }}
+    </div> 
+    {% endfor %}
+    <div class="d-grid gap-2 mb-2">
+      <input type="submit" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);" value="CREATE">
+    </div>
+  </form>
+</main>
+{% endblock content %}
+
+{% block script %}{% endblock script %}

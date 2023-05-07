@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+  .body__main {
+    margin: 3rem;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="body__main">
+{% if meets %}
+  <div class="card" style="width: auto;">
+
+  
+  {% for meet in meets %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">모임 주선자 : {{ meet.user }}</li>
+    <li class="list-group-item">모임 이름 : <a href="{% url 'clndr:meet_detail' meet.pk %}">{{ meet.name }}</a></li>
+    <li class="list-group-item">참가 인원 : {{ meet.attend_users.count }}</li>
+    <li class="list-group-item">
+      <div class="d-flex gap-2">
+        <form action="{% url 'clndr:attend' meet.pk %}" method="POST">
+          {% csrf_token %}
+          {% if request.user in meet.attend_users.all %}
+            <input type="submit" value="NOT ATTEND" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+          {% else %}
+            <input type="submit" value="ATTEND" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+          {% endif %}
+        </form>
+        <form action="{% url 'clndr:delete' meet.pk %}" method="POST">
+          {% csrf_token %}
+          {% if request.user == meet.user %}
+            <input type="submit" value="DELETE" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+          {% endif %}
+        </form>
+      </div>
+    </li>
+  </ul>
+  {% endfor %}
+  </div>
+{% else %}
+  <h3>모임을 개설해보세요!</h3>
+{% endif %}
+</div>
+{% endblock content %}

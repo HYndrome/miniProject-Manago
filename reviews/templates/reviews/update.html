@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'reviews/css/create.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="review_create">
+  <form action="{% url 'reviews:update' restaurant_id=restaurant_id review_id=review_id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <span class="res_name fs-2">{{ restaurant.name }}</span>에 대한 솔직한 리뷰를 써주세요.
+    <div class="review_form">
+      <div class="radio">
+        <input type="radio" name="rate" id="good" value="5" {% if review.rate == 5 %}checked{% endif %}>
+        <label for="good">
+          <img src="{% static 'reviews/good_face_act.png' %}" alt="good_face_act" class="enabled">
+          <img src="{% static 'reviews/good_face.png' %}" alt="good_face" class="disabled">
+          <span class="rate_text">맛있다</span>
+        </label>
+
+        <input type="radio" name="rate" id="ok" value="3" {% if review.rate == 3 %}checked{% endif %}>
+        <label for="ok">
+          <img src="{% static 'reviews/ok_face_act.png' %}" alt="ok_face_act.png" class="enabled">
+          <img src="{% static 'reviews/ok_face.png' %}" alt="ok_face.png" class="disabled">
+          <span class="rate_text">괜찮다</span>
+        </label>
+
+        <input type="radio" name="rate" id="no" value="1" {% if review.rate == 1 %}checked{% endif %}>
+        <label for="no">
+          <img src="{% static 'reviews/no_face_act.png' %}" alt="no_face_act" class="enabled">
+          <img src="{% static 'reviews/no_face.png' %}" alt="no_face" class="disabled">
+          <span class="rate_text">별로</span>
+        </label>
+      </div>
+      {{ form.as_p }}
+    </div>
+    <div class="mb-3">
+      <p class="mb-1">추가할 이미지</p>
+      {{ image_form }}
+    </div>
+    <p class="mb-1">삭제할 이미지</p>
+    <ul>
+      {% for image in images %}
+      <li>
+        <img src="{{ image.image_thumbnail.url }}" alt="{{ image.image }}" width="100px;">
+        <input type="checkbox" name="delete_images" value="{{ image.id }}" id="delete_images-{{ image.id }}">
+        <label for="delete_images-{{ image.id }}">{{ image.image_review }}</label>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="review_button d-flex">
+      <a href="{% url 'reviews:detail' restaurant_id review_id %}" class="review_button_item review_cancel " type="button">취소</a>
+      <input class="review_button_item review_submit " type="submit" value="리뷰 수정">
+    </div>
+  </form>
+</div>
+{% endblock content %}

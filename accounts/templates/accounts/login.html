@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block style %}
+  <style>
+    .wid {
+      width: 500px;
+    }
+
+    p {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #id_username,
+    #id_passerd = {
+      border: 1px solid grey;
+      border-radius: 10px;
+    }
+
+  </style>
+{% endblock style %}
+
+{% block content %}
+<div class='container padding'>
+  <div class='d-flex justify-content-center gap-4 mb-5'>
+<div class="p-5 wid">
+  <form action="{% url 'accounts:login' %}" method="POST" style="width: 500px" class="mx-auto m-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login" class="btn btn-outline-secondary d-block w-100 mb-3">
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'restaurants:index' %}" role="button">HOME</a>
+    <br>
+    <a class="btn btn-outline-secondary d-block w-100" onclick='func()' href="{% url 'accounts:signup' %}" role="button">회원가입</a>
+  </form>
+</div>
+</div>
+</div>
+{% endblock content %}

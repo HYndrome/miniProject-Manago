@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'restaurants/css/eatdeal_style.css' %}">
+{% endblock style %}
+
+{% block content %}
+  <header class="d-flex justify-content-center align-items-center text-center border-bottom">
+    <div>
+      <h5 class="update__info mt-4">업데이트 정보 : 
+        <script type="text/javascript">
+          document.write(getTimeStamp() + '<br />');
+
+          function getTimeStamp() {
+            var d = new Date();
+          
+            var s =
+              leadingZeros(d.getFullYear(), 4) + '-' +
+              leadingZeros(d.getMonth() + 1, 2) + '-' +
+              leadingZeros(d.getDate(), 2) + ' ' +
+          
+              leadingZeros(d.getHours(), 2) + ':' +
+              leadingZeros(d.getMinutes(), 2) + ':' +
+              leadingZeros(d.getSeconds(), 2);
+          
+            return s;
+          }
+          
+          function leadingZeros(n, digits) {
+            var zero = '';
+            n = n.toString();
+          
+            if (n.length < digits) {
+              for (i = 0; i < digits - n.length; i++)
+                zero += '0';
+            }
+            return zero + n;
+          }
+        </script>
+      </h5>
+      <h1 class="mt-4">잇딜 진행 중 맛집</h1>
+      <h4 class="mt-4 mb-4">"기왕이면 저렴하게 맛보고 즐기고!"</h4>
+    </div>
+  </header>
+  {% for restaurant in restaurants %}
+    {% if restaurant.rate is not NONE %}
+    <div class="container">
+      <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-12 col-lg-3">
+          <div class="container__img float-end">
+          {% if restaurant.image_thumbnail %}
+            <a href="{% url 'restaurants:detail' restaurant.pk %}"><img class="restaurant__img align-self-center" src="{{ restaurant.image_thumbnail.url }}" alt=""></a>
+          {% else %}
+            <img class="main__section__items__image" src="{% static 'img/no-image.png' %}" alt="no image">
+          {% endif %}
+          </div>
+        </div>
+        <div class="info__parent col-12 col-lg-6" style="flex: 1; position: relative;">
+          <div class="info__row row">
+            <div class="info__first col-10">
+              <h3><a class="restaurant__title text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ forloop.counter }}. {{ restaurant.name }}<span class="span__rate"> {{ restaurant.rate|floatformat:1 }}</span></a></h3>
+              <h5>{{ restaurant.address }}</h5>
+            </div>
+            <div class="info__second text-end col-2">
+              <form action="{% url 'restaurants:wish_srt' restaurant.pk %}" method="POST">
+                {% csrf_token %}
+                {% if request.user in restaurant.wish_users.all %}
+                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+                {% else %}
+                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: var(--main-mango); border-color: var(--main-mango);">
+                {% endif %}
+              </form>
+              {% comment %} <form id="wish-form" data-restaurant-id="{{ restaurant.pk }}">
+                {% csrf_token %}
+                {% if request.user in restaurant.wish_users.all %}
+                  <input type="submit" value="NOT WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% else %}
+                  <input type="submit" value="WISH" class="btn btn-primary" style="background-color: #ff7001; border-color: #ff7001;">
+                {% endif %}
+              </form> {% endcomment %}
+            </div>
+          </div>
+          
+          <div class="info__third box">
+            {{ restaurant.review_set.first.user }} : {{ restaurant.review_set.first.content }}
+          </div>
+          <div class="info__fourth text-end">
+            <a class="text-decoration-none" href="{% url 'restaurants:detail' restaurant.pk %}">{{ restaurant.name }} 정보 더보기 ></a>
+          </div>
+        </div>
+      </div>
+      <hr class="divider w-100">
+    </div>
+    {% endif %}
+  {% endfor %}
+{% endblock content %}
+
+{% comment %} {% block script %}
+<script>
+  const form = document.querySelector('#wish-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const restaurantId = event.target.dataset.restaurantId
+    axios({
+      method: 'post',
+      url: `/restaurants/${restaurantId}/wish/`,
+      headers: {'X-CSRFToken': csrftoken},
+    })
+      .then((response) => {
+        const isWished = response.data.is_wished
+        const wishBtn = document.querySelector('#wish-form > input[type=submit]')
+        if (isWished === true) {
+          wishBtn.value = 'NOT WISH'
+        } else {
+          wishBtn.value = 'WISH'
+        }
+      })
+  })
+</script>
+{% endblock script %} {% endcomment %}
