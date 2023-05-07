@@ -35,8 +35,8 @@ main {
   display: flex;
   height: 20px;
   padding-bottom: 40px;
-  border-bottom: 1px solid #e9e9e9;
-  color: #9B9B9B
+  border-bottom: 1px solid var(--sub-color);
+  color: var(--sub-color)
 }
 
 .restaurant__status__item {
@@ -48,7 +48,7 @@ main {
 .restaurant__status__item svg {
   height: 20px;
   width: 20px;
-  color: #9B9B9B;
+  color: var(--sub-color);
 }
 
 
@@ -57,14 +57,14 @@ main {
 }
 
 .restaurant__info__menu li {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid var(--sub-color);
   margin-bottom: 4px;
 }
 
 .restaurants__info tbody tr th {
   width: 110px;
   font-size: .9rem;
-  color: rgba(79,79,79,0.6);
+  color: var(--sub-color);
   line-height: 1.7;
   text-align: left;
   vertical-align: top;
@@ -74,7 +74,7 @@ main {
 
 .restaurants__info tbody tr td {
   font-size: .9rem;
-  color: #4f4f4f;
+  color: var(--sub-color);
   line-height: 1.7;
   text-align: left;
   vertical-align: middle;
@@ -83,7 +83,7 @@ main {
 
 .restaurant__info__menu {
   font-size: .9rem;
-  color: #4f4f4f;
+  color: var(--sub-color);
   line-height: 1.7;
   text-align: left;
   list-style-type: none;
@@ -103,7 +103,7 @@ main {
 }
 
 .comment__container {
-  border-bottom: 1px solid #DBDBDB;
+  border-bottom: 1px solid var(--sub-color);
   list-style: none;
   width:100%;
 }
@@ -137,7 +137,7 @@ main {
   line-height: 1.3;
   text-align: center;
   word-break: break-all;
-  color: #555555;
+  color: var(--sub-color);
 }
 
 .comment__user__info {
@@ -161,7 +161,7 @@ main {
 .comment__rate__container {
   width: 60px;
   font-size: 15px;
-  color: #ff792a;
+  color: var(--main-mango);
   display: flex;
   flex-direction: column;
   align-items: center
@@ -169,12 +169,12 @@ main {
 
 .comment__content__updateat{
   font-size: 14px;
-  color: #9B9B9B;
+  color: var(--sub-color);
   margin: 0;
 }
 
 .restaurant__input__btn {
-  color: #9B9B9B;
+  color: var(--sub-color);
   border: 0;
   text-decoration: none;
   font-size: 15px;
@@ -184,7 +184,7 @@ main {
 }
 
 .restaurant__input__btn:hover {
-  color: #ff7100;
+  color: var(--main-mango);
 }
 
 .restaurant__input__icon {
@@ -216,7 +216,7 @@ main {
 }
 
 .review__top_filter {
-  color: #9B9B9B;
+  color: var(--sub-color);
   font-size: 18px;
 }
 

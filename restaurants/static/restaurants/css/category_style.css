@@ -34,7 +34,7 @@ h5 {
 }
 
 .span__rate {
-  color: gainsboro;
+  color: var(--sub-color);
 }
 
 .span__reviewuser {

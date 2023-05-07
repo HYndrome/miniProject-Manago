@@ -35,7 +35,7 @@ header .review_card_header {
   font-size: 14px;
 }
 .review_res_link {
-  color: #ff7100;
+  color: var(--main-mango);
 }
 .review_created {
   color: #b1b1b1;
@@ -43,7 +43,7 @@ header .review_card_header {
 
 .review_card_rate {
   font-size: 12px;
-  color: #ff7100;
+  color: var(--main-mango);
   text-align: center;
 }
 .review_card_rate > img {

@@ -81,7 +81,7 @@
 
 .day:nth-child(7n + 1),
 .date:nth-child(7n + 1) {
-  color: #D13E3E;
+  color: var(--main-mango);
 }
 
 .day:nth-child(7n),
@@ -95,7 +95,7 @@
 
 .today {
   position: relative;
-  background-color: #ff7001;
+  background-color: var(--main-mango);
   color: #ffffff !important;
 }
 
