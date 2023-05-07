@@ -41,3 +41,7 @@ a:hover {
   font-size: 25px;
   color: #ffffff;
 }
+
+.search_text_rate {
+  color: var(--main-mango);
+}

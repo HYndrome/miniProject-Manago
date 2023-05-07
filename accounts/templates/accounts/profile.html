@@ -7,6 +7,12 @@ a {
     text-decoration-line : none;
 }
 
+.profileimage {
+  border-radius: 50%;
+  border:5px solid var(--main-mango); padding: 0px;
+}
+
+
 {% comment %} a:link {
     color: white;
     /* text-decoration: none; */
@@ -35,8 +41,9 @@ a:active {
                     <div class="card card-user text-center" style="padding:2rem; text-align: center; border: 0;">
                         <div class="image text-center">
                             {% if person.image %}
-                            <img src="{{ person.image.url }}" alt="이미지">
+                            <img class="profileimage" src="{{ person.image.url }}" alt="이미지">
                             {% else %}
+                            <img class="profileimage" src="{% static 'img/no-image.png' %}" alt="유저프로필이미지">
                             {% endif %}
                         </div>
                         <div class="content">
