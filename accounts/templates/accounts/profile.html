@@ -99,7 +99,9 @@ a {
                 <div class="col-md-4">
                     <div class="card card-user text-center">
                         <div class="image">
+                            {% if person.image %}
                             <img src="{{ person.image.url }}" alt="이미지">
+                            {% endif %}
                         </div>
                         <div class="content">
                             <div class="author">
