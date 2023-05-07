@@ -32,6 +32,8 @@ def index(request):
     #     rt.save()
     # Restaurant thumbnail 갱신
     restaurants = Restaurant.objects.all()
+    cate_restaurants = Restaurant.objects.all().order_by('category')
+    region_restaurants = Restaurant.objects.all().order_by('region')
     flag = False
     for restaurant in restaurants:
         flag = False
@@ -50,6 +52,8 @@ def index(request):
         'restaurants': restaurants,
         'eatdeals': eatdeals,
         'rankings': rankings,
+        'cate_restaurants': cate_restaurants,
+        'region_restaurants': region_restaurants,
     }
     return render(request, 'restaurants/index.html', context)
 

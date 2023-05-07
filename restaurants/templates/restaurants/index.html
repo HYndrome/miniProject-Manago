@@ -31,7 +31,7 @@
   <main>
     <section class="main__section__container">
       <h2 class="main__section__title">카테고리별 맛집 리스트</h2>
-      {% regroup restaurants by category as categories_list %}
+      {% regroup cate_restaurants by category as categories_list %}
       <div class="owl-carousel owl-carousel--category owl-theme">
         {% for category in categories_list %}
         <a href="{% url 'restaurants:category' category.grouper %}">
@@ -103,7 +103,7 @@
 
     <section class="main__section__container">
       <h2 class="main__section__title">지역별 인기맛집</h2>
-      {% regroup restaurants by region as regions_list %}
+      {% regroup region_restaurants by region as regions_list %}
       <div class="owl-carousel owl-carousel--region owl-theme">
         {% for region in regions_list %}
         <a href="{% url 'restaurants:region' region.grouper %}">
