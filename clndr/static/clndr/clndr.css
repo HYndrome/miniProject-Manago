@@ -17,6 +17,23 @@
   font-size: 50px;
 }
 
+a:link {
+  color : rgb(81, 81, 81);
+  /* text-decoration: none; */
+}
+a:visited {
+  color : rgb(81, 81, 81);
+  /* text-decoration: none; */
+}
+a:hover {
+  color : rgb(81, 81, 81);
+  /* text-decoration: none; */
+}
+a:active {
+  color : rgb(81, 81, 81);
+  /* text-decoration: none; */
+}
+
 .nav-btn {
   width: 28px;
   height: 30px;
