@@ -14,19 +14,17 @@ a {
     <nav class="navbar navbar-default navbar-fixed">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">User</a>
+                <a class="navbar-brand" href="#">마이페이지</a>
             </div>
         </div>
     </nav>
-
-
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Edit Profile</h4>
+                            <h4 class="title"></h4>
                         </div>
                         <div class="content">
                             <form>
@@ -39,38 +37,32 @@ a {
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>사용자 이름</label>
-                                            <input type="text" class="form-control" placeholder="Username" value="">
+                                            <label>ID</label>
+                                            <input type="text" class="form-control" placeholder="Username" value="{{ person.username }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">이메일</label>
-                                            <input type="email" class="form-control" placeholder="example@email.com">
+                                            <input type="email" class="form-control" placeholder="example@email.com" value="{{ person.email }}">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>성</label>
-                                            <input type="text" class="form-control" placeholder="First Name" value="">
-                                        </div>
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>이름</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" value="">
+                                            <input type="text" class="form-control" placeholder="Last Name" value="{{ person.name }}">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>주소</label>
-                                            <input type="text" class="form-control" placeholder="Address" value="">
+                                            <input type="text" class="form-control" placeholder="Address" value="{{ person.region }}">
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +73,7 @@ a {
                                             <label>작성한 리뷰</label>
                                                 {% for review in person.review_set.all %}
                                                 <a href="{% url 'reviews:detail' review.restaurant.pk review.pk %}">{{ review.content }}</a>
-                                               {% endfor %}
+                                                {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -101,13 +93,12 @@ a {
                         <div class="image">
                             {% if person.image %}
                             <img src="{{ person.image.url }}" alt="이미지">
+                            {% else %}
                             {% endif %}
                         </div>
                         <div class="content">
                             <div class="author">
-                                  <h4 class="title">{{ person.username }}</br>
-                                  </h4>
-                                  <h4 class="title">{{ person.email }}</br>
+                                  <h4 class="title"></br>
                                   </h4>
                                   <h4 class="title">{{ person.name }}</br>
                                   </h4>
