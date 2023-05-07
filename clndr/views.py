@@ -6,6 +6,7 @@ from datetime import timedelta, datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -18,6 +19,7 @@ def main(request):
     }
     return render(request, 'clndr/main.html', context)
 
+@login_required
 def meet(request):
     # Get the selected date data from the form
     selected_date = request.POST.get('selected-date')
@@ -27,7 +29,6 @@ def meet(request):
     if meet_form.is_valid():
         meet = meet_form.save(commit=False)
         meet.user = request.user
-        print(selDate)
         meet.date = selDate
         meet.save()
         return redirect('clndr:main')
@@ -39,6 +40,7 @@ def detail(request, urlDate):
     }
     return render(request, 'clndr/detail.html', context)
 
+@login_required
 def attend(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
     if request.user in meet.attend_users.all():
@@ -63,11 +65,13 @@ def meet_detail(request, meet_id):
     }
     return render(request, 'clndr/meet_detail.html', context)
 
+@login_required
 def delete(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
     meet.delete()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
+@login_required
 def comment(request, meet_id):
     meet = Meet.objects.get(pk=meet_id)
     comment_form = CommentForm(request.POST)
