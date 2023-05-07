@@ -68,7 +68,7 @@ const renderCalender = () => {
 
                 <div class="date_event">
                     <div class="event-itm">
-                        <a href="/clndr/${prestringifiedurlDate}/">${date}일의 모임 목록을 확인해보세요!</a>
+                        <a href="/clndr/${prestringifiedurlDate}/">일의 모임 목록 확인하기!</a>
                     </div>
                 </div>
 
